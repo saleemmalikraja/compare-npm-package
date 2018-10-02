@@ -1,0 +1,11 @@
+We are going to create multiple feature modules for every independent feature of our application. 
+
+Feature modules should only import services from CoreModule.
+
+If feature module A needs to import service from feature module B consider moving that service into core.
+
+Rule of thumb is to try to create features which don’t depend on any other features just on services provided by CoreModule and components provided by SharedModule.
+
+This will keep our code clean, easy to maintain and extend with new features. It also reduces effort needed for refactoring. 
+
+If followed properly, then that changes to one feature can’t affect or break the rest of our application.
