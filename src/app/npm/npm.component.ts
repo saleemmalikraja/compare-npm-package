@@ -25,35 +25,35 @@ export class NpmComponent implements OnInit {
 
   get f() { return this.searchForm.controls; }
 
-  filterSource(source) {
+  filterSource(event) {
+    const source = event.target.value;
     this.submitted = true;
     // stop here if form is invalid
     if (this.searchForm.invalid) {
       return;
     }
     console.log(source);
-    let currentDate = moment();
-    let dayOne = currentDate.format('YYYY-MM-DD');
-    let dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
-    var config = {
+    const currentDate = moment();
+    const dayOne = currentDate.format('YYYY-MM-DD');
+    const dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
+    const config = {
       method: 'GET',
       apiUrl: 'apiUrlForSearch',
       endPoint: this.searchForm.controls.searchString.value
-    }
+    };
 
     this.appService.apiRequest(config).subscribe((res) => {
       if (!res) {
-        console.log(res);
-        return
+        return;
       }
       this.filteredOptions = res[0]['results'];
       console.log(res);
 
     },
       error => {
-        console.error("Error saving food!");
+        console.error('Error saving !');
         return throwError(error);  // Angular 5/RxJS 5.5
-      })
+      });
   }
 
   getnewSources(source) {
@@ -68,7 +68,7 @@ export class NpmComponent implements OnInit {
     };
 
     this.appService.apiRequest(config).subscribe((data) => {
-      console.log("npm data", data);
+      console.log('npm data', data);
       this.getGithubDetails(source);
     },
       error => {
@@ -77,8 +77,8 @@ export class NpmComponent implements OnInit {
       });
   }
   getGithubDetails(data) {
-    var link = data.package.links.repository
-    let author = link.split(".com")[1].replace(".git", "");
+    const link = data.package.links.repository;
+    const author = link.split('.com')[1].replace('.git', '');
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForGit',
