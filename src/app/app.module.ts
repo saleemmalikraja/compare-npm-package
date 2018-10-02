@@ -7,12 +7,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
-
 import { environment } from '../environments/environment';
 import { NpmComponent } from './npm/npm.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { ThemeService } from './services/theme.service';
 import { AppService } from './services/app.service';
+import { CoreModule } from './core/core.module';
+
 
 @NgModule({
   declarations: [
@@ -22,14 +23,14 @@ import { AppService } from './services/app.service';
   ],
   imports: [
     BrowserModule,
-    
     BrowserAnimationsModule,
     MaterialModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    CoreModule,
   ],
   providers: [ThemeService, AppService],
   bootstrap: [AppComponent]
