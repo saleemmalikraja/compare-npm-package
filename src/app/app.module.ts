@@ -10,8 +10,8 @@ import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { NpmComponent } from './npm/npm.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ThemeService } from './services/theme.service';
-import { AppService } from './services/app.service';
+import { ThemeService } from './core/theme.service';
+import { AppService } from './core/app.service';
 import { CoreModule } from './core/core.module';
 
 
@@ -28,7 +28,7 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
+    HttpModule, 
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
   ],

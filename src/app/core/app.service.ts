@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
+import { environment } from '../../environments/environment';
+import { forkJoin } from 'rxjs';  // change to new RxJS 6 import syntax
 
 @Injectable()
 export class AppService {
+  
   constructor(private http: Http) { }
-  apiRequest(endPoint, args, apiUrl2) {
+
+  apiRequest(endPoint, args) {
     // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
     let hdrs = new HttpHeaders();
 
@@ -19,29 +22,34 @@ export class AppService {
       headers: hdrs
     };
 
-    var url = '' + endPoint;
+    var url = environment.apiUrlForNpm + endPoint;
     if (args.method === "GET") {
 
+      return forkJoin(
+        this.http.get(url)
+      )
 
-      this.http.get(url)
 
     }
     if (args.method === "POST") {
 
-
-      this.http.post(url, args.data || {}, '')
+      return forkJoin(
+        this.http.post(url, args.data || {}, '')
+      )
 
     }
     if (args.method === "PUT") {
-
-      this.http.put(url, args.data || {}, '')
+      return forkJoin(
+        this.http.put(url, args.data || {}, '')
+      )
 
 
     }
     if (args.method === "DELETE") {
 
-
-      this.http.delete(url)
+      return forkJoin(
+        this.http.delete(url)
+      )
 
     }
 
