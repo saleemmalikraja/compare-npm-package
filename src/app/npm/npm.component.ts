@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from '@angular/core';
 import { AppService } from '../core/app.service';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: "app-npm",
-  templateUrl: "./npm.component.html",
-  styleUrls: ["./npm.component.scss"],
+  selector: 'app-npm',
+  templateUrl: './npm.component.html',
+  styleUrls: ['./npm.component.scss'],
   providers: [AppService]
 })
 export class NpmComponent implements OnInit {
@@ -52,32 +52,32 @@ export class NpmComponent implements OnInit {
 
   getnewSources(source) {
     console.log(source);
-    let currentDate = moment();
-    let dayOne = currentDate.format('YYYY-MM-DD');
-    let dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
-    var config = {
+    const currentDate = moment();
+    const dayOne = currentDate.format('YYYY-MM-DD');
+    const dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
+    const config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
       endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source
-    }
+    };
 
     this.appService.apiRequest(config).subscribe((data) => {
 
     },
       error => {
-        console.error("Error saving food!");
+        console.error('Error saving food!');
         return throwError(error);  // Angular 5/RxJS 5.5
-      })
+      });
   }
 
   calculateDate(day) {
-    let currentDate = moment();
-    let dayOne = currentDate.format('YYYY-MM-DD');
-    let dayTwo = currentDate.subtract(day, 'days').format('YYYY-MM-DD');
-    var dateObj = {
+    const currentDate = moment();
+    const dayOne = currentDate.format('YYYY-MM-DD');
+    const dayTwo = currentDate.subtract(day, 'days').format('YYYY-MM-DD');
+    const dateObj = {
       today: dayOne,
       nextDay: dayTwo
-    }
+    };
     return dateObj;
   }
 }
