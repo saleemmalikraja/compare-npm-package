@@ -42,7 +42,13 @@ export class NpmComponent implements OnInit {
     }
 
     this.appService.apiRequest(config).subscribe((res) => {
-      this.filteredOptions = res['results'];
+      if (!res) {
+        console.log(res);
+        return
+      }
+      this.filteredOptions = res[0]['results'];
+      console.log(res);
+
     },
       error => {
         console.error("Error saving food!");
@@ -58,10 +64,29 @@ export class NpmComponent implements OnInit {
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
-      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source
+      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source.package.name
     };
 
     this.appService.apiRequest(config).subscribe((data) => {
+      console.log("npm data", data);
+      this.getGithubDetails(source);
+    },
+      error => {
+        console.error('Error saving food!');
+        return throwError(error);  // Angular 5/RxJS 5.5
+      });
+  }
+  getGithubDetails(data) {
+    var link = data.package.links.repository
+    let author = link.split(".com")[1].replace(".git", "");
+    const config = {
+      method: 'GET',
+      apiUrl: 'apiUrlForGit',
+      endPoint: author
+    };
+
+    this.appService.apiRequest(config).subscribe((res) => {
+      console.log(res);
 
     },
       error => {
@@ -69,7 +94,6 @@ export class NpmComponent implements OnInit {
         return throwError(error);  // Angular 5/RxJS 5.5
       });
   }
-
   calculateDate(day) {
     const currentDate = moment();
     const dayOne = currentDate.format('YYYY-MM-DD');

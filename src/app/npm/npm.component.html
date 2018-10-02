@@ -1,18 +1,16 @@
 <div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center">
   <mat-card class="filter">
-    <form class="example-form" [formGroup]="searchForm" (ngSubmit)="filterSource(searchString)">
+    <form class="example-form" [formGroup]="searchForm" (keyup)="filterSource(searchString)">
       <mat-form-field class="example-full-width">
         <input type="text" placeholder="Node Modules" aria-label="Number" formControlName="searchString" name="searchString"
           matInput [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let option of filteredOptions" [value]="option">
+          <mat-option *ngFor="let option of filteredOptions" [value]="option.package.name" (click)="getnewSources(option)">
             {{option.package.name}}
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <button type="submit" mat-raised-button color="primary">
-        <mat-icon>search</mat-icon>
-      </button>
+     
     </form>
   </mat-card>
 </div>

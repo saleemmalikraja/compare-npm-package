@@ -7,7 +7,7 @@ import { forkJoin } from 'rxjs';  // change to new RxJS 6 import syntax
 @Injectable()
 export class AppService {
 
-  constructor(private http: Http) { }
+  constructor(private http: HttpClient) { }
 
   apiRequest(args) {
     // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
@@ -34,13 +34,13 @@ export class AppService {
     if (args.method === "POST") {
 
       return forkJoin(
-        this.http.post(url, args.data || {}, '')
+        this.http.post(url, args.data || {}, options)
       )
 
     }
     if (args.method === "PUT") {
       return forkJoin(
-        this.http.put(url, args.data || {}, '')
+        this.http.put(url, args.data || {}, options)
       )
 
 
