@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { AppService } from '../core/app.service';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
+import * as moment from 'moment'; // add this 1 of 4
 
 @Component({
   selector: "app-npm",
@@ -19,10 +20,13 @@ export class NpmComponent implements OnInit {
 
   filterSource(source) {
     console.log(source);
+    let currentDate = moment();
+    let dayOne = currentDate.format('YYYY-MM-DD');
+    let dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
     var config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
-      endPoint: 'downloads/range/2018-9-03:2018-10-02/@angular/core'
+      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source
     }
 
     this.appService.apiRequest(config).subscribe((data) => {
@@ -36,5 +40,16 @@ export class NpmComponent implements OnInit {
 
   getnewsSources() {
 
+  }
+
+  calculateDate(day) {
+    let currentDate = moment();
+    let dayOne = currentDate.format('YYYY-MM-DD');
+    let dayTwo = currentDate.subtract(day, 'days').format('YYYY-MM-DD');
+    var dateObj = {
+      today: dayOne,
+      nextDay: dayTwo
+    }
+    return dateObj;
   }
 }
