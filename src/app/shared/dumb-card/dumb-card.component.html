@@ -1,34 +1,45 @@
-<div class="container" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center">
-  <div fxFlex="50%">
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-form-field>
-          <input matInput placeholder="First name">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Age">
-        </mat-form-field>
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Self aware panel
-          </mat-panel-title>
-          <mat-panel-description>
-            Currently I am {{panelOpenState ? 'open' : 'closed'}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
 
-</div>
+<mat-accordion>
+    <mat-expansion-panel *ngFor="let datum of []; let i = index" [expanded]="step === datum.feedId" (opened)="setStep(datum.feedId)"
+      (closed)="unsetStep(datum.feedId)" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{datum?.providerName}}&nbsp;({{datum?.updatedOn}})
+        </mat-panel-title>
+        <mat-panel-description style="justify-content: flex-end;">
+          <mat-chip-list *ngIf="datum.showError">
+            <mat-chip style="margin: 0"><span style="color:red">Failed</span></mat-chip>&nbsp;&nbsp;
+          </mat-chip-list>
+          <mat-icon class="expand-more"  *ngIf="step !== datum.feedId || expandMore">expand_more</mat-icon>
+          <mat-icon class="expand-less" *ngIf="step === datum.feedId && !expandMore">expand_less</mat-icon> <!-- /\ -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div  class="container"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
+        <div>
+          <div>
+            <mat-form-field style="width: 80%">
+              <input matInput type="text" [disabled]="true" [title]="datum.downloads" [(ngModel)]="datum.downloads" placeholder="downloads" name="downloads">
+            </mat-form-field>
+  
+            <mat-form-field style="width: 80%">
+              <input matInput type="text" [disabled]="true"  placeholder="stars" name="stars"
+                #stars [(ngModel)]="datum.stars">
+            </mat-form-field>
+
+          </div>
+        </div>
+        <div>
+          <div>
+            <mat-form-field style="width: 80%">
+              <input matInput type="text" [(ngModel)]="datum.createdOn" name="createdOn" required [disabled]="datum.providerName.toString().toLowerCase()!=='others'" placeholder="createdOn"
+                [title]="datum.createdOn" >
+            </mat-form-field>
+            <mat-form-field style="width: 80%">
+              <input matInput type="text" [(ngModel)]="datum.updatedOn" placeholder="Feed Name (optional)" name="optionalName"
+                [title]="datum.updatedOn">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
