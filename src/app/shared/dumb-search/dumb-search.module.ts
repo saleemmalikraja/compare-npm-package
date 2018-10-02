@@ -6,6 +6,8 @@ import { DumbSearchComponent } from './dumb-search.component';
   imports: [
     CommonModule
   ],
-  declarations: [DumbSearchComponent]
+  declarations: [DumbSearchComponent],
+  exports: [DumbSearchComponent]
+
 })
 export class DumbSearchModule { }

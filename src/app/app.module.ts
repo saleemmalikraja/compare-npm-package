@@ -12,12 +12,13 @@ import { NpmComponent } from './npm/npm.component';
 import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
 import { CoreModule } from './core/core.module';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { DumbTabModule } from './shared/dumb-tab/dumb-tab.module';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
 import { NpmTableModule } from './feature/npm-table/npm-table.module';
 import { NpmCardModule } from './feature/npm-card/npm-card.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
+import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
     DumbTabModule,
     MatTabsModule,
     HttpModule,
+    DumbSearchModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
   ],

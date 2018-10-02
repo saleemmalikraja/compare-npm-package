@@ -6,10 +6,10 @@ import { forkJoin } from 'rxjs';  // change to new RxJS 6 import syntax
 
 @Injectable()
 export class AppService {
-  
+
   constructor(private http: Http) { }
 
-  apiRequest(endPoint, args) {
+  apiRequest(args) {
     // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
     let hdrs = new HttpHeaders();
 
@@ -22,7 +22,7 @@ export class AppService {
       headers: hdrs
     };
 
-    var url = environment.apiUrlForNpm + endPoint;
+    var url = environment[args.apiUrl] + args.endPoint;
     if (args.method === "GET") {
 
       return forkJoin(

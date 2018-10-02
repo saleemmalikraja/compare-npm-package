@@ -17,14 +17,15 @@ export class NpmComponent implements OnInit {
   }
 
 
-  filterNews(source) {
+  filterSource(source) {
     console.log(source);
-    var endPoint = 'downloads/range/2018-9-03:2018-10-02/@angular/core';
     var config = {
       method: 'GET',
+      apiUrl: 'apiUrlForNpm',
+      endPoint: 'downloads/range/2018-9-03:2018-10-02/@angular/core'
     }
 
-    this.appService.apiRequest(endPoint, config).subscribe((data) => {
+    this.appService.apiRequest(config).subscribe((data) => {
 
     },
       error => {

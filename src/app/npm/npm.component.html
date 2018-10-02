@@ -4,7 +4,7 @@
       <mat-form-field class="example-full-width">
         <input matInput placeholder="Node Modules" value="" [(ngModel)]='searchString' name="searchString">
       </mat-form-field>
-      <button mat-raised-button color="primary" (click)='filterNews(searchString)'>
+      <button mat-raised-button color="primary" (click)='filterSource(searchString)'>
         <mat-icon>search</mat-icon>
       </button>
 
@@ -12,38 +12,3 @@
   </mat-card>
 </div>
 
-
-<div class="container" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center">
-  <div fxFlex="50%">
-    <mat-accordion>
-      <mat-expansion-panel>
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Personal data
-          </mat-panel-title>
-          <mat-panel-description>
-            Type your name and age
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <mat-form-field>
-          <input matInput placeholder="First name">
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput placeholder="Age">
-        </mat-form-field>
-      </mat-expansion-panel>
-      <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            Self aware panel
-          </mat-panel-title>
-          <mat-panel-description>
-            Currently I am {{panelOpenState ? 'open' : 'closed'}}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>I'm visible because I am open</p>
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
-
-</div>

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrlForNpm:' https://api.npmjs.org/'
+  apiUrlForNpm: ' https://api.npmjs.org/',
+  apiUrlForGit: 'https://api.github.com/repos/angular/angular'
 };
 
 /*
