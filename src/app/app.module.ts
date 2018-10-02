@@ -9,7 +9,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
 import { NpmComponent } from './npm/npm.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
 import { CoreModule } from './core/core.module';
@@ -18,12 +17,12 @@ import { DumbTabModule } from './shared/dumb-tab/dumb-tab.module';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
 import { NpmTableModule } from './feature/npm-table/npm-table.module';
 import { NpmCardModule } from './feature/npm-card/npm-card.module';
+import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NpmComponent,
-    NavbarComponent
+    NpmComponent
   ],
   imports: [
     BrowserModule,
@@ -34,6 +33,7 @@ import { NpmCardModule } from './feature/npm-card/npm-card.module';
     ReactiveFormsModule,
     NpmGraphModule,
     NpmTableModule,
+    DumbNavbarModule,
     NpmCardModule,
     DumbTabModule,
     MatTabsModule,
