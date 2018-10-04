@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DumbTabComponent } from './dumb-tab.component';
-import {MatTabsModule} from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material';
 import { AppRoutingModule } from '../../app-routing.module';
 
@@ -14,6 +14,9 @@ import { AppRoutingModule } from '../../app-routing.module';
     AppRoutingModule
   ],
   declarations: [DumbTabComponent],
-  exports: [DumbTabComponent]
+  exports: [DumbTabComponent],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
 })
 export class DumbTabModule { }

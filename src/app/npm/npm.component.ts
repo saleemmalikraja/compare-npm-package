@@ -16,6 +16,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   submitted = false;
   filteredOptions;
+  grapData;
   @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(private appService: AppService, private formBuilder: FormBuilder) { }
@@ -30,12 +31,12 @@ export class NpmComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       console.log("debouse", val);
-      this.filterSource('', val.searchString);
+      this.filterSource('');
     })
   }
   get f() { return this.searchForm.controls; }
 
-  filterSource(event, data) {
+  filterSource(event) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.searchForm.invalid) {
@@ -77,6 +78,18 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((data) => {
       console.log('npm data', data);
+      this.grapData = data[0];
+      let grap = [];
+      let ygrap = [];
+      this.grapData.downloads.forEach((val, ind) => {
+        grap.push(val.downloads);
+        ygrap.push(val.day);
+      })
+      const datas = {
+        grap: grap,
+        ygrap: ygrap
+      }
+      this.grapData = datas;
       this.getGithubDetails(source);
     },
       error => {

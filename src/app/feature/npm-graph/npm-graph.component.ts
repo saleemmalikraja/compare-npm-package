@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 
 @Component({
@@ -6,14 +6,19 @@ import { Chart } from 'angular-highcharts';
   templateUrl: './npm-graph.component.html',
   styleUrls: ['./npm-graph.component.css']
 })
-export class NpmGraphComponent implements OnInit {
+export class NpmGraphComponent implements OnInit, OnChanges {
+  @Input() grap: any
 
   chart: Chart;
 
   ngOnInit() {
+    console.log("grap", this.grap);
     this.init();
   }
-
+  ngOnChanges() {
+    console.log("grap", this.grap);
+    this.init();
+  }
   addPoint() {
     if (this.chart) {
       this.chart.addPoint(Math.floor(Math.random() * 10));
@@ -49,6 +54,12 @@ export class NpmGraphComponent implements OnInit {
 
   init() {
     const chart = new Chart({
+      xAxis: {
+        categories: this.grap ? this.grap.ygrap : []
+      },
+      yAxis: {
+        categories: this.grap ? this.grap.grap : []
+      },
       chart: {
         type: 'line'
       },
@@ -60,7 +71,10 @@ export class NpmGraphComponent implements OnInit {
       },
       series: [{
         name: 'Line 1',
-        data: [1, 2, 3]
+        data: this.grap ? this.grap.grap : []
+      }, {
+        name: 'Line 2',
+        data: this.grap ? this.grap.grap : []
       }]
     });
     chart.addPoint(4);

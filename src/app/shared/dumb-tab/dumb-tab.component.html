@@ -1,27 +1,29 @@
 <mat-tab-group>
-  <mat-tab >
+  <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
-        <span [routerLink]="['/graphMode']" data-toggle="tab" title="graph mode">
+      <!-- <span [routerLink]="['/graphMode']" data-toggle="tab" title="graph mode"> -->
       <mat-icon class="example-tab-icon">graphic_eq</mat-icon>
       Graph View
-        </span>
+      <!-- </span> -->
+    </ng-template>
+    <app-npm-graph [grap]="grapDatas"></app-npm-graph>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label routerLinkActive="active">
+      <span [routerLink]="['/tableMode']" data-toggle="tab" title="table mode">
+        <mat-icon class="example-tab-icon">table_chart</mat-icon>
+        Table View
+      </span>
     </ng-template>
   </mat-tab>
 
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
-        <span [routerLink]="['/tableMode']" data-toggle="tab" title="table mode">
-      <mat-icon class="example-tab-icon">table_chart</mat-icon>
-      Table View</span>
-    </ng-template>
-  </mat-tab>
-
-  <mat-tab>
-    <ng-template mat-tab-label routerLinkActive="active">
-        <span [routerLink]="['/cardMode']" data-toggle="tab" title="card mode">
-      <mat-icon class="example-tab-icon">credit_card</mat-icon>
-      Card View
-        </span>
+      <span [routerLink]="['/cardMode']" data-toggle="tab" title="card mode">
+        <mat-icon class="example-tab-icon">credit_card</mat-icon>
+        Card View
+      </span>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
