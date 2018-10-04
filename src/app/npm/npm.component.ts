@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { AppService } from '../core/app.service';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-npm',
@@ -10,10 +12,12 @@ import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms'
   styleUrls: ['./npm.component.scss'],
   providers: [AppService]
 })
-export class NpmComponent implements OnInit {
+export class NpmComponent implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   submitted = false;
   filteredOptions;
+  @ViewChild('searchInput') searchInput: ElementRef;
+
   constructor(private appService: AppService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -23,16 +27,20 @@ export class NpmComponent implements OnInit {
 
   }
 
+  ngAfterViewInit() {
+    this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe(val => {
+      console.log("debouse", val);
+      this.filterSource('', val.searchString);
+    })
+  }
   get f() { return this.searchForm.controls; }
 
-  filterSource(event) {
-    const source = event.target.value;
+  filterSource(event, data) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.searchForm.invalid) {
       return;
     }
-    console.log(source);
     const currentDate = moment();
     const dayOne = currentDate.format('YYYY-MM-DD');
     const dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
