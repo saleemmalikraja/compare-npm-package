@@ -15,12 +15,12 @@ import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
 import { CoreModule } from './core/core.module';
 import { MatTabsModule } from '@angular/material/tabs';
-import { DumbTabModule } from './shared/dumb-tab/dumb-tab.module';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
 import { NpmTableModule } from './feature/npm-table/npm-table.module';
 import { NpmCardModule } from './feature/npm-card/npm-card.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
+import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 
 @NgModule({
   declarations: [
@@ -38,7 +38,7 @@ import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
     NpmTableModule,
     DumbNavbarModule,
     NpmCardModule,
-    DumbTabModule,
+    NpmTabModule,
     MatTabsModule,
     HttpClientModule,
     DumbSearchModule,

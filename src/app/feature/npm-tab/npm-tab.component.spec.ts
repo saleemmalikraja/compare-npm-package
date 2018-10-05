@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DumbTabComponent } from './dumb-tab.component';
+import { NpmTabComponent } from './npm-tab.component';
 
-describe('DumbTabComponent', () => {
-  let component: DumbTabComponent;
-  let fixture: ComponentFixture<DumbTabComponent>;
+describe('NpmTabComponent', () => {
+  let component: NpmTabComponent;
+  let fixture: ComponentFixture<NpmTabComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DumbTabComponent ]
+      declarations: [ NpmTabComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DumbTabComponent);
+    fixture = TestBed.createComponent(NpmTabComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,9 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DumbTabComponent } from './dumb-tab.component';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatIconModule } from '@angular/material';
 import { AppRoutingModule } from '../../app-routing.module';
+import { NpmTabComponent } from './npm-tab.component';
 
 
 @NgModule({
@@ -13,10 +13,10 @@ import { AppRoutingModule } from '../../app-routing.module';
     MatIconModule,
     AppRoutingModule
   ],
-  declarations: [DumbTabComponent],
-  exports: [DumbTabComponent],
+  declarations: [NpmTabComponent],
+  exports: [NpmTabComponent],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
   ],
 })
-export class DumbTabModule { }
+export class NpmTabModule { }
