@@ -10,7 +10,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { NpmComponent } from './npm/npm.component';
 import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
 import { SharingService } from './core/data.service';
@@ -18,12 +17,12 @@ import { SharingService } from './core/data.service';
 import { CoreModule } from './core/core.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
-import { NpmTableModule } from './feature/npm-table/npm-table.module';
 import { NpmCardModule } from './feature/npm-card/npm-card.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 import { DumbTableModule } from './shared/dumb-table/dumb-table.module';
+import { NpmComponent } from './feature/npm/npm.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { DumbTableModule } from './shared/dumb-table/dumb-table.module';
     ReactiveFormsModule,
     DumbTableModule,
     NpmGraphModule,
-    NpmTableModule,
     DumbNavbarModule,
     NpmCardModule,
     NpmTabModule,

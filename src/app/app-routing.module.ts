@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { NpmTableComponent } from './feature/npm-table/npm-table.component';
 import { NpmCardComponent } from './feature/npm-card/npm-card.component';
 import { NpmGraphComponent } from './feature/npm-graph/npm-graph.component';
+import { DumbTableComponent } from './shared/dumb-table/dumb-table.component';
 
 const routes: Routes = [
   {
@@ -12,13 +12,11 @@ const routes: Routes = [
   },
   {
     path: 'tableMode',
-    component: NpmTableComponent
-    // loadChildren: 'app/feature/dcn-table/dcn-table.module#DcnTableModule' // for lazy loading the modules
+    component: DumbTableComponent
   },
   {
     path: 'cardMode',
     component: NpmCardComponent
-    // loadChildren: 'app/feature/makecode/makecode.module#MakecodeModule' // for lazy loading the modules
   },
   {
     path: '',
