@@ -11,19 +11,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./npm-tab.component.css']
 })
 export class NpmTabComponent implements OnInit, OnChanges, AfterViewInit {
-  @Input() chartData: any
-  @Input() gitData: any
+  @Input() chartData: any;
+  @Input() gitData: any;
   @Output() chartDataEvent = new EventEmitter();
   constructor(private router: Router, private sharingService: SharingService) { }
 
   ngOnInit() {
-    console.log('grapData', this.chartData);
-
-
+    console.log('graphData', this.chartData);
   }
 
   ngOnChanges() {
-    console.log('grap-tab', this.chartData);
+    console.log('graph-tab', this.chartData);
     this.sharingService.setData(this.chartData);
     this.router.navigate(['/graphMode']);
   }

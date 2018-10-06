@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'npmcampare'`, () => {
+  it(`should have as title 'npm compare'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('npmcampare');
+    expect(app.title).toEqual('npm compare');
   });
 
   it('should render title in a h1 tag', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to npmcampare!');
+    expect(compiled.querySelector('h1').textContent).toContain('Welcome to npm compare!');
   });
 });

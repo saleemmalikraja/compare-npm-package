@@ -1,8 +1,7 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AppService } from '../../core/app.service';
 

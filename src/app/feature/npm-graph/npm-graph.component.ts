@@ -8,18 +8,18 @@ import { SharingService } from '../../core/data.service';
   styleUrls: ['./npm-graph.component.css']
 })
 export class NpmGraphComponent implements OnInit, OnChanges {
-  @Input() chat: any
+  @Input() chat: any;
   chartData;
   chart: Chart;
   constructor(private sharingService: SharingService) { }
 
   ngOnInit() {
     this.chartData = this.sharingService.getData();
-    console.log("chartData", this.chartData);
+    console.log('chartData', this.chartData);
     this.init();
   }
   ngOnChanges() {
-    console.log("chartData", this.chartData);
+    console.log('chartData', this.chartData);
 
     this.init();
   }
@@ -65,7 +65,7 @@ export class NpmGraphComponent implements OnInit, OnChanges {
         type: 'line'
       },
       title: {
-        text: 'NPM CAMPARE'
+        text: 'NPM COMPARE'
       },
       credits: {
         enabled: false
