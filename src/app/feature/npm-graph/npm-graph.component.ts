@@ -11,10 +11,17 @@ export class NpmGraphComponent implements OnInit, OnChanges {
   @Input() chat: any;
   chartData;
   chart: Chart;
+  githubData;
   constructor(private sharingService: SharingService) { }
 
   ngOnInit() {
-    this.chartData = this.sharingService.getData();
+    let data = this.sharingService.getData();
+    if (data && data.npmDatas) {
+      this.chartData = data.npmDatas;
+    }
+    if (data && data.npmDatas) {
+      this.githubData = data.githubData;
+    }
     console.log('chartData', this.chartData);
     this.init();
   }

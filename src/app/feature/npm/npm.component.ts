@@ -18,6 +18,9 @@ export class NpmComponent implements OnInit, AfterViewInit {
   chartData;
   chart = [];
   chartX = [];
+  npmDatas
+  githubData;
+  packageData;
   @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(private appService: AppService, private formBuilder: FormBuilder) { }
@@ -68,13 +71,19 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
   getnewSources(source) {
     console.log(source);
+    let sourceObj;
+    this.filteredOptions.forEach((val, ind) => {
+      if (val.package.name === this.searchForm.controls.searchString.value) {
+        sourceObj = val
+      }
+    });
     const currentDate = moment();
     const dayOne = currentDate.format('YYYY-MM-DD');
     const dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
-      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source.package.name
+      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + sourceObj.package.name
     };
 
     this.appService.apiRequest(config).subscribe((data) => {
@@ -89,12 +98,11 @@ export class NpmComponent implements OnInit, AfterViewInit {
         name: '',
         data: chart
       });
-      const datas = {
+      this.npmDatas = {
         chart: this.chart,
         chartX: this.chartX
       };
-      this.chartData = datas;
-      this.getGithubDetails(source);
+      this.getGithubDetails(sourceObj);
     },
       error => {
         console.error('Error saving food!');
@@ -112,6 +120,11 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((res) => {
       console.log(res);
+      this.githubData = res;
+      this.packageData = {
+        npmDatas: this.npmDatas,
+        githubData: this.githubData
+      };
 
     },
       error => {
