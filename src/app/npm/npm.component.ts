@@ -87,7 +87,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
         this.chartX.push(val.day);
       })
       this.chart.push({
-        name: '',
+        name: source.package.name,
         data: chart
       })
       const datas = {
