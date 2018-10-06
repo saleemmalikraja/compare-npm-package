@@ -32,9 +32,9 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe(val => {
-      console.log("debouse", val);
+      console.log('debounce', val);
       this.filterSource('');
-    })
+    });
   }
   get f() { return this.searchForm.controls; }
 
@@ -81,19 +81,19 @@ export class NpmComponent implements OnInit, AfterViewInit {
     this.appService.apiRequest(config).subscribe((data) => {
       console.log('npm data', data);
       this.chartData = data[0];
-      let chart = [];
+      const chart = [];
       this.chartData.downloads.forEach((val, ind) => {
         chart.push(val.downloads);
         this.chartX.push(val.day);
-      })
+      });
       this.chart.push({
         name: source.package.name,
         data: chart
-      })
+      });
       const datas = {
         chart: this.chart,
         chartX: this.chartX
-      }
+      };
       this.chartData = datas;
       this.getGithubDetails(source);
     },
