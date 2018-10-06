@@ -16,7 +16,9 @@ export class NpmComponent implements OnInit, AfterViewInit {
   searchForm: FormGroup;
   submitted = false;
   filteredOptions;
-  grapData;
+  chartData;
+  chart = [];
+  chartX = [];
   @ViewChild('searchInput') searchInput: ElementRef;
 
   constructor(private appService: AppService, private formBuilder: FormBuilder) { }
@@ -78,18 +80,21 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((data) => {
       console.log('npm data', data);
-      this.grapData = data[0];
-      let grap = [];
-      let ygrap = [];
-      this.grapData.downloads.forEach((val, ind) => {
-        grap.push(val.downloads);
-        ygrap.push(val.day);
+      this.chartData = data[0];
+      let chart = [];
+      this.chartData.downloads.forEach((val, ind) => {
+        chart.push(val.downloads);
+        this.chartX.push(val.day);
+      })
+      this.chart.push({
+        name: '',
+        data: chart
       })
       const datas = {
-        grap: grap,
-        ygrap: ygrap
+        chart: this.chart,
+        chartX: this.chartX
       }
-      this.grapData = datas;
+      this.chartData = datas;
       this.getGithubDetails(source);
     },
       error => {

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { Chart } from 'angular-highcharts';
+import { SharingService } from '../../core/data.service';
 
 @Component({
   selector: 'app-npm-graph',
@@ -7,16 +8,19 @@ import { Chart } from 'angular-highcharts';
   styleUrls: ['./npm-graph.component.css']
 })
 export class NpmGraphComponent implements OnInit, OnChanges {
-  @Input() grap: any
-
+  @Input() chat: any
+  chartData;
   chart: Chart;
+  constructor(private sharingService: SharingService) { }
 
   ngOnInit() {
-    console.log("grap", this.grap);
+    this.chartData = this.sharingService.getData();
+    console.log("chartData", this.chartData);
     this.init();
   }
   ngOnChanges() {
-    console.log("grap", this.grap);
+    console.log("chartData", this.chartData);
+
     this.init();
   }
   addPoint() {
@@ -55,34 +59,21 @@ export class NpmGraphComponent implements OnInit, OnChanges {
   init() {
     const chart = new Chart({
       xAxis: {
-        categories: this.grap ? this.grap.ygrap : []
-      },
-      yAxis: {
-        categories: this.grap ? this.grap.grap : []
+        categories: this.chartData ? this.chartData.chartX : []
       },
       chart: {
         type: 'line'
       },
       title: {
-        text: 'Linechart'
+        text: 'NPM CAMPARE'
       },
       credits: {
         enabled: false
       },
-      series: [{
-        name: 'Line 1',
-        data: this.grap ? this.grap.grap : []
-      }, {
-        name: 'Line 2',
-        data: this.grap ? this.grap.grap : []
-      }]
+      series: this.chartData ? this.chartData.chart : []
     });
-    chart.addPoint(4);
     this.chart = chart;
-    chart.addPoint(5);
-    setTimeout(() => {
-      chart.addPoint(6);
-    }, 2000);
+
   }
 
 }

@@ -13,6 +13,8 @@ import { environment } from '../environments/environment';
 import { NpmComponent } from './npm/npm.component';
 import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
+import { SharingService } from './core/data.service';
+
 import { CoreModule } from './core/core.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
@@ -45,7 +47,7 @@ import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
   ],
-  providers: [ThemeService, AppService],
+  providers: [ThemeService, AppService, SharingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
