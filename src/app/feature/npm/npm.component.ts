@@ -2,11 +2,11 @@ import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ViewEncapsulat
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, switchAll } from 'rxjs/operators';
 import { AppService } from '../../core/app.service';
 import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { map, startWith, distinct } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { SharingService } from '../../core/data.service';
 
@@ -35,7 +35,6 @@ export class NpmComponent implements OnInit, AfterViewInit {
   filteredLibs: Observable<string[]>;
   libs: string[] = [];
   alllibs: string[] = [];
-
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
   constructor(private sharingService: SharingService, private appService: AppService, private formBuilder: FormBuilder) {
     this.filteredLibs = this.formCtrl.valueChanges.pipe(
@@ -110,14 +109,13 @@ export class NpmComponent implements OnInit, AfterViewInit {
       apiUrl: 'apiUrlForSearch',
       endPoint: val
     };
-
-    this.appService.apiRequest(config).subscribe((res) => {
+    this.appService.apiRequest(config).pipe(switchAll()).subscribe((res) => {
       if (!res) {
         return;
       }
-      this.filteredOptions = res[0]['results'];
+      this.filteredOptions = res['results'];
 
-      res[0]['results'].forEach((resultant, ind) => {
+      res['results'].forEach((resultant, ind) => {
         this.alllibs.push(resultant.package.name);
       });
       this.alllibs = Array.from(new Set(this.alllibs));
