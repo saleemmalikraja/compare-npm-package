@@ -1,7 +1,10 @@
 <div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center">
   <mat-card class="filter">
     <form class="example-form" [formGroup]="searchForm" (submit)="getnewSources($event)">
-      <mat-form-field class="example-full-width">
+      <mat-form-field class="example-full-width" style="
+      margin: 12px;
+      margin-left: 255px;
+  ">
         <input type="text" placeholder="Node Modules" aria-label="Number" formControlName="searchString" name="searchString"
           matInput [matAutocomplete]="auto">
         <mat-autocomplete #auto="matAutocomplete">
