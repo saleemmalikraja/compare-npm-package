@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
@@ -13,7 +13,8 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
   selector: 'app-npm',
   templateUrl: './npm.component.html',
   styleUrls: ['./npm.component.scss'],
-  providers: [AppService]
+  providers: [AppService],
+  encapsulation:ViewEncapsulation.None
 })
 export class NpmComponent implements OnInit, AfterViewInit {
   submitted = false;

@@ -15,7 +15,10 @@
       </mat-form-field>
 
     </form> -->
-    <mat-form-field class="example-chip-list">
+    <mat-form-field class="example-chip-list"  style="
+    margin: 12px;
+    margin-left: 255px;
+">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)">
           {{lib}}
