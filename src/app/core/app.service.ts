@@ -11,7 +11,7 @@ export class AppService {
 
   apiRequest(args) {
     // Observable.forkJoin (RxJS 5) changes to just forkJoin() in RxJS 6
-    let hdrs = new HttpHeaders();
+    const hdrs = new HttpHeaders();
 
     if (args.token) {
 
@@ -22,37 +22,32 @@ export class AppService {
       headers: hdrs
     };
 
-    var url = environment[args.apiUrl] + args.endPoint;
-    if (args.method === "GET") {
+    const url = environment[args.apiUrl] + args.endPoint;
+    if (args.method === 'GET') {
 
       return forkJoin(
         this.http.get(url)
-      )
-
-
+      );
     }
-    if (args.method === "POST") {
+
+    if (args.method === 'POST') {
 
       return forkJoin(
         this.http.post(url, args.data || {}, options)
-      )
-
+      );
     }
-    if (args.method === "PUT") {
+
+    if (args.method === 'PUT') {
       return forkJoin(
         this.http.put(url, args.data || {}, options)
-      )
-
-
+      );
     }
-    if (args.method === "DELETE") {
 
+    if (args.method === 'DELETE') {
       return forkJoin(
         this.http.delete(url)
-      )
-
+      );
     }
-
   }
   /**
    * get the localstorage data with key
@@ -64,9 +59,8 @@ export class AppService {
 
   /**
    * store string , object, array into localstorage
-   * 
-   * @param key 
-   * @param value 
+   * @param key
+   * @param value
    */
   updateData(key, value) {
     localStorage.setItem(key, value);
@@ -74,8 +68,7 @@ export class AppService {
 
   /**
    * Delete the data with key
-   * 
-   * @param key 
+   * @param key
    */
   deleteData(key) {
     localStorage.removeItem(key);
