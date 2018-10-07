@@ -10,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'tableMode',
-    component: DumbTableComponent
+    loadChildren: './feature/npm-table/npm-table.module#NpmTableModule'
   },
   {
     path: 'cardMode',

@@ -20,7 +20,6 @@ import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
-import { DumbTableModule } from './shared/dumb-table/dumb-table.module';
 import { NpmComponent } from './feature/npm/npm.component';
 
 @NgModule({
@@ -35,7 +34,6 @@ import { NpmComponent } from './feature/npm/npm.component';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    DumbTableModule,
     NpmGraphModule,
     DumbNavbarModule,
     NpmTabModule,
