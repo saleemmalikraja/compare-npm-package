@@ -34,7 +34,6 @@ export class NpmComponent implements OnInit, AfterViewInit {
   filteredLibs: Observable<string[]>;
   libs: string[] = [];
   alllibs: string[] = [];
-
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
   constructor(private appService: AppService, private formBuilder: FormBuilder) {
     this.filteredLibs = this.formCtrl.valueChanges.pipe(
