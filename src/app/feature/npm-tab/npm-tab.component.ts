@@ -14,7 +14,7 @@ export class NpmTabComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() packageData: any;
   @Input() gitData: any;
   @Output() packageDataEvent = new EventEmitter();
-  @ViewChild('graphMode') graphMode: NpmGraphComponent
+  @ViewChild('graphMode') graphMode: NpmGraphComponent;
   constructor(private router: Router, private sharingService: SharingService) { }
 
   ngOnInit() {
