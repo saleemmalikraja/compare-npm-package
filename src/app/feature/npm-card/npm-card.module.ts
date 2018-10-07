@@ -4,10 +4,17 @@ import { NpmCardComponent } from './npm-card.component';
 import { DumbCardComponent } from '../../shared/dumb-card/dumb-card.component';
 import { DumbCardModule } from '../../shared/dumb-card/dumb-card.module';
 
+import { RouterModule } from '@angular/router';
 @NgModule({
   imports: [
     CommonModule,
-    DumbCardModule
+    DumbCardModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: NpmCardComponent,  // tab 3
+      }
+    ])
   ],
   declarations: [NpmCardComponent]
 })

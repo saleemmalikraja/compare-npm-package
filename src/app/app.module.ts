@@ -17,7 +17,6 @@ import { SharingService } from './core/data.service';
 import { CoreModule } from './core/core.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
-import { NpmCardModule } from './feature/npm-card/npm-card.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
@@ -39,7 +38,6 @@ import { NpmComponent } from './feature/npm/npm.component';
     DumbTableModule,
     NpmGraphModule,
     DumbNavbarModule,
-    NpmCardModule,
     NpmTabModule,
     MatTabsModule,
     HttpClientModule,
