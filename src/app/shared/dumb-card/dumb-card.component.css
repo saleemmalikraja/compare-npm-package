@@ -1,4 +1,4 @@
-.mat-expansion-panel-header:not([aria-expanded=false]) {
+.mat-expansion-panel-header:not([aria-expanded=false]), mat-expansion-panel-header {
     background-color: #c8c8c8 !important;
   
   }

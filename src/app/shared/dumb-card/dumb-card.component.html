@@ -4,7 +4,7 @@
     (closed)="unsetStep(datum.id)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{datum?.name}}&nbsp;({{datum?.git_url}})
+          {{datum?.name}}&nbsp;(<a href="{{datum?.git_url.replace('git:', 'https://')}}" target="_blank" rel="noopener">{{datum?.git_url}}</a>)
         </mat-panel-title>
         <mat-panel-description style="justify-content: flex-end;">
           <mat-chip-list>
@@ -17,11 +17,11 @@
       <div  class="container"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
         <div>
           <div>
-            <mat-form-field style="width: 80%">
+            <mat-form-field style="width: 100%">
               <input matInput type="text" [disabled]="true" [title]="datum.forks_count" [(ngModel)]="datum.forks_count" placeholder="forks count" name="forks_count">
             </mat-form-field>
   
-            <mat-form-field style="width: 80%">
+            <mat-form-field style="width: 100%">
               <input matInput type="text" [disabled]="true"  placeholder="open issues count" name="open_issues_count"
                 #openIssues [(ngModel)]="datum.open_issues_count">
             </mat-form-field>
@@ -30,11 +30,11 @@
         </div>
         <div>
           <div>
-            <mat-form-field style="width: 80%">
+            <mat-form-field style="width: 100%">
               <input matInput type="text"   [disabled]="true"  [(ngModel)]="datum.updated_at" name="updated_at" required placeholder="updated at"
                 [title]="datum.updated_at" >
             </mat-form-field>
-            <mat-form-field style="width: 80%">
+            <mat-form-field style="width: 100%">
               <input matInput type="text"  [disabled]="true"  [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
                 [title]="datum.created_at">
             </mat-form-field>
