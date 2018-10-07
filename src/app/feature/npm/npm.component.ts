@@ -1,9 +1,13 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 import * as moment from 'moment'; // add this 1 of 4
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { AppService } from '../../core/app.service';
+import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
+import { Observable } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-npm',
@@ -12,38 +16,80 @@ import { AppService } from '../../core/app.service';
   providers: [AppService]
 })
 export class NpmComponent implements OnInit, AfterViewInit {
-  searchForm: FormGroup;
   submitted = false;
   filteredOptions;
   chartData;
   chart = [];
   chartX = [];
   npmDatas;
-  githubData;
+  githubData = [];
   packageData;
-  @ViewChild('searchInput') searchInput: ElementRef;
+  visible = true;
+  selectable = true;
+  removable = true;
+  addOnBlur = false;
+  separatorKeysCodes: number[] = [ENTER, COMMA];
+  formCtrl = new FormControl();
+  filteredLibs: Observable<string[]>;
+  libs: string[] = [];
+  alllibs: string[] = [];
 
-  constructor(private appService: AppService, private formBuilder: FormBuilder) { }
+  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  constructor(private appService: AppService, private formBuilder: FormBuilder) {
+    this.filteredLibs = this.formCtrl.valueChanges.pipe(
+      startWith(null),
+      map((fruit: string | null) => fruit ? this._filter(fruit) : this.alllibs.slice()));
+  }
+  add(event: MatChipInputEvent): void {
+    const input = event.input;
+    const value = event.value;
 
+    // Add our fruit
+    if ((value || '').trim()) {
+      this.libs.push(value.trim());
+    }
+
+    // Reset the input value
+    if (input) {
+      input.value = '';
+    }
+
+    this.formCtrl.setValue(null);
+  }
+
+  remove(fruit: string): void {
+    const index = this.libs.indexOf(fruit);
+
+    if (index >= 0) {
+      this.libs.splice(index, 1);
+    }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    this.libs.push(event.option.value);
+    this.getnewSources(event.option.viewValue);
+    this.fruitInput.nativeElement.value = '';
+    this.formCtrl.setValue(null);
+  }
+  private _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+
+    return this.alllibs.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+  }
   ngOnInit() {
-    this.searchForm = this.formBuilder.group({
-      searchString: [''],
-    });
-
   }
 
   ngAfterViewInit() {
-    this.searchForm.valueChanges.pipe(debounceTime(500)).subscribe(val => {
+    this.formCtrl.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       console.log('debounce', val);
-      this.filterSource('');
+      this.filterSource(val);
     });
   }
-  get f() { return this.searchForm.controls; }
 
-  filterSource(event) {
+  filterSource(val) {
     this.submitted = true;
     // stop here if form is invalid
-    if (this.searchForm.invalid) {
+    if (this.formCtrl.invalid) {
       return;
     }
     const currentDate = moment();
@@ -52,7 +98,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForSearch',
-      endPoint: this.searchForm.controls.searchString.value
+      endPoint: val
     };
 
     this.appService.apiRequest(config).subscribe((res) => {
@@ -60,6 +106,9 @@ export class NpmComponent implements OnInit, AfterViewInit {
         return;
       }
       this.filteredOptions = res[0]['results'];
+      res[0]['results'].forEach((val, ind) => {
+        this.alllibs.push(val.package.name);
+      });
       console.log(res);
 
     },
@@ -73,7 +122,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     console.log(source);
     let sourceObj;
     this.filteredOptions.forEach((val, ind) => {
-      if (val.package.name === this.searchForm.controls.searchString.value) {
+      if (val.package.name === source) {
         sourceObj = val
       }
     });
@@ -83,7 +132,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
-      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + sourceObj.package.name
+      endPoint: 'downloads/range/' + dayTwo + ':' + dayOne + '/' + source
     };
 
     this.appService.apiRequest(config).subscribe((data) => {
@@ -95,7 +144,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
         this.chartX.push(val.day);
       });
       this.chart.push({
-        name: sourceObj.package.name,
+        name: source,
         data: chart
       });
       this.npmDatas = {
@@ -120,7 +169,10 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((res) => {
       console.log(res);
-      this.githubData = res;
+      if (!res && !res[0]) {
+        return;
+      }
+      this.githubData.push(res[0]);
       this.packageData = {
         npmDatas: this.npmDatas,
         githubData: this.githubData

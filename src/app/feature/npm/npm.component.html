@@ -1,6 +1,6 @@
 <div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center">
   <mat-card class="filter">
-    <form class="example-form" [formGroup]="searchForm" (submit)="getnewSources($event)">
+    <!-- <form class="example-form" [formGroup]="searchForm" (submit)="getnewSources($event)">
       <mat-form-field class="example-full-width" style="
       margin: 12px;
       margin-left: 255px;
@@ -14,7 +14,25 @@
         </mat-autocomplete>
       </mat-form-field>
 
-    </form>
+    </form> -->
+    <mat-form-field class="example-chip-list">
+      <mat-chip-list #chipList>
+        <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)">
+          {{lib}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input placeholder="Package Name" #fruitInput [formControl]="formCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let lib of filteredLibs | async" [value]="lib">
+          {{lib}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
   </mat-card>
 </div>
+
+
 <app-npm-tab [packageData]="packageData"></app-npm-tab>
