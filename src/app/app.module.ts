@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -10,7 +9,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { AppComponent } from './app.component';
 import { environment } from '../environments/environment';
-import { ThemeService } from './core/theme.service';
 import { AppService } from './core/app.service';
 import { SharingService } from './core/data.service';
 
@@ -43,7 +41,7 @@ import { NpmComponent } from './feature/npm/npm.component';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
   ],
-  providers: [ThemeService, AppService, SharingService],
+  providers: [ AppService, SharingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
