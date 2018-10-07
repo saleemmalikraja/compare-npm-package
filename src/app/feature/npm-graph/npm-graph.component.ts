@@ -83,13 +83,14 @@ export class NpmGraphComponent implements OnInit, OnChanges {
         plotBorderWidth: 1,
         plotBorderColor: 'rgba(200, 200, 200, .9)'
       },
+      colors: ['#FF0000', '#00FF00'],
       title: {
         text: 'NPM COMPARE'
       },
       credits: {
         enabled: false
       },
-      series: this.chartData ? this.chartData.chart : []
+      series: this.chartData ? this.chartData.chart : [],
     });
     this.chart = chart;
 
