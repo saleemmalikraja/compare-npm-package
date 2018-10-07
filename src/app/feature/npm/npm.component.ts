@@ -34,17 +34,16 @@ export class NpmComponent implements OnInit, AfterViewInit {
   libs: string[] = [];
   alllibs: string[] = [];
 
-  @ViewChild('fruitInput') fruitInput: ElementRef<HTMLInputElement>;
+  @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
   constructor(private appService: AppService, private formBuilder: FormBuilder) {
     this.filteredLibs = this.formCtrl.valueChanges.pipe(
       startWith(null),
-      map((fruit: string | null) => fruit ? this._filter(fruit) : this.alllibs.slice()));
+      map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice()));
   }
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
 
-    // Add our fruit
     if ((value || '').trim()) {
       this.libs.push(value.trim());
     }
@@ -57,8 +56,8 @@ export class NpmComponent implements OnInit, AfterViewInit {
     this.formCtrl.setValue(null);
   }
 
-  remove(fruit: string): void {
-    const index = this.libs.indexOf(fruit);
+  remove(libs: string): void {
+    const index = this.libs.indexOf(libs);
 
     if (index >= 0) {
       this.libs.splice(index, 1);
@@ -68,13 +67,13 @@ export class NpmComponent implements OnInit, AfterViewInit {
   selected(event: MatAutocompleteSelectedEvent): void {
     this.libs.push(event.option.value);
     this.getnewSources(event.option.viewValue);
-    this.fruitInput.nativeElement.value = '';
+    this.libsInput.nativeElement.value = '';
     this.formCtrl.setValue(null);
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
 
-    return this.alllibs.filter(fruit => fruit.toLowerCase().indexOf(filterValue) === 0);
+    return this.alllibs.filter(libs => libs.toLowerCase().includes(filterValue));
   }
   ngOnInit() {
   }
@@ -106,9 +105,11 @@ export class NpmComponent implements OnInit, AfterViewInit {
         return;
       }
       this.filteredOptions = res[0]['results'];
+
       res[0]['results'].forEach((val, ind) => {
         this.alllibs.push(val.package.name);
       });
+      this.alllibs = Array.from(new Set(this.alllibs));
       console.log(res);
 
     },

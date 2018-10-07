@@ -21,8 +21,9 @@
           {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="Package Name" #fruitInput [formControl]="formCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
+        <input placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
+          [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
