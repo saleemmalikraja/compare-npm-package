@@ -1,1 +1,2 @@
 <app-dumb-table [gitHubData] = "gitHubData"></app-dumb-table>
+<div  *ngIf="!gitHubData?.length"> No Data Found</div>

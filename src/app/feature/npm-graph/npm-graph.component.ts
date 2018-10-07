@@ -69,7 +69,19 @@ export class NpmGraphComponent implements OnInit, OnChanges {
         categories: this.chartData ? this.chartData.chartX : []
       },
       chart: {
-        type: 'line'
+        type: 'line',
+        backgroundColor: {
+          linearGradient: [0, 0, 500, 500],
+          stops: [
+            [0, 'rgb(255, 255, 255)'],
+            [1, 'rgb(240, 240, 255)']
+          ]
+        },
+        borderWidth: 2,
+        plotBackgroundColor: 'rgba(255, 255, 255, .9)',
+        plotShadow: true,
+        plotBorderWidth: 1,
+        plotBorderColor: 'rgba(200, 200, 200, .9)'
       },
       title: {
         text: 'NPM COMPARE'
