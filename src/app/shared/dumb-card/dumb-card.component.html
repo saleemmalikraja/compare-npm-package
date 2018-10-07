@@ -7,11 +7,11 @@
           {{datum?.name}}&nbsp;({{datum?.git_url}})
         </mat-panel-title>
         <mat-panel-description style="justify-content: flex-end;">
-          <mat-chip-list *ngIf="datum.showError">
+          <mat-chip-list>
             <mat-chip style="margin: 0"><span style="color:red">{{datum.stargazers_count}}</span></mat-chip>&nbsp;&nbsp;
           </mat-chip-list>
-          <mat-icon class="expand-more"  *ngIf="step !== datum.feedId || expandMore">expand_more</mat-icon>
-          <mat-icon class="expand-less" *ngIf="step === datum.feedId && !expandMore">expand_less</mat-icon> <!-- /\ -->
+          <mat-icon class="expand-more"  *ngIf="step !== datum.id || expandMore">expand_more</mat-icon>
+          <mat-icon class="expand-less" *ngIf="step === datum.id && !expandMore">expand_less</mat-icon> <!-- /\ -->
         </mat-panel-description>
       </mat-expansion-panel-header>
       <div  class="container"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
