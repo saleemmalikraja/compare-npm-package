@@ -13,7 +13,6 @@ export class NpmCardComponent implements OnInit {
   public step;
   public setStepIndex: number;
   public expandMore = false;
-  panelOpenState = false;
 
   constructor(private sharingService: SharingService) { }
 
@@ -22,7 +21,7 @@ export class NpmCardComponent implements OnInit {
     if (data && data.npmDatas) {
       this.chartData = data.npmDatas;
     }
-    if (data && data.npmDatas) {
+    if (data && data.githubData) {
       this.githubData = data.githubData;
     }
     console.log('chartData', this.chartData);

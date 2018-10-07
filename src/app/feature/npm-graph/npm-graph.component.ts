@@ -19,7 +19,7 @@ export class NpmGraphComponent implements OnInit, OnChanges {
     if (data && data.npmDatas) {
       this.chartData = data.npmDatas;
     }
-    if (data && data.npmDatas) {
+    if (data && data.githubData) {
       this.githubData = data.githubData;
     }
     console.log('chartData', this.chartData);
