@@ -8,6 +8,7 @@ import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/materi
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { SharingService } from '../../core/data.service';
 
 @Component({
   selector: 'app-npm',
@@ -36,7 +37,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   alllibs: string[] = [];
 
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
-  constructor(private appService: AppService, private formBuilder: FormBuilder) {
+  constructor(private sharingService: SharingService, private appService: AppService, private formBuilder: FormBuilder) {
     this.filteredLibs = this.formCtrl.valueChanges.pipe(
       startWith(null),
       map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice()));
@@ -62,14 +63,22 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     if (index >= 0) {
       this.libs.splice(index, 1);
+      this.packageData.githubData.splice(index, 1);
+      this.packageData.npmDatas.chart.splice(index, 1);
+      this.packageData.npmDatas.chartX.splice(index, 1);
+      this.sharingService.setData(this.packageData);
     }
   }
-
+  clearAll() {
+    this.libs = [];
+    this.packageData = null;
+    this.sharingService.setData(this.packageData);
+  }
   selected(event: MatAutocompleteSelectedEvent): void {
     this.libs.push(event.option.value);
     this.getnewSources(event.option.viewValue);
     this.libsInput.nativeElement.value = '';
-    this.formCtrl.setValue(null);
+    // this.formCtrl.setValue(null);
   }
   private _filter(value: string): string[] {
     const filterValue = value.toLowerCase();
@@ -82,6 +91,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
     this.formCtrl.valueChanges.pipe(debounceTime(500)).subscribe(val => {
       console.log('debounce', val);
+      this.filteredOptions = [];
       this.filterSource(val);
     });
   }

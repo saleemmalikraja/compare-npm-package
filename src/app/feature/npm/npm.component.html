@@ -1,4 +1,5 @@
-<div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center" style="margin-top: 5px;">
+<div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center"
+  style="margin-top: 5px;">
   <mat-card class="filter">
     <!-- <form class="example-form" [formGroup]="searchForm" (submit)="getnewSources($event)">
       <mat-form-field class="example-full-width" style="
@@ -15,17 +16,19 @@
       </mat-form-field>
 
     </form> -->
-    <mat-form-field class="example-chip-list"  style="display:inline">
+    <mat-form-field class="example-chip-list" style="display:inline">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)">
           {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input  placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
-          [matChipInputAddOnBlur]="addOnBlur"
+        <input placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
-          <mat-icon *ngIf="libs.length">cancel</mat-icon>
+
+        <mat-icon (click)="clearAll()" *ngIf="libs.length" style="
+        cursor: pointer;
+    ">cancel</mat-icon>
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
         <mat-option *ngFor="let lib of filteredLibs | async" [value]="lib">
