@@ -5,7 +5,6 @@ import { MatIconModule } from '@angular/material';
 import { AppRoutingModule } from '../../app-routing.module';
 import { NpmTabComponent } from './npm-tab.component';
 
-
 @NgModule({
   imports: [
     CommonModule,
