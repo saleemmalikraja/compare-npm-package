@@ -1,5 +1,5 @@
 .mat-expansion-panel-header:not([aria-expanded=false]) {
-    background-color: #E6E6E6 !important;
+    background-color: #c8c8c8 !important;
   
   }
   
@@ -8,11 +8,11 @@
   }
   
   .expand-more {
-    background-color: lightgray; 
+    background-color: c8c8c8; 
     border-radius: 20px;
   }
   
   .expand-less {
-    background-color: #ffb300;
+    background-color: #646464;
     border-radius: 20px;
   }

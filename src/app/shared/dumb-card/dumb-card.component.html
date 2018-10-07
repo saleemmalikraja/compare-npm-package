@@ -31,11 +31,11 @@
         <div>
           <div>
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [(ngModel)]="datum.updated_at" name="updated_at" required placeholder="updated at"
+              <input matInput type="text"   [disabled]="true"  [(ngModel)]="datum.updated_at" name="updated_at" required placeholder="updated at"
                 [title]="datum.updated_at" >
             </mat-form-field>
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
+              <input matInput type="text"  [disabled]="true"  [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
                 [title]="datum.created_at">
             </mat-form-field>
           </div>

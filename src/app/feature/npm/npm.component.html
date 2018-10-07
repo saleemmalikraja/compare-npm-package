@@ -15,13 +15,13 @@
       </mat-form-field>
 
     </form> -->
-    <mat-form-field class="example-chip-list"  style="width: 50%;display:inline">
+    <mat-form-field class="example-chip-list"  style="display:inline">
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)">
           {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
+        <input  placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" 
           [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">

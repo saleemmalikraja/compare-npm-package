@@ -12,11 +12,13 @@ import {
   MatChipsModule,
   MatExpansionModule
 } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     MatFormFieldModule,
+    FlexLayoutModule,
     MatInputModule,
     MatButtonModule,
     MatSelectModule,

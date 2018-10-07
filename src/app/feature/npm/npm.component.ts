@@ -14,7 +14,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
   templateUrl: './npm.component.html',
   styleUrls: ['./npm.component.scss'],
   providers: [AppService],
-  encapsulation:ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 })
 export class NpmComponent implements OnInit, AfterViewInit {
   submitted = false;
@@ -107,8 +107,8 @@ export class NpmComponent implements OnInit, AfterViewInit {
       }
       this.filteredOptions = res[0]['results'];
 
-      res[0]['results'].forEach((val, ind) => {
-        this.alllibs.push(val.package.name);
+      res[0]['results'].forEach((resultant, ind) => {
+        this.alllibs.push(resultant.package.name);
       });
       this.alllibs = Array.from(new Set(this.alllibs));
       console.log(res);
@@ -125,7 +125,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     let sourceObj;
     this.filteredOptions.forEach((val, ind) => {
       if (val.package.name === source) {
-        sourceObj = val
+        sourceObj = val;
       }
     });
     const currentDate = moment();
@@ -153,7 +153,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
         chart: this.chart,
         chartX: this.chartX
       };
-      this.getGithubDetails(sourceObj);
+      if (sourceObj) { this.getGithubDetails(sourceObj); }
     },
       error => {
         console.error('Error saving food!');
