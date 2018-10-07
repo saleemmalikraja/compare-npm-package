@@ -15,7 +15,7 @@ export class NpmGraphComponent implements OnInit, OnChanges {
   constructor(private sharingService: SharingService) { }
 
   ngOnInit() {
-    let data = this.sharingService.getData();
+    const data = this.sharingService.getData();
     if (data && data.npmDatas) {
       this.chartData = data.npmDatas;
     }

@@ -25,6 +25,7 @@ import {
     MatChipsModule,
     MatExpansionModule
   ],
-  declarations: [DumbCardComponent]
+  declarations: [DumbCardComponent],
+  exports: [DumbCardComponent]
 })
 export class DumbCardModule { }

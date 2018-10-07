@@ -18,7 +18,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   chartData;
   chart = [];
   chartX = [];
-  npmDatas
+  npmDatas;
   githubData;
   packageData;
   @ViewChild('searchInput') searchInput: ElementRef;

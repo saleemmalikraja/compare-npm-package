@@ -1,16 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NpmCardComponent } from './npm-card.component';
-import {MatExpansionModule} from '@angular/material/expansion';
+import { DumbCardComponent } from '../../shared/dumb-card/dumb-card.component';
+import { DumbCardModule } from '../../shared/dumb-card/dumb-card.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatExpansionModule
+    DumbCardModule
   ],
-  declarations: [NpmCardComponent],
-  schemas: [
-    CUSTOM_ELEMENTS_SCHEMA
-  ],
+  declarations: [NpmCardComponent]
 })
 export class NpmCardModule { }

@@ -17,7 +17,7 @@ export class NpmCardComponent implements OnInit {
   constructor(private sharingService: SharingService) { }
 
   ngOnInit() {
-    let data = this.sharingService.getData();
+    const data = this.sharingService.getData();
     if (data && data.npmDatas) {
       this.chartData = data.npmDatas;
     }
@@ -26,17 +26,6 @@ export class NpmCardComponent implements OnInit {
     }
     console.log('chartData', this.chartData);
 
-  }
-  setStep(index: number) {
-    this.expandMore = false;
-    this.setStepIndex = index;
-    this.step = index;
-  }
-
-  unsetStep(index: number) {
-    if (this.setStepIndex === index) {
-      this.expandMore = true;
-    }
   }
 
 }

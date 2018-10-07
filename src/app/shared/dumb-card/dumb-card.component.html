@@ -1,14 +1,14 @@
 
-<mat-accordion>
-    <mat-expansion-panel *ngFor="let datum of []; let i = index" [expanded]="step === datum.feedId" (opened)="setStep(datum.feedId)"
-      (closed)="unsetStep(datum.feedId)" hideToggle>
+<mat-accordion *ngIf="cardData">
+    <mat-expansion-panel *ngFor="let datum of cardData; let i = index" [expanded]="step === datum.id" (opened)="setStep(datum.id)"
+    (closed)="unsetStep(datum.id)" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{datum?.providerName}}&nbsp;({{datum?.updatedOn}})
+          {{datum?.name}}&nbsp;({{datum?.git_url}})
         </mat-panel-title>
         <mat-panel-description style="justify-content: flex-end;">
           <mat-chip-list *ngIf="datum.showError">
-            <mat-chip style="margin: 0"><span style="color:red">Failed</span></mat-chip>&nbsp;&nbsp;
+            <mat-chip style="margin: 0"><span style="color:red">{{datum.stargazers_count}}</span></mat-chip>&nbsp;&nbsp;
           </mat-chip-list>
           <mat-icon class="expand-more"  *ngIf="step !== datum.feedId || expandMore">expand_more</mat-icon>
           <mat-icon class="expand-less" *ngIf="step === datum.feedId && !expandMore">expand_less</mat-icon> <!-- /\ -->
@@ -18,12 +18,12 @@
         <div>
           <div>
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [disabled]="true" [title]="datum.downloads" [(ngModel)]="datum.downloads" placeholder="downloads" name="downloads">
+              <input matInput type="text" [disabled]="true" [title]="datum.forks_count" [(ngModel)]="datum.forks_count" placeholder="forks count" name="forks_count">
             </mat-form-field>
   
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [disabled]="true"  placeholder="stars" name="stars"
-                #stars [(ngModel)]="datum.stars">
+              <input matInput type="text" [disabled]="true"  placeholder="open issues count" name="open_issues_count"
+                #openIssues [(ngModel)]="datum.open_issues_count">
             </mat-form-field>
 
           </div>
@@ -31,12 +31,12 @@
         <div>
           <div>
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [(ngModel)]="datum.createdOn" name="createdOn" required [disabled]="datum.providerName.toString().toLowerCase()!=='others'" placeholder="createdOn"
-                [title]="datum.createdOn" >
+              <input matInput type="text" [(ngModel)]="datum.updated_at" name="updated_at" required placeholder="updated at"
+                [title]="datum.updated_at" >
             </mat-form-field>
             <mat-form-field style="width: 80%">
-              <input matInput type="text" [(ngModel)]="datum.updatedOn" placeholder="Feed Name (optional)" name="optionalName"
-                [title]="datum.updatedOn">
+              <input matInput type="text" [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
+                [title]="datum.created_at">
             </mat-form-field>
           </div>
         </div>

@@ -1,18 +1,1 @@
-<mat-accordion>
-  <mat-expansion-panel *ngFor="let datum of githubData; let i = index" [expanded]="step === datum.id" (opened)="setStep(datum.id)"
-    (closed)="unsetStep(datum.id)" hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        {{datum.name}}
-      </mat-panel-title>
-      <mat-panel-description>
-        {{datum.git_url}}
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-    <p>Stars:<span>{{datum.stargazers_count}}</span></p>
-    <p>Forks:<span>{{datum.forks_count}}</span></p>
-    <p>Issues:<span>{{datum.open_issues_count}}</span></p>
-    <p>Updated:<span>{{datum.updated_at}}</span></p>
-    <p>Created:<span>{{datum.created_at}}</span></p>
-  </mat-expansion-panel>
-</mat-accordion>
+<app-dumb-card [cardData]="githubData"></app-dumb-card>
