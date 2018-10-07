@@ -17,9 +17,9 @@ mat-card.filter.mat-card{
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 .app-theme1-theme {
-	$my-app-primary: mat-palette($mat-deep-purple, 200); // setting value to primary
-	$my-app-accent: mat-palette($mat-deep-purple, 300);
-	$my-app-warn: mat-palette($mat-deep-purple, 600);
+	$my-app-primary: mat-palette($mat-pink, 200); // setting value to primary
+	$my-app-accent: mat-palette($mat-pink, 300);
+	$my-app-warn: mat-palette($mat-pink, 600);
 	  // Create the theme object (a preprocessor map containing all of the palettes).
 	$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn); 
 	  // Include theme styles for core and each component used in your app.
@@ -29,9 +29,9 @@ mat-card.filter.mat-card{
   }
   
   .app-theme2-theme {
-	$alternate-primary: mat-palette($mat-pink, 200);
-	$alternate-accent: mat-palette($mat-pink, 400);
-	$alternate-warn: mat-palette($mat-pink, 500);
+	$alternate-primary: mat-palette($mat-deep-purple, 200);
+	$alternate-accent: mat-palette($mat-deep-purple, 300);
+	$alternate-warn: mat-palette($mat-deep-purple, 600);
 	$alternate-theme: mat-light-theme($alternate-primary, $alternate-accent, $alternate-warn);
 	@include angular-material-theme($alternate-theme);
   }
