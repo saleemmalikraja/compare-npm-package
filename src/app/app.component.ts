@@ -1,20 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { ThemeService } from './core/theme.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
-  isThemeDark: Observable<boolean>;
+export class AppComponent {
   title = 'npm compare';
 
-  constructor(private themeService: ThemeService) {}
+  appId = 'theme1';
 
-  ngOnInit() {
-    this.isThemeDark = this.themeService.isThemeDark;
+  switchTheme(appId: string) {
+    this.appId = appId;
   }
 }

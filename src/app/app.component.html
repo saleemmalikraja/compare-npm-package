@@ -1,7 +1,52 @@
-<div [ngClass]="{'dark-theme': isThemeDark | async}">
-    <div class="mat-app-background">
-      <app-dumb-navbar></app-dumb-navbar>
-      <app-npm></app-npm>      
-      <router-outlet></router-outlet>
-    </div>
+  <div class="app-{{appId}}-theme" id="appRootClass">
+    <!-- tool bar - start -->
+    <mat-toolbar color="warn">
+      <mat-toolbar-row>
+        <button mat-icon-button (click)="sidenav.toggle()" fxShow="true" fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span class="ml5">
+        <span style="margin-bottom: 5px;" title="compare package">&nbsp; Compare Package</span>
+        </span>
+        <div style="flex: 1 1 auto;" >
+          <button mat-button [matMenuTriggerFor]="menu" style="float:right">
+            <mat-icon>format_color_fill</mat-icon>Select Theme
+          </button>
+          <mat-menu #menu="matMenu">
+            <button value='theme1' mat-menu-item (click)="switchTheme('theme1')">Theme 1</button>
+            <button value='theme2' mat-menu-item (click)="switchTheme('theme2')">Theme 2</button>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <!-- tool bar - end -->
+  
+  
+    <mat-sidenav-container fxFlexFill>
+      <!-- side nav  - start -->
+      <mat-sidenav #sidenav>
+        <mat-nav-list>
+            <div>
+                <button mat-button [matMenuTriggerFor]="menu">
+                  Select Theme
+                </button>
+                <mat-menu #menu="matMenu">
+                  <button value='theme1' mat-menu-item (click)="switchTheme('theme1')">Theme 1</button>
+                  <button value='theme2' mat-menu-item (click)="switchTheme('theme2')">Theme 2</button>
+                </mat-menu>
+              </div>
+          <a (click)="sidenav.toggle()" mat-list-item>
+            <mat-icon>close</mat-icon> Close
+          </a>
+        </mat-nav-list>
+      </mat-sidenav>
+      <mat-sidenav-content fxFlexFill>
+        <div class="mat-app-background"><!-- 
+          <app-dumb-navbar></app-dumb-navbar> -->
+          <app-npm></app-npm>      
+          <router-outlet></router-outlet>
+        </div>
+      </mat-sidenav-content>
+      <!-- side nav  - ends -->
+    </mat-sidenav-container>
   </div>
