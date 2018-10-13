@@ -3,7 +3,7 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   apiUrlForNpm: ' https://api.npmjs.org/',
   apiUrlForGit: 'https://api.github.com/repos',
   apiUrlForSearch: 'https://api.npms.io/v2/search?q='
