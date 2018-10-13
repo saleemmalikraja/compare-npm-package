@@ -5,11 +5,23 @@
       "name": "app",
       "installMode": "prefetch",
       "resources": {
+        "urls": [
+          "https://fonts.googleapis.com/**",
+          "https://fonts.gstatic.com/**",
+          "https://api.npmjs.org/**",
+          "https://api.github.com/repos/**"
+        ],
         "files": [
           "/favicon.ico",
-          "/index.html",
-          "/*.css",
-          "/*.js"
+          "/index.html", 
+          "/*.css", 
+          "/*.js",
+          "/*.*.css",
+          "/*.*.js",
+          "/*.chunk.js",
+          "/*.*.woff",
+          "/*.*.woff2",
+          "/*.*.ttf"
         ]
       }
     }, {
@@ -20,6 +32,18 @@
         "files": [
           "/assets/**"
         ]
+      }
+    }
+  ],
+  "dataGroups": [
+    {
+      "name": "app-api",
+      "urls": ["/v2","/api","/i18n"],
+      "cacheConfig": {
+        "strategy": "freshness",
+        "maxSize": 50,
+        "maxAge": "1h",
+        "timeout": "10s"
       }
     }
   ]
