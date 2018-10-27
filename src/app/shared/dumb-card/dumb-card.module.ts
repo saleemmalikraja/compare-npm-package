@@ -12,6 +12,7 @@ import {
   MatChipsModule,
   MatExpansionModule
 } from '@angular/material';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatCardModule,
     MatIconModule,
     MatChipsModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule
   ],
   declarations: [DumbCardComponent],
   exports: [DumbCardComponent]

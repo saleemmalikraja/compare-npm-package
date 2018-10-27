@@ -13,6 +13,10 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
   chartData = null;
   chart: Chart;
   githubData;
+  color = 'primary';
+  mode = 'indeterminate';
+  value = 50;
+  showSpinner = false;
   constructor(private sharingService: SharingService) { }
 
   ngAfterViewInit() {
