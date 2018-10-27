@@ -1,29 +1,31 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges, AfterViewInit } from '@angular/core';
 import { Chart } from 'angular-highcharts';
 import { SharingService } from '../../core/data.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-npm-graph',
   templateUrl: './npm-graph.component.html',
   styleUrls: ['./npm-graph.component.css']
 })
-export class NpmGraphComponent implements OnInit, OnChanges {
+export class NpmGraphComponent implements OnChanges, AfterViewInit {
   @Input() chat: any;
-  chartData;
+  chartData = null;
   chart: Chart;
   githubData;
   constructor(private sharingService: SharingService) { }
 
-  ngOnInit() {
-    const data = this.sharingService.getData();
-    if (data && data.npmDatas) {
-      this.chartData = data.npmDatas;
-    }
-    if (data && data.githubData) {
-      this.githubData = data.githubData;
-    }
-    console.log('chartData', this.chartData);
-    this.init();
+  ngAfterViewInit() {
+    this.sharingService.getData().pipe(delay(0)).subscribe((data: any) => {
+      if (data && data.npmDatas) {
+        this.chartData = data.npmDatas;
+      }
+      if (data && data.githubData) {
+        this.githubData = data.githubData;
+      }
+      console.log('chartData', this.chartData);
+      this.init();
+    });
   }
   ngOnChanges() {
     console.log('chartData', this.chartData);

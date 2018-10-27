@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class SharingService {
-    private data: any = undefined;
-
+    private subject = new Subject<any>();
     setData(data: any) {
-        this.data = data;
+        this.subject.next(data);
     }
 
-    getData(): any {
-        return this.data;
+    getData(): Observable<any> {
+        return this.subject.asObservable();
     }
 }

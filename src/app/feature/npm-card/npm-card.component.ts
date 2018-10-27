@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,  AfterViewInit } from '@angular/core';
 import { SharingService } from '../../core/data.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-npm-card',
   templateUrl: './npm-card.component.html',
   styleUrls: ['./npm-card.component.css']
 })
-export class NpmCardComponent implements OnInit {
+export class NpmCardComponent implements AfterViewInit {
 
   chartData;
   githubData;
@@ -16,16 +17,17 @@ export class NpmCardComponent implements OnInit {
 
   constructor(private sharingService: SharingService) { }
 
-  ngOnInit() {
-    const data = this.sharingService.getData();
-    if (data && data.npmDatas) {
-      this.chartData = data.npmDatas;
-    }
-    if (data && data.githubData) {
-      this.githubData = data.githubData;
-    }
-    console.log('chartData', this.chartData);
+  ngAfterViewInit() {
+    this.sharingService.getData().pipe(delay(0)).subscribe((data: any) => {
+      if (data && data.npmDatas) {
+        this.chartData = data.npmDatas;
+      }
+      if (data && data.githubData) {
+        this.githubData = data.githubData;
+      }
+      console.log('chartData', this.chartData);
 
+    });
   }
 
 }

@@ -30,7 +30,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   selectable = true;
   removable = true;
   addOnBlur = false;
-  separatorKeysCodes: number[] = [ENTER, COMMA];
+  separatorKeyCodes: number[] = [ENTER, COMMA];
   formCtrl = new FormControl();
   filteredLibs: Observable<string[]>;
   libs: string[] = [];
@@ -60,7 +60,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   remove(libs: string): void {
     const index = this.libs.indexOf(libs);
 
-    if (index >= 0) {
+    if (index >= 0 && this.packageData) {
       this.libs.splice(index, 1);
       this.packageData.githubData.splice(index, 1);
       this.packageData.npmDatas.chart.splice(index, 1);
