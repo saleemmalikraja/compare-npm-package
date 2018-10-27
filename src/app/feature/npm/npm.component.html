@@ -23,9 +23,9 @@
           {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
-        <input placeholder="Package Name" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
+        <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)">
+          (matChipInputTokenEnd)="add($event)"><mat-icon>search</mat-icon>
 
         <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
       </mat-chip-list>
