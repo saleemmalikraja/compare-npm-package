@@ -1,45 +1,43 @@
-
 <mat-accordion *ngIf="cardData">
-    <mat-expansion-panel *ngFor="let datum of cardData; let i = index" [expanded]="step === datum.id" (opened)="setStep(datum.id)"
+  <mat-expansion-panel *ngFor="let datum of cardData; let i = index" [expanded]="step === datum.id" (opened)="setStep(datum.id)"
     (closed)="unsetStep(datum.id)" hideToggle>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          {{datum?.name}}&nbsp;(<a href="{{datum?.git_url.replace('git:', 'https://')}}" target="_blank" rel="noopener">{{datum?.git_url}}</a>)
-        </mat-panel-title>
-        <mat-panel-description style="justify-content: flex-end;">
-          <mat-chip-list>
-            <mat-chip style="margin: 0"><span style="color:red">{{datum.stargazers_count}}</span><mat-icon class="example-tab-icon">star</mat-icon></mat-chip>&nbsp;&nbsp;
-          </mat-chip-list>
-          <mat-icon class="expand-more"  *ngIf="step !== datum.id || expandMore">expand_more</mat-icon>
-          <mat-icon class="expand-less" *ngIf="step === datum.id && !expandMore">expand_less</mat-icon> <!-- /\ -->
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-      <div  class="container"  fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between stretch" style="margin-top: 5px;">
-        <div>
-          <div>
-            <mat-form-field style="width: 100%">
-              <input matInput type="text" [disabled]="true" [title]="datum.forks_count" [(ngModel)]="datum.forks_count" placeholder="forks count" name="forks_count">
-            </mat-form-field>
-  
-            <mat-form-field style="width: 100%">
-              <input matInput type="text" [disabled]="true"  placeholder="open issues count" name="open_issues_count"
-                #openIssues [(ngModel)]="datum.open_issues_count">
-            </mat-form-field>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{datum?.name}}&nbsp;(<a href="{{datum?.git_url.replace('git:', 'https://')}}" target="_blank" rel="noopener">{{datum?.git_url}}</a>)
+      </mat-panel-title>
+      <mat-panel-description style="justify-content: flex-end;">
+        <mat-chip-list>
+          <mat-chip style="margin: 0"><span style="color:red">{{datum.stargazers_count}}</span>
+            <mat-icon class="example-tab-icon">star</mat-icon>
+          </mat-chip>&nbsp;&nbsp;
+        </mat-chip-list>
+        <mat-icon class="expand-more" *ngIf="step !== datum.id || expandMore">expand_more</mat-icon>
+        <mat-icon class="expand-less" *ngIf="step === datum.id && !expandMore">expand_less</mat-icon> <!-- /\ -->
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div class="container" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" style="margin-top: 5px;">
 
-          </div>
-        </div>
-        <div>
-          <div>
-            <mat-form-field style="width: 100%">
-              <input matInput type="text"   [disabled]="true"  [(ngModel)]="datum.updated_at" name="updated_at" required placeholder="updated at"
-                [title]="datum.updated_at" >
-            </mat-form-field>
-            <mat-form-field style="width: 100%">
-              <input matInput type="text"  [disabled]="true"  [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
-                [title]="datum.created_at">
-            </mat-form-field>
-          </div>
-        </div>
+      <div>
+        <mat-form-field>
+          <input matInput type="text" [disabled]="true" [title]="datum.forks_count" [(ngModel)]="datum.forks_count"
+            placeholder="forks count" name="forks_count">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" [disabled]="true" placeholder="open issues count" name="open_issues_count"
+            #openIssues [(ngModel)]="datum.open_issues_count">
+        </mat-form-field>
+        
+        <mat-form-field>
+          <input matInput type="text" [disabled]="true" [(ngModel)]="datum.updated_at" name="updated_at" required
+            placeholder="updated at" [title]="datum.updated_at">
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="text" [disabled]="true" [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
+            [title]="datum.created_at">
+        </mat-form-field>
       </div>
-    </mat-expansion-panel>
-  </mat-accordion>
+
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
