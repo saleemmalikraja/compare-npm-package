@@ -183,7 +183,10 @@ export class NpmComponent implements OnInit, AfterViewInit {
   }
   getGithubDetails(data) {
     const link = data.package.links.repository;
-    const author = link.split('.com')[1].replace('.git', '');
+    let author;
+    if (link) {
+      author = link.split('.com')[1].replace('.git', '');
+    }
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForGit',
