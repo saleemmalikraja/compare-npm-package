@@ -121,11 +121,16 @@ export class NpmComponent implements OnInit, AfterViewInit {
       this.alllibs = Array.from(new Set(this.alllibs));
       const userInput = this.formCtrl.value;
       this.filteredLibs = [];
-      this.alllibs.forEach((value, index) => {
-        if (value.includes(userInput.trim())) {
-          this.filteredLibs.push(value);
-        }
-      });
+      if (this.alllibs.length) {
+        this.alllibs.forEach((value, index) => {
+          if (value.includes(userInput.trim())) {
+            this.filteredLibs.push(value);
+          }
+        });
+      }
+      if (!this.filteredLibs.length) {
+        this.filteredLibs.push('0 Result');
+      }
       console.log(res);
 
     },
