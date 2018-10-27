@@ -24,7 +24,7 @@ export class NpmTabComponent implements OnInit, OnChanges, AfterViewInit {
   ngOnChanges() {
     console.log('graph-tab', this.packageData);
     this.sharingService.setData(this.packageData);
-    this.router.navigate(['/graphMode']);
+   // this.router.navigate(['/graphMode']);
   }
   ngAfterViewInit() {
     //  this.router.navigate(['/graphMode']);

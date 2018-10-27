@@ -45,7 +45,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     const input = event.input;
     const value = event.value;
 
-    if ((value || '').trim()) {
+    if ((value || '').trim() && !(value === '0 Result')) {
       this.libs.push(value.trim());
     }
 
@@ -74,7 +74,8 @@ export class NpmComponent implements OnInit, AfterViewInit {
     this.sharingService.setData(this.packageData);
   }
   selected(event: MatAutocompleteSelectedEvent): void {
-    this.libs.push(event.option.value);
+    const selectedValue = event.option.value;
+    if (!(selectedValue === '0 Result')) { this.libs.push(selectedValue); }
     this.getnewSources(event.option.viewValue);
     this.libsInput.nativeElement.value = '';
     // this.formCtrl.setValue(null);

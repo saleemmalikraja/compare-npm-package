@@ -17,10 +17,14 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
   mode = 'indeterminate';
   value = 50;
   showSpinner = false;
+  colors = ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
+    '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'];
   constructor(private sharingService: SharingService) { }
 
   ngAfterViewInit() {
+    this.showSpinner = true;
     this.sharingService.getData().pipe(delay(0)).subscribe((data: any) => {
+      this.showSpinner = false;
       if (data && data.npmDatas) {
         this.chartData = data.npmDatas;
       }
@@ -28,13 +32,15 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
         this.githubData = data.githubData;
       }
       console.log('chartData', this.chartData);
-      this.init();
+      console.log(Math.floor(Math.random() * this.colors.length) + '*****************************');
+      this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
+    }, (error) => {
+      this.showSpinner = false;
     });
   }
   ngOnChanges() {
     console.log('chartData', this.chartData);
-
-    this.init();
+    this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
   }
   addPoint() {
     if (this.chart) {
@@ -69,7 +75,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
     this.chart.removeSerie(this.chart.ref.series.length - 1);
   }
 
-  init() {
+  init(color) {
     const chart = new Chart({
       xAxis: {
         categories: this.chartData ? this.chartData.chartX : []
@@ -89,8 +95,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
         plotBorderWidth: 1,
         plotBorderColor: 'rgba(200, 200, 200, .9)'
       },
-      colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336' , '#424242',
-    '#F57C00' , '#311b92' , '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
+      colors: [color],
       title: {
         text: 'NPM COMPARE'
       },
