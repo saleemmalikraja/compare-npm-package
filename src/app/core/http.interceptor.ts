@@ -55,7 +55,7 @@ export class PackageCompareInterceptor implements HttpInterceptor {
             this.showLoading = true;
             const node = document.createElement('compare-spinner');
             node.className = 'loading';
-            document.body.appendChild(node);
+            document.body.querySelector('app-npm-tab').appendChild(node);
         }
         this.showLoading = true;
     }
