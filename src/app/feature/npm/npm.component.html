@@ -18,8 +18,8 @@
     </form> -->
     <mat-form-field class="example-chip-list" style="display:inline">
       <mat-chip-list #chipList>
-        <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)" 
-        [selected]="true" [color]="'primary'">
+        <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)"
+          [selected]="true" [color]="'primary'">
           {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
@@ -27,12 +27,10 @@
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
 
-        <mat-icon (click)="clearAll()" *ngIf="libs.length" style="
-        cursor: pointer;
-    ">cancel</mat-icon>
+        <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">
-        <mat-option *ngFor="let lib of filteredLibs | async" [value]="lib">
+        <mat-option *ngFor="let lib of filteredLibs" [value]="lib">
           {{lib}}
         </mat-option>
       </mat-autocomplete>

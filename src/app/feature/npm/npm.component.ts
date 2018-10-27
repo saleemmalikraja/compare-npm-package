@@ -32,14 +32,14 @@ export class NpmComponent implements OnInit, AfterViewInit {
   addOnBlur = false;
   separatorKeyCodes: number[] = [ENTER, COMMA];
   formCtrl = new FormControl();
-  filteredLibs: Observable<string[]>;
+  filteredLibs: string[] = [];
   libs: string[] = [];
   alllibs: string[] = [];
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
   constructor(private sharingService: SharingService, private appService: AppService, private formBuilder: FormBuilder) {
-    this.filteredLibs = this.formCtrl.valueChanges.pipe(
-      startWith(null),
-      map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice()));
+    /*   this.filteredLibs = this.formCtrl.valueChanges.pipe(
+        startWith(null),
+        map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice())); */
   }
   add(event: MatChipInputEvent): void {
     const input = event.input;
@@ -109,16 +109,23 @@ export class NpmComponent implements OnInit, AfterViewInit {
       apiUrl: 'apiUrlForSearch',
       endPoint: val
     };
-    this.appService.apiRequest(config).pipe(switchAll()).subscribe((res) => {
+    this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
       if (!res) {
         return;
       }
       this.filteredOptions = res['results'];
 
-      res['results'].forEach((resultant, ind) => {
+      res.results.forEach((resultant, ind) => {
         this.alllibs.push(resultant.package.name);
       });
       this.alllibs = Array.from(new Set(this.alllibs));
+      const userInput = this.formCtrl.value;
+      this.filteredLibs = [];
+      this.alllibs.forEach((value, index) => {
+        if (value.includes(userInput.trim())) {
+          this.filteredLibs.push(value);
+        }
+      });
       console.log(res);
 
     },
