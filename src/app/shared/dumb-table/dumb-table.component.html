@@ -6,26 +6,33 @@
     <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
   </ng-container>
 
-  <!-- Weight Column -->
+  <!-- Stars Column -->
   <ng-container matColumnDef="stargazers_count">
     <mat-header-cell *matHeaderCellDef> Stars </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.stargazers_count}} </mat-cell>
   </ng-container>
 
-  <!-- Symbol Column -->
+  <!-- Forks Column -->
   <ng-container matColumnDef="forks">
     <mat-header-cell *matHeaderCellDef> Forks </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.forks}} </mat-cell>
   </ng-container>
-  <!-- Symbol Column -->
+  <!-- Update Column -->
   <ng-container matColumnDef="updated_at">
     <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.updated_at}} </mat-cell>
   </ng-container>
-  <!-- Symbol Column -->
+  <!-- Created Column -->
   <ng-container matColumnDef="created_at">
     <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
     <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
+  </ng-container>
+
+
+  <!-- Watch Column -->
+  <ng-container matColumnDef="subscribers_count">
+    <mat-header-cell *matHeaderCellDef> Watch </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.subscribers_count}} </mat-cell>
   </ng-container>
 
   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

@@ -10,10 +10,10 @@ import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 @Component({
   selector: 'app-dumb-table',
   templateUrl: './dumb-table.component.html',
-  styleUrls: ['./dumb-table.component.css']
+  styleUrls: ['./dumb-table.component.scss']
 })
 export class DumbTableComponent implements OnChanges {
-  displayedColumns: string[] = ['name', 'forks', 'stargazers_count', 'updated_at', 'created_at'];
+  displayedColumns: string[] = ['name', 'forks', 'stargazers_count', 'updated_at', 'created_at', 'subscribers_count'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
   dataSource = [];
   chartData;

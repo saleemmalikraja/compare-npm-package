@@ -1,9 +1,9 @@
-<mat-accordion *ngIf="cardData">
+<mat-accordion *ngIf="cardData" class="{{theme}}">
   <mat-expansion-panel *ngFor="let datum of cardData; let i = index" [expanded]="step === datum.id" (opened)="setStep(datum.id)"
     (closed)="unsetStep(datum.id)" hideToggle>
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{datum?.name}}&nbsp;(<a href="{{datum?.git_url.replace('git:', 'https://')}}" target="_blank" rel="noopener">{{datum?.git_url}}</a>)
+        {{datum?.name}}&nbsp;( <mat-icon>link</mat-icon> &nbsp; - &nbsp; <a href="{{datum?.git_url.replace('git:', 'https://')}}" target="_blank" rel="noopener">{{datum?.git_url}}</a>)
       </mat-panel-title>
       <mat-panel-description style="justify-content: flex-end;">
         <mat-chip-list>
@@ -35,6 +35,11 @@
         <mat-form-field>
           <input matInput type="text" [disabled]="true" [(ngModel)]="datum.created_at" placeholder="Created at" name="created_at"
             [title]="datum.created_at">
+        </mat-form-field>
+
+        <mat-form-field>
+          <input matInput type="text" [disabled]="true" [(ngModel)]="datum.subscribers_count" placeholder="Created at" name="watch"
+            [title]="datum.subscribers_count">
         </mat-form-field>
       </div>
 

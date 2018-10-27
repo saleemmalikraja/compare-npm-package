@@ -8,7 +8,7 @@ import { NpmGraphComponent } from '../npm-graph/npm-graph.component';
 @Component({
   selector: 'app-npm-tab',
   templateUrl: './npm-tab.component.html',
-  styleUrls: ['./npm-tab.component.css']
+  styleUrls: ['./npm-tab.component.scss']
 })
 export class NpmTabComponent implements OnInit, OnChanges, AfterViewInit {
   @Input() packageData: any;

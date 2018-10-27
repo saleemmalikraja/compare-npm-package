@@ -6,7 +6,7 @@ import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-npm-graph',
   templateUrl: './npm-graph.component.html',
-  styleUrls: ['./npm-graph.component.css']
+  styleUrls: ['./npm-graph.component.scss']
 })
 export class NpmGraphComponent implements OnChanges, AfterViewInit {
   @Input() chat: any;

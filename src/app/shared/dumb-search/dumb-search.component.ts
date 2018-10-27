@@ -5,7 +5,7 @@ import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
 @Component({
   selector: 'app-dumb-search',
   templateUrl: './dumb-search.component.html',
-  styleUrls: ['./dumb-search.component.css']
+  styleUrls: ['./dumb-search.component.scss']
 })
 export class DumbSearchComponent implements OnInit {
 

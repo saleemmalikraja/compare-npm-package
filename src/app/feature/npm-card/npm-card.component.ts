@@ -5,7 +5,7 @@ import { delay } from 'rxjs/operators';
 @Component({
   selector: 'app-npm-card',
   templateUrl: './npm-card.component.html',
-  styleUrls: ['./npm-card.component.css']
+  styleUrls: ['./npm-card.component.scss']
 })
 export class NpmCardComponent implements AfterViewInit {
 
