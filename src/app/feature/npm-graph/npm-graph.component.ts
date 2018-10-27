@@ -95,7 +95,8 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
         plotBorderWidth: 1,
         plotBorderColor: 'rgba(200, 200, 200, .9)'
       },
-      colors: [color],
+      colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
+      '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'], 
       title: {
         text: 'NPM COMPARE'
       },
