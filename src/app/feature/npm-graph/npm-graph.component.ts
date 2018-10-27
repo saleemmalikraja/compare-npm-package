@@ -31,8 +31,6 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       if (data && data.githubData) {
         this.githubData = data.githubData;
       }
-      console.log('chartData', this.chartData);
-      console.log(Math.floor(Math.random() * this.colors.length) + '*****************************');
       this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
     }, (error) => {
       this.showSpinner = false;
@@ -78,7 +76,17 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
   init(color) {
     const chart = new Chart({
       xAxis: {
-        categories: this.chartData ? this.chartData.chartX : []
+        categories: this.chartData ? this.chartData.chartX : [],
+        title: {
+          text: 'Downloaded Date',
+          style: { color: 'black' }
+        }
+      },
+      yAxis: {
+        title: {
+          text: 'Downloads Count',
+          style: { color: 'black' }
+        }
       },
       chart: {
         type: 'line',
@@ -96,7 +104,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
         plotBorderColor: 'rgba(200, 200, 200, .9)'
       },
       colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
-      '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'], 
+        '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
       title: {
         text: 'NPM COMPARE'
       },
