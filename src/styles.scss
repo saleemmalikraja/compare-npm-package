@@ -5,12 +5,16 @@
 body,
 html {
 	margin: 0 auto;
-	height: 100% !important;
+	height: 100%;
 	font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
 mat-card.filter.mat-card{
  padding: 5px;
+}
+
+.h100per, #appRootClass{
+	height: 100% !important;
 }
 
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
