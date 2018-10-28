@@ -1,11 +1,21 @@
-
 .filter {
   margin-bottom: 5px;
   padding: 5px;
 }
-.example-full-width, .mat-form-field-wrapper{
+
+.example-full-width,
+.mat-form-field-wrapper {
   width: 50%;
 }
-.mat-form-field-infix{
+
+.mat-form-field-infix {
   display: inline !important;
+}
+
+@media only screen and (max-width: 1024px) {
+
+  .example-full-width,
+  .mat-form-field-wrapper {
+    width: 100%;
+  }
 }

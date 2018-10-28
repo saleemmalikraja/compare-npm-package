@@ -25,8 +25,8 @@
         </mat-chip>
         <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)"><mat-icon>search</mat-icon>
-
+          (matChipInputTokenEnd)="add($event)">
+        <mat-icon>search</mat-icon>
         <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">

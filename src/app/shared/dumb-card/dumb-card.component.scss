@@ -15,11 +15,12 @@ mat-expansion-panel-header {
 }
 
 } */
-mat-expansion-panel{
+mat-expansion-panel {
   border: solid 1px grey;
 }
 
-.mat-expansion-panel-header:not([aria-expanded=false]), mat-expansion-panel-header {
+.mat-expansion-panel-header:not([aria-expanded=false]),
+mat-expansion-panel-header {
   background-color: #e9e9e9 !important;
 
 }
@@ -37,4 +38,16 @@ mat-expansion-panel{
 .expand-less {
   background-color: #646464;
   border-radius: 20px;
+}
+
+@media only screen and (max-width: 425px) {
+  mat-panel-title {
+    width: 45%;
+  }
+
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
 }

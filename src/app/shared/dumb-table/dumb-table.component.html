@@ -24,8 +24,8 @@
   </ng-container>
   <!-- Created Column -->
   <ng-container matColumnDef="created_at">
-    <mat-header-cell *matHeaderCellDef> Created </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.created_at}} </mat-cell>
+    <mat-header-cell *matHeaderCellDef fxHide.lt-md> Created </mat-header-cell>
+    <mat-cell *matCellDef="let element" fxHide.lt-md> {{element.created_at}} </mat-cell>
   </ng-container>
 
 
