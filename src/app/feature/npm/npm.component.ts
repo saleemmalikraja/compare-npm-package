@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { map, startWith, distinct } from 'rxjs/operators';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { SharingService } from '../../core/data.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-npm',
@@ -36,7 +37,17 @@ export class NpmComponent implements OnInit, AfterViewInit {
   libs: string[] = [];
   alllibs: string[] = [];
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
-  constructor(private sharingService: SharingService, private appService: AppService, private formBuilder: FormBuilder) {
+  constructor(private sharingService: SharingService, private appService:
+    AppService, private formBuilder: FormBuilder, meta: Meta, title: Title) {
+    // Sets the <title></title>
+    title.setTitle('Compare Node Package');
+
+    // Sets the <meta> tag for the page
+    meta.addTags([
+      { name: 'author', content: 'Saleem & Arumugam' },
+      { name: 'description', content: 'compare node package.' },
+      { name: 'google-site-verification', content: 'nfIyuMqGaDSa7y2CV0g-Z0UGbwrLIb8zjTqHtWrjFvY' }
+    ]);
     /*   this.filteredLibs = this.formCtrl.valueChanges.pipe(
         startWith(null),
         map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice())); */
