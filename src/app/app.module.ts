@@ -19,7 +19,6 @@ import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 import { NpmComponent } from './feature/npm/npm.component';
-import { MatIconModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -36,7 +35,6 @@ import { MatIconModule } from '@angular/material';
     NpmGraphModule,
     DumbNavbarModule,
     NpmTabModule,
-    MatIconModule,
     MatTabsModule,
     HttpClientModule,
     DumbSearchModule,
