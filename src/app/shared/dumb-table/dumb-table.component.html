@@ -20,12 +20,12 @@
   <!-- Update Column -->
   <ng-container matColumnDef="updated_at">
     <mat-header-cell *matHeaderCellDef> Updated </mat-header-cell>
-    <mat-cell *matCellDef="let element"> {{element.updated_at}} </mat-cell>
+    <mat-cell *matCellDef="let element"> {{element?.updated_at | date}} </mat-cell>
   </ng-container>
   <!-- Created Column -->
   <ng-container matColumnDef="created_at">
     <mat-header-cell *matHeaderCellDef fxHide.lt-md> Created </mat-header-cell>
-    <mat-cell *matCellDef="let element" fxHide.lt-md> {{element.created_at}} </mat-cell>
+    <mat-cell *matCellDef="let element" fxHide.lt-md> {{element?.created_at | date}} </mat-cell>
   </ng-container>
 
 

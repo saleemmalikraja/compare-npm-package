@@ -7,7 +7,7 @@ import { Meta, Title } from '@angular/platform-browser';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'npm compare';
+  title = 'Compare Node Package';
 
   appId = 'theme1';
   constructor(meta: Meta, title: Title) {

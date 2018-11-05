@@ -2,7 +2,9 @@
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
       <span [routerLink]="['/graphMode']" data-toggle="tab" title="graph mode">
-        <mat-icon class="example-tab-icon">graphic_eq</mat-icon>
+        <mat-icon class="example-tab-icon">
+          <h3 style="margin: 0">graphic_eq</h3>
+        </mat-icon>
         Graph View
       </span>
     </ng-template>
@@ -11,7 +13,9 @@
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
       <span [routerLink]="['/tableMode']" data-toggle="tab" title="table mode">
-        <mat-icon class="example-tab-icon">table_chart</mat-icon>
+        <mat-icon class="example-tab-icon">
+          <h3 style="margin: 0">table_chart</h3>
+        </mat-icon>
         Table View
       </span>
     </ng-template>
@@ -19,7 +23,9 @@
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
       <span [routerLink]="['/cardMode']" data-toggle="tab" title="card mode">
-        <mat-icon class="example-tab-icon">credit_card</mat-icon>
+        <mat-icon class="example-tab-icon">
+          <h3 style="margin: 0">credit_card</h3>
+        </mat-icon>
         Card View
       </span>
     </ng-template>

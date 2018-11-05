@@ -106,7 +106,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
         '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
       title: {
-        text: 'NPM COMPARE'
+        text: 'COMPARE NODE PACKAGE'
       },
       credits: {
         enabled: false
