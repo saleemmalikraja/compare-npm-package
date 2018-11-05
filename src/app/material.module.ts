@@ -6,23 +6,17 @@ import {
   MatToolbarModule,
   MatIconModule,
   MatCardModule,
-  MatGridListModule,
   MatSidenavModule,
-  MatSortModule,
-  MatTableModule,
   MatInputModule,
   MatSelectModule,
   MatSliderModule,
-  MatRadioModule,
   MatListModule,
   MatProgressSpinnerModule,
   MatChipsModule,
   MatTooltipModule,
   MatExpansionModule,
-  MatDialogModule,
   MatAutocompleteModule,
-  MatTabsModule,
-  MatSlideToggleModule
+  MatTabsModule
 
 } from '@angular/material';
 
@@ -33,23 +27,17 @@ import {
     MatToolbarModule,
     MatIconModule,
     MatCardModule,
-    MatGridListModule,
     MatSidenavModule,
-    MatSortModule,
-    MatTableModule,
     MatInputModule,
     MatSelectModule,
     MatSliderModule,
-    MatRadioModule,
     MatListModule,
     MatProgressSpinnerModule,
     MatChipsModule,
     MatTooltipModule,
     MatExpansionModule,
-    MatDialogModule,
     MatAutocompleteModule,
-    MatTabsModule,
-    MatSlideToggleModule
+    MatTabsModule
 
   ],
   exports: [
