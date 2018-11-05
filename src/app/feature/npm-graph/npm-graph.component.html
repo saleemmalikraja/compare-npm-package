@@ -1,5 +1,5 @@
-<div *ngIf="chartData" [chart]="chart"></div>
-<div *ngIf="!chartData"> No Data Found</div>
+<div *ngIf="chartData && chartData?.chart.length" [chart]="chart"></div>
+<div *ngIf="!(chartData?.chart?.length)"> No Data Found</div>
 <!-- <mat-progress-spinner *ngIf="showSpinner"
 class="example-margin"
 [color]="color"
