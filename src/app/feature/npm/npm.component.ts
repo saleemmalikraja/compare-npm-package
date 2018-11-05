@@ -45,7 +45,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     // Sets the <meta> tag for the page
     meta.addTags([
       { name: 'author', content: 'Saleem & Arumugam' },
-      { name: 'description', content: 'compare node package.' },
+      { name: 'description', content: 'compare node package - An easiest way to find best node package among packages.'},
       { name: 'google-site-verification', content: 'nfIyuMqGaDSa7y2CV0g-Z0UGbwrLIb8zjTqHtWrjFvY' }
     ]);
     /*   this.filteredLibs = this.formCtrl.valueChanges.pipe(
