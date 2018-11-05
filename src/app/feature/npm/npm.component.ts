@@ -80,9 +80,17 @@ export class NpmComponent implements OnInit, AfterViewInit {
     }
   }
   clearAll() {
-    this.libs = [];
-    this.packageData = null;
-    this.sharingService.setData(this.packageData);
+    this.npmDatas = {};
+    this.chartData = {};
+    const libsClone = Array.from(this.libs);
+    if (libsClone.length) {
+      libsClone.forEach(removeLib => {
+        this.remove(removeLib);
+        console.log(libsClone);
+      });
+      this.packageData = null;
+      this.sharingService.setData(this.packageData);
+    }
   }
   selected(event: MatAutocompleteSelectedEvent): void {
     const selectedValue = event.option.value;
@@ -97,6 +105,9 @@ export class NpmComponent implements OnInit, AfterViewInit {
     return this.alllibs.filter(libs => libs.toLowerCase().includes(filterValue));
   }
   ngOnInit() {
+    const initialRequest = `not:deprecated,insecure,unstable&size=5`;
+    const pqmEnabled = true;
+    this.filterSource(initialRequest, pqmEnabled);
   }
 
   ngAfterViewInit() {
@@ -107,7 +118,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     });
   }
 
-  filterSource(val) {
+  filterSource(val, pqmEnabled?) {
     this.submitted = true;
     // stop here if form is invalid
     if (this.formCtrl.invalid) {
@@ -119,7 +130,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForSearch',
-      endPoint: val
+      endPoint: val.toLowerCase()
     };
     this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
       if (!res) {
@@ -131,17 +142,26 @@ export class NpmComponent implements OnInit, AfterViewInit {
         this.alllibs.push(resultant.package.name);
       });
       this.alllibs = Array.from(new Set(this.alllibs));
-      const userInput = this.formCtrl.value;
+      const userInput = this.formCtrl.value || '';
       this.filteredLibs = [];
       if (this.alllibs.length) {
         this.alllibs.forEach((value, index) => {
-          if (value.includes(userInput.trim())) {
+          if (value.toLowerCase().includes(userInput.trim().toLowerCase())) {
             this.filteredLibs.push(value);
           }
         });
       }
       if (!this.filteredLibs.length) {
         this.filteredLibs.push('0 Result');
+      }
+      if (pqmEnabled && this.filteredLibs.length) {
+        this.filteredLibs.forEach(eachLibName => {
+          const event: any = {};
+          event.option = {};
+          event.option.value = eachLibName;
+          event.option.viewValue = eachLibName;
+          this.selected(event);
+        });
       }
       console.log(res);
 
