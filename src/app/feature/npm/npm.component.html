@@ -1,5 +1,4 @@
-<div class="container margin-top" fxLayout="wrap row" fxLayout.xs="column" fxLayoutGap="1%" fxLayoutAlign="center"
-  style="margin-top: 5px;">
+<div class="container margin-top" style="margin-top: 5px;">
   <mat-card class="filter">
     <mat-form-field class="example-chip-list" style="display:inline">
       <mat-chip-list #chipList>
@@ -11,7 +10,7 @@
         <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
           [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
-        <mat-icon>search</mat-icon>
+        <!-- Hiding as of now to fix responsiveness --><!-- <mat-icon>search</mat-icon> -->
         <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
       </mat-chip-list>
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">

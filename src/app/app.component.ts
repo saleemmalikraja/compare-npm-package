@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { VERSION } from 'src/environments/version';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +9,10 @@ import { Meta, Title } from '@angular/platform-browser';
 })
 export class AppComponent {
   title = 'Compare Node Package';
-
+  version = '0.0.0';
   appId = 'theme1';
   constructor(meta: Meta, title: Title) {
+    this.version = VERSION.tag;
     // Sets the <title></title>
     title.setTitle('Compare Node Package');
 

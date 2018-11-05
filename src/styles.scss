@@ -1,23 +1,24 @@
 @import '~@angular/material/_theming.scss';
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @include mat-core();
+
 body,
 html {
-	margin: 0 auto;
-	height: 100%;
-	font-family: Roboto, "Helvetica Neue", sans-serif;
+  margin: 0 auto;
+  height: 100%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-mat-card.filter.mat-card{
- padding: 5px;
+mat-card.filter.mat-card {
+  padding: 5px;
 }
 
-#appRootClass{
-	height: 100% !important;
+#appRootClass {
+  height: 85% !important;
 }
 
-.m-sidenav-con{
-	height: 85%  !important;
+.m-sidenav-con {
+  height: 80% !important;
 }
 
 .footer-link {
@@ -25,66 +26,68 @@ mat-card.filter.mat-card{
     padding: 0 20px;
   }
 }
+
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
 .app-theme1-theme {
-	$my-app-primary: mat-palette($mat-pink, 200); // setting value to primary
-	$my-app-accent: mat-palette($mat-pink, 300);
-	$my-app-warn: mat-palette($mat-pink, 600);
-	  // Create the theme object (a preprocessor map containing all of the palettes).
-	$my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn); 
-	  // Include theme styles for core and each component used in your app.
-	  // Alternatively, you can import and @include the theme mixins for each component
-	  // that you are using.
-	  @include angular-material-theme($my-app-theme); 
-  }
-  
-  .app-theme2-theme {
-	$alternate-primary: mat-palette($mat-deep-purple, 200);
-	$alternate-accent: mat-palette($mat-deep-purple, 300);
-	$alternate-warn: mat-palette($mat-deep-purple, 600);
-	$alternate-theme: mat-light-theme($alternate-primary, $alternate-accent, $alternate-warn);
-	@include angular-material-theme($alternate-theme);
-	}
-	
-	.loading {
-		position: fixed;
-		z-index: 999;
-		float: left;
-		margin: auto;
-		top: 0;
-		left: 0;
-		bottom: 0;
-		right: 0;
-		border: 2px solid transparent;
-		//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-		border-radius: 5px;
-		cursor: pointer;
-		background-color: rgba(0, 0, 0, 0.3);
-		&:before {
-			content: '';
-			//Instead of the line below you could use @include box-sizing($bs)
-			box-sizing: border-box;
-			position: fixed;
-			top: 50%;
-			left: 50%;
-			width: 40px;
-			height: 40px;
-			margin-top: -15px;
-			margin-left: -15px;
-			//Instead of the line below you could use @include border-radius($radius, $vertical-radius)
-			border-radius: 50%;
-			border: 5px solid grey;
-			border-top-color: #ccc;
-			display: block;
-			animation: spinnerForCompare .6s linear infinite;
-		}
-	}
+  $my-app-primary: mat-palette($mat-pink, 200); // setting value to primary
+  $my-app-accent: mat-palette($mat-pink, 300);
+  $my-app-warn: mat-palette($mat-pink, 600);
+  // Create the theme object (a preprocessor map containing all of the palettes).
+  $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+  // Include theme styles for core and each component used in your app.
+  // Alternatively, you can import and @include the theme mixins for each component
+  // that you are using.
+  @include angular-material-theme($my-app-theme);
+}
 
-	@keyframes spinnerForCompare {
-		to {
-			//Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
-			transform: rotate(360deg);
-		}
-	}
+.app-theme2-theme {
+  $alternate-primary: mat-palette($mat-deep-purple, 200);
+  $alternate-accent: mat-palette($mat-deep-purple, 300);
+  $alternate-warn: mat-palette($mat-deep-purple, 600);
+  $alternate-theme: mat-light-theme($alternate-primary, $alternate-accent, $alternate-warn);
+  @include angular-material-theme($alternate-theme);
+}
+
+.loading {
+  position: fixed;
+  z-index: 999;
+  float: left;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border: 2px solid transparent;
+  //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  &:before {
+    content: '';
+    //Instead of the line below you could use @include box-sizing($bs)
+    box-sizing: border-box;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 40px;
+    margin-top: -15px;
+    margin-left: -15px;
+    //Instead of the line below you could use @include border-radius($radius, $vertical-radius)
+    border-radius: 50%;
+    border: 5px solid grey;
+    border-top-color: #ccc;
+    display: block;
+    animation: spinnerForCompare .6s linear infinite;
+  }
+}
+
+@keyframes spinnerForCompare {
+  to {
+    //Instead of the line below you could use @include transform($scale, $rotate, $transx, $transy, $skewx, $skewy, $originx, $originy)
+    transform: rotate(360deg);
+  }
+}

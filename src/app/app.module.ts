@@ -19,6 +19,7 @@ import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 import { NpmComponent } from './feature/npm/npm.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { NpmComponent } from './feature/npm/npm.component';
     MaterialModule,
     AppRoutingModule,
     FormsModule,
+    FlexLayoutModule,
     ReactiveFormsModule,
     NpmGraphModule,
     DumbNavbarModule,
