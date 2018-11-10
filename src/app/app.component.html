@@ -10,18 +10,33 @@
           <span class="ml5" title="{{title}}">{{title}}</span>
         </div>
         <div>
+
+          <!-- Tweet -->
+          <button mat-button [matMenuTriggerFor]="tweet" style="padding:0; bottom: 3px" fxHide.lt-md>
+            <svg style="color:white;" class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" viewBox="0 0 24 24">
+              <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+            </svg>
+          </button>
+          <mat-menu #tweet="matMenu">
+            <button value='saleem' mat-menu-item><a target="_blank" href="https://twitter.com/SaleemMalikRaja">Saleem</a></button>
+            <button value='arumugam' mat-menu-item><a target="_blank" href="https://twitter.com/Arumuganainar06">Arumugam</a></button>
+          </mat-menu>
+
           <!-- HELP MENU-->
-          <a target="_blank" class="mat-button top5px" href="https://drive.google.com/open?id=1GomjRtyZCy7r_aq0-3qJuB99aca8Yspq" fxHide.lt-md>
-            <svg style="color:white;" class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" viewBox="0 0 24 24">
+          <a target="_blank" class="mat-button top5px" href="https://drive.google.com/open?id=1GomjRtyZCy7r_aq0-3qJuB99aca8Yspq"
+            fxHide.lt-md>
+            <svg style="color:white;" class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" viewBox="0 0 24 24">
               <path d="M13 2.004c5.046.504 9 4.783 9 9.97 0 1.467-.324 2.856-.892 4.113l1.738 1.005c.732-1.553 1.154-3.284 1.154-5.117 0-6.304-4.842-11.464-11-11.975v2.004zm-10.109 14.083c-.568-1.257-.891-2.646-.891-4.112 0-5.188 3.954-9.466 9-9.97v-2.005c-6.158.511-11 5.671-11 11.975 0 1.833.421 3.563 1.153 5.118l1.738-1.006zm17.213 1.734c-1.817 2.523-4.769 4.174-8.104 4.174s-6.288-1.651-8.105-4.175l-1.746 1.01c2.167 3.123 5.768 5.17 9.851 5.17 4.082 0 7.683-2.047 9.851-5.168l-1.747-1.011zm-8.104-13.863c-4.419 0-8 3.589-8 8.017s3.581 8.017 8 8.017 8-3.589 8-8.017-3.581-8.017-8-8.017zm-2 11.023v-6.013l6 3.152-6 2.861z" />
             </svg>
           </a>
 
           <!-- GITHUB URL-->
-          <a target="_blank"  class="mat-button top5px" href="https://github.com/saleemmalikraja/compare-npm-package" fxHide.lt-md>
-            <svg style="color:white;" class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg"
-              width="24" height="24" viewBox="0 0 24 24">
+          <a target="_blank" class="mat-button top5px" href="https://github.com/saleemmalikraja/compare-npm-package"
+            fxHide.lt-md>
+            <svg style="color:white;" class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg" width="24"
+              height="24" viewBox="0 0 24 24">
               <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
             </svg>
           </a>
@@ -35,7 +50,7 @@
             <button value='theme2' mat-menu-item (click)="switchTheme('theme2')">Purple</button>
           </mat-menu>
         </div>
-      </div> 
+      </div>
     </mat-toolbar-row>
   </mat-toolbar>
   <!-- tool bar - end -->
@@ -45,6 +60,17 @@
     <!-- side nav  - start -->
     <mat-sidenav #sidenav>
       <mat-nav-list>
+        <!-- Tweet -->
+        <button mat-button [matMenuTriggerFor]="tweet" mat-list-item>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z" />
+          </svg> TWEET
+        </button>
+        <mat-menu #tweet="matMenu">
+          <button value='saleem' mat-menu-item><a target="_blank" href="https://twitter.com/SaleemMalikRaja">Saleem</a></button>
+          <button value='arumugam' mat-menu-item><a target="_blank" href="https://twitter.com/Arumuganainar06">Arumugam</a></button>
+        </mat-menu>
+
         <!-- HELP MENU-->
         <a target="_blank" href="https://drive.google.com/open?id=1GomjRtyZCy7r_aq0-3qJuB99aca8Yspq" mat-list-item>
           <svg class="mat-icon material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -60,7 +86,7 @@
         </a>
         <div>
           <button mat-button [matMenuTriggerFor]="menu">
-            Select Theme
+            <mat-icon>format_color_fill</mat-icon> THEME
           </button>
           <mat-menu #menu="matMenu">
             <button value='theme1' mat-menu-item (click)="switchTheme('theme1')">Pink</button>
@@ -68,7 +94,7 @@
           </mat-menu>
         </div>
         <a (click)="sidenav.toggle()" mat-list-item>
-          <mat-icon>close</mat-icon> Close
+          <mat-icon>close</mat-icon> CLOSE
         </a>
       </mat-nav-list>
     </mat-sidenav>
@@ -83,22 +109,25 @@
     <!-- side nav  - ends -->
   </mat-sidenav-container>
   <div class="footer-link">
-
-    <a target="_blank" href="https://twitter.com/SaleemMalikRaja">Tweet - Saleem</a>
-    |
-    <a target="_blank" href="https://twitter.com/Arumuganainar06">Tweet - Arumugam</a>
-    |
-    <a target="_blank" href="https://github.com/saleemmalikraja/compare-npm-package/issues">Report an issue</a>
     <span style="float:right;margin-top: 5px;">{{version}}</span>
-    <a target="_blank" style="float:right" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.comparenodepackage.com">
+    <!-- Google plus-->
+    <a target="_blank" href="https://plus.google.com/share?url=https%3A%2F%2Fwww.comparenodepackage.com">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M7 11v2.4h3.97c-.16 1.029-1.2 3.02-3.97 3.02-2.39 0-4.34-1.979-4.34-4.42 0-2.44 1.95-4.42 4.34-4.42 1.36 0 2.27.58 2.79 1.08l1.9-1.83c-1.22-1.14-2.8-1.83-4.69-1.83-3.87 0-7 3.13-7 7s3.13 7 7 7c4.04 0 6.721-2.84 6.721-6.84 0-.46-.051-.81-.111-1.16h-6.61zm0 0 17 2h-3v3h-2v-3h-3v-2h3v-3h2v3h3v2z"
           fill-rule="evenodd" clip-rule="evenodd" /></svg>
     </a>
-    <a target="_blank" style="float:right" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.comparenodepackage.com">
+
+    <!-- Facebook -->
+    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.comparenodepackage.com">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
         <path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z" /></svg>
     </a>
 
+    <!-- Report an issue-->
+    <a target="_blank" href="https://github.com/saleemmalikraja/compare-npm-package/issues">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 20">
+        <path d="M15.526 11.409c-1.052.842-7.941 6.358-9.536 7.636l-2.697-2.697 7.668-9.504 4.565 4.565zm5.309-9.867c-2.055-2.055-5.388-2.055-7.443 0-1.355 1.356-1.47 2.842-1.536 3.369l5.61 5.61c.484-.054 2.002-.169 3.369-1.536 2.056-2.055 2.056-5.388 0-7.443zm-9.834 17.94c-2.292 0-3.339 1.427-4.816 2.355-1.046.656-2.036.323-2.512-.266-.173-.211-.667-.971.174-1.842l-.125-.125-1.126-1.091c-1.372 1.416-1.129 3.108-.279 4.157.975 1.204 2.936 1.812 4.795.645 1.585-.995 2.287-2.088 3.889-2.088 1.036 0 1.98.464 3.485 2.773l1.461-.952c-1.393-2.14-2.768-3.566-4.946-3.566z" />
+      </svg>
+    </a>
   </div>
 </div>

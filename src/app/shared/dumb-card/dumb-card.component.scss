@@ -19,6 +19,9 @@ mat-expansion-panel {
   border: solid 1px grey;
 }
 
+.mat-input-element:disabled{
+color: black !important;
+}
 .mat-expansion-panel-header:not([aria-expanded=false]),
 mat-expansion-panel-header {
   background-color: #e9e9e9 !important;
@@ -27,17 +30,6 @@ mat-expansion-panel-header {
 
 .mat-expanded.mat-expansion-panel-spacing {
   margin: 10px 0 10px 0 !important;
-}
-
-.expand-more {
-  background-color: #c8c8c8;
-  border-radius: 20px;
-  margin-top: 3px;
-}
-
-.expand-less {
-  background-color: #646464;
-  border-radius: 20px;
 }
 
 @media only screen and (max-width: 425px) {
