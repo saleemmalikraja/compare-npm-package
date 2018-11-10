@@ -20,11 +20,13 @@ import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 import { NpmComponent } from './feature/npm/npm.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { PopupOverlayComponent } from './feature/popup-overlay/popup-overlay.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NpmComponent
+    NpmComponent,
+    PopupOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +45,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule,
   ],
-  providers: [ AppService, SharingService],
-  bootstrap: [AppComponent]
+  providers: [AppService, SharingService],
+  bootstrap: [AppComponent],
+  entryComponents: [PopupOverlayComponent]
 })
 export class AppModule { }
