@@ -13,6 +13,10 @@ mat-card.filter.mat-card {
   padding: 5px;
 }
 
+.mat-tab-labels >div[aria-selected="true"]{
+background-color: #e2e2e2 ;
+}
+
 #appRootClass {
   height: 86% !important;
 }
