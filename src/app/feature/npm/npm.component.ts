@@ -46,7 +46,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     // Sets the <meta> tag for the page
     meta.addTags([
       { name: 'author', content: 'Saleem & Arumugam' },
-      { name: 'description', content: 'compare node package - An easiest way to find best node package among packages.'},
+      { name: 'description', content: 'compare node package - An easiest way to find best node package among packages.' },
       { name: 'google-site-verification', content: 'nfIyuMqGaDSa7y2CV0g-Z0UGbwrLIb8zjTqHtWrjFvY' }
     ]);
     /*   this.filteredLibs = this.formCtrl.valueChanges.pipe(
@@ -135,6 +135,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     };
     this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
       const formPackageDetail = [];
+      let uniquePackageDetail = [];
       if (!res) {
         return;
       }
@@ -144,10 +145,10 @@ export class NpmComponent implements OnInit, AfterViewInit {
       res.results.forEach((resultant, ind) => {
         const packageInfo = resultant.package;
         this.alllibs.push(packageInfo.name);
-        formPackageDetail.push({'packageName': `${packageInfo.name}` , 'version': `${packageInfo.version}`});
+        formPackageDetail.push({ 'packageName': `${packageInfo.name}`, 'version': `${packageInfo.version}` });
       });
       this.alllibs = Array.from(new Set(this.alllibs));
-      this.packageDetail = Array.from(new Set(formPackageDetail));
+      uniquePackageDetail = Array.from(new Set(formPackageDetail));
       const userInput = this.formCtrl.value || '';
       this.filteredLibs = [];
       if (this.alllibs.length) {
@@ -167,6 +168,15 @@ export class NpmComponent implements OnInit, AfterViewInit {
           event.option.value = eachLibName;
           event.option.viewValue = eachLibName;
           this.selected(event);
+        });
+      }
+      if (this.filteredLibs.length && uniquePackageDetail.length) { // debug here
+        uniquePackageDetail.forEach((eachPkg: any) => {
+          this.filteredLibs.forEach(element => {
+            if (eachPkg.packageName === element && this.filteredLibs.length >= this.packageDetail.length) {
+              this.packageDetail.push(eachPkg);
+            }
+          });
         });
       }
       console.log(res);

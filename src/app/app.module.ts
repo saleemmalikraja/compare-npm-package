@@ -43,7 +43,7 @@ import { PopupOverlayComponent } from './feature/popup-overlay/popup-overlay.com
     HttpClientModule,
     DumbSearchModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
-    CoreModule,
+    CoreModule
   ],
   providers: [AppService, SharingService],
   bootstrap: [AppComponent],

@@ -1,4 +1,2 @@
-<p>
-  npm-board works!
-</p>
-<app-dumb-board></app-dumb-board>
+<app-dumb-board [packageDetail]="packageDetail"></app-dumb-board>
+<div *ngIf="!packageDetail?.length"> No Data Found</div>
