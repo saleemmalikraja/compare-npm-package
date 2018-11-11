@@ -34,6 +34,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   separatorKeyCodes: number[] = [ENTER, COMMA];
   formCtrl = new FormControl();
   filteredLibs: string[] = [];
+  packageDetail: any = [];
   libs: string[] = [];
   alllibs: string[] = [];
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
@@ -133,15 +134,20 @@ export class NpmComponent implements OnInit, AfterViewInit {
       endPoint: val.toLowerCase()
     };
     this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
+      const formPackageDetail = [];
       if (!res) {
         return;
       }
       this.filteredOptions = res['results'];
-
+      // tslint:disable-next-line:max-line-length
+      // {"total":829186,"results":[{"package":{"name":"async","scope":"unscoped","version":"2.6.1","description":"Higher-order functions and common patterns for asynchronous code","keywords":["async","callback","module","utility"],"date":"2018-05-21T04:34:29.126Z","links":{"npm":"https://www.npmjs.com/package/async","homepage":"https://caolan.github.io/async/","repository":"https://github.com/caolan/async","bugs":"https://github.com/caolan/async/issues"},"author":{"name":"Caolan McMahon"},"publisher":{"username":"aearly","email":"alexander.early@gmail.com"},"maintainers":[{"username":"aearly","email":"alexander.early@gmail.com"},{"username":"beaugunderson","email":"beau@beaugunderson.com"},{"username":"caolan","email":"caolan.mcmahon@gmail.com"},{"username":"hargasinski","email":"argasinski.hubert@gmail.com"},{"username":"megawac","email":"megawac@gmail.com"}]},"score":{"final":0.9845409258247497,"detail":{"quality":0.9995613428277461,"popularity":0.9563379168759042,"maintenance":0.99986929162817}},"searchScore":0.76245373}]}
       res.results.forEach((resultant, ind) => {
-        this.alllibs.push(resultant.package.name);
+        const packageInfo = resultant.package;
+        this.alllibs.push(packageInfo.name);
+        formPackageDetail.push({'packageName': `${packageInfo.name}` , 'version': `${packageInfo.version}`});
       });
       this.alllibs = Array.from(new Set(this.alllibs));
+      this.packageDetail = Array.from(new Set(formPackageDetail));
       const userInput = this.formCtrl.value || '';
       this.filteredLibs = [];
       if (this.alllibs.length) {
@@ -232,7 +238,8 @@ export class NpmComponent implements OnInit, AfterViewInit {
       this.githubData.push(res[0]);
       this.packageData = {
         npmDatas: this.npmDatas,
-        githubData: this.githubData
+        githubData: this.githubData,
+        packageDetail: this.packageDetail
       };
 
     },
