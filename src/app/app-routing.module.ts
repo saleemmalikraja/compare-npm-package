@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: './feature/npm-card/npm-card.module#NpmCardModule'
   },
   {
+    path: 'boardMode',
+    loadChildren: './feature/npm-board/npm-board.module#NpmBoardModule'
+  },
+  {
     path: '',
     redirectTo: 'graphMode',
     pathMatch: 'full'

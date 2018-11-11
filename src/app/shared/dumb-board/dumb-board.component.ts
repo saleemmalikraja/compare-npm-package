@@ -12,4 +12,10 @@ export class DumbBoardComponent implements OnInit {
   ngOnInit() {
   }
 
+  /* To copy Text from Textbox */
+  copyInputMessage(inputElement) {
+    inputElement.select();
+    document.execCommand('copy');
+    inputElement.setSelectionRange(0, 0);
+  }
 }

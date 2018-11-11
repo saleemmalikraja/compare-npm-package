@@ -9,7 +9,7 @@
       </span>
     </ng-template>
   </mat-tab>
-  <mat-divider [vertical]="true"></mat-divider>
+  
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
       <span [routerLink]="['/tableMode']" data-toggle="tab" title="table mode">
@@ -20,6 +20,7 @@
       </span>
     </ng-template>
   </mat-tab>
+
   <mat-tab>
     <ng-template mat-tab-label routerLinkActive="active">
       <span [routerLink]="['/cardMode']" data-toggle="tab" title="card mode">
@@ -27,6 +28,17 @@
           <h3 style="margin: 0">credit_card</h3>
         </mat-icon>
         Card View
+      </span>
+    </ng-template>
+  </mat-tab>
+
+  <mat-tab>
+    <ng-template mat-tab-label routerLinkActive="active">
+      <span [routerLink]="['/boardMode']" data-toggle="tab" title="card mode">
+        <mat-icon class="example-tab-icon">
+          <h3 style="margin: 0">developer_board</h3>
+        </mat-icon>
+        Board View
       </span>
     </ng-template>
   </mat-tab>

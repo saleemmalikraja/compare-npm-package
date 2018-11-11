@@ -1,3 +1,12 @@
 <p>
   dumb-board works!
 </p>
+
+<mat-select  *ngFor="let option of []">
+  <mat-option>None</mat-option>
+  <mat-option value="option1">Option 1</mat-option>
+</mat-select>
+
+<input type="text" value="Enter text to be copied" #userinput>
+<button (click)="copyInputMessage(userinput)" value="click to copy" >Copy from Textbox</button>
+
