@@ -1,14 +1,14 @@
 <div *ngIf="dataSource.length" class="board-container">
   <mat-list role="list" fxLayout="row" fxLayoutAlign="start space-evenly" fxLayout.xs="column">
-    <!-- Dropdown to select package-->
+<!-- COLUMN 1-->
     <div>
+      <!-- Dropdown to select package-->
       <mat-list-item role="listitem">
         <ng-container *ngIf="dataSource.length">
           Select Package :
           <mat-select [(value)]="selectedPackage" class="mat-stroked-button" (selectionChange)="onSelect(selectedPackage)">
             <mat-option *ngFor="let option of dataSource" [value]="option.packageName">{{option.packageName}}</mat-option>
           </mat-select>
-
         </ng-container>
       </mat-list-item>
       <mat-divider></mat-divider>
@@ -20,41 +20,37 @@
       </mat-list-item>
       <mat-divider></mat-divider>
 
-        <!-- License -->
-            <mat-list-item role="listitem" *ngIf="selectedPackage">
-              License :
-              <button mat-button (click)="copyMessage(licenseName)" [(value)]="licenseName">{{licenseName}}</button>
-            </mat-list-item>
-            <mat-divider></mat-divider>
-        <mat-divider></mat-divider>
+      <!-- License -->
+      <mat-list-item role="listitem" *ngIf="selectedPackage">
+        License :
+        <button mat-button (click)="copyMessage(licenseName)" [(value)]="licenseName">{{licenseName}}</button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-divider></mat-divider>
     </div>
+
+<!-- COLUMN 2-->
     <div>
       <!-- npm install copy-->
-      <div>
         <mat-list-item role="listitem" *ngIf="selectedPackage">
           Copy npm command :
           <button class="broder" (click)="copyMessage(npmInstall)" mat-stroked-button [(value)]="npmInstall">{{npmInstall}}</button>
         </mat-list-item>
         <mat-divider></mat-divider>
-      </div>
 
       <!-- git clone copy-->
-      <div>
         <mat-list-item role="listitem" *ngIf="selectedPackage">
           Copy git url :
           <button class="broder" (click)="copyMessage(gitCloneUrl)" mat-stroked-button [(value)]="gitCloneUrl">{{gitCloneUrl}}</button>
         </mat-list-item>
         <mat-divider></mat-divider>
-      </div>
 
-       <!-- Home page url-->
-    <div>
+      <!-- Home page url-->
         <mat-list-item role="listitem" *ngIf="selectedPackage">
           Home Page URL :
           <button class="broder" mat-stroked-button [(value)]="homePageUrl"><a href="{{homePageUrl}}" target="_blank">{{homePageUrl}}</a></button>
         </mat-list-item>
         <mat-divider></mat-divider>
-      </div>
     </div>
   </mat-list>
 </div>
