@@ -1,8 +1,11 @@
-.mat-select{
-    width: 25% !important;    
-    text-align: left !important;
+.board-container {
+  display: flex;
 }
 
-button.broder.mat-stroked-button{
- border-color: grey;
+mat-select {
+  text-align: left !important;
+}
+
+button.broder.mat-stroked-button {
+  border-color: grey;
 }

@@ -6,6 +6,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
   declarations: [DumbBoardComponent],
   imports: [
@@ -14,7 +16,9 @@ import {MatListModule} from '@angular/material/list';
     MatInputModule,
     MatSelectModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatDividerModule,
+    FlexLayoutModule
   ],
   exports: [DumbBoardComponent]
 })
