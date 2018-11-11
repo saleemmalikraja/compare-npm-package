@@ -11,6 +11,7 @@ export class DumbBoardComponent implements OnChanges {
   dataSource = [];
   selectedPackage = '';
   npmInstall = '';
+  gitCloneUrl = '';
   version = '0.0.0';
   constructor() { }
   copyMessage(val: string) {
@@ -29,11 +30,14 @@ export class DumbBoardComponent implements OnChanges {
   }
 
   ngOnChanges() {
-    this.dataSource = this.packageDetail;
-    if (this.dataSource.length) {
-      this.selectedPackage = this.dataSource[0].packageName;
-      this.npmInstall = `npm install ${this.selectedPackage}`;
-      this.version = this.dataSource[0].version;
+    if (this.packageDetail.length) {
+      this.dataSource = Array.from(new Set(this.packageDetail));
+      if (this.dataSource.length) {
+        this.selectedPackage = this.dataSource[0].packageName;
+        this.npmInstall = `npm install ${this.selectedPackage}`;
+        this.gitCloneUrl = this.dataSource[0].gitCloneUrl;
+        this.version = this.dataSource[0].version;
+      }
     }
   }
 
@@ -43,7 +47,8 @@ export class DumbBoardComponent implements OnChanges {
     this.dataSource.forEach((eachElement, pkgArrIndex) => {
       index = eachElement.packageName.indexOf(selectedOption);
       if (index > -1) {
-      this.version = this.dataSource[pkgArrIndex].version;
+        this.version = this.dataSource[pkgArrIndex].version;
+        this.gitCloneUrl = this.dataSource[pkgArrIndex].gitCloneUrl;
         return;
       }
     });

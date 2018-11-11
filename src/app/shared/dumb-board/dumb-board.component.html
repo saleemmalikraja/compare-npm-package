@@ -11,8 +11,14 @@
     </mat-list-item>
 
     <mat-list-item role="listitem" *ngIf="selectedPackage">
-      <mat-label>Install : </mat-label>
+      <mat-label>Copy npm command : </mat-label>
       <button class="broder" (click)="copyMessage(npmInstall)" mat-stroked-button [(value)]="npmInstall">{{npmInstall}}</button>
+    </mat-list-item>
+
+    
+    <mat-list-item role="listitem" *ngIf="selectedPackage">
+      <mat-label>Copy git url : </mat-label>
+      <button class="broder" (click)="copyMessage(gitCloneUrl)" mat-stroked-button [(value)]="gitCloneUrl">{{gitCloneUrl}}</button>
     </mat-list-item>
 
     <mat-list-item *ngIf="selectedPackage" role="listitem">Version : <button mat-button [(value)]="version">{{version}}
