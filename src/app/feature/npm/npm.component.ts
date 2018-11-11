@@ -75,6 +75,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     if (index >= 0 && this.packageData) {
       this.libs.splice(index, 1);
       this.packageData.githubData.splice(index, 1);
+      this.packageData.packageDetail.splice(index, 1);
       this.packageData.npmDatas.chart.splice(index, 1);
       this.packageData.npmDatas.chartX.splice(index, 1);
       this.sharingService.setData(this.packageData);
@@ -134,8 +135,6 @@ export class NpmComponent implements OnInit, AfterViewInit {
       endPoint: val.toLowerCase()
     };
     this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
-      const formPackageDetail = [];
-      let uniquePackageDetail = [];
       if (!res) {
         return;
       }
@@ -145,10 +144,8 @@ export class NpmComponent implements OnInit, AfterViewInit {
       res.results.forEach((resultant, ind) => {
         const packageInfo = resultant.package;
         this.alllibs.push(packageInfo.name);
-        formPackageDetail.push({ 'packageName': `${packageInfo.name}`, 'version': `${packageInfo.version}` });
       });
       this.alllibs = Array.from(new Set(this.alllibs));
-      uniquePackageDetail = Array.from(new Set(formPackageDetail));
       const userInput = this.formCtrl.value || '';
       this.filteredLibs = [];
       if (this.alllibs.length) {
@@ -170,15 +167,6 @@ export class NpmComponent implements OnInit, AfterViewInit {
           this.selected(event);
         });
       }
-      if (this.filteredLibs.length && uniquePackageDetail.length) { // debug here
-        uniquePackageDetail.forEach((eachPkg: any) => {
-          this.filteredLibs.forEach(element => {
-            if (eachPkg.packageName === element && this.filteredLibs.length >= this.packageDetail.length) {
-              this.packageDetail.push(eachPkg);
-            }
-          });
-        });
-      }
       console.log(res);
 
     },
@@ -194,6 +182,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
     this.filteredOptions.forEach((val, ind) => {
       if (val.package.name === source) {
         sourceObj = val;
+        this.packageDetail.push({ 'packageName': `${val.package.name}`, 'version': `${val.package.version}` });
       }
     });
     const currentDate = moment();
