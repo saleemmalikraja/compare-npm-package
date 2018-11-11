@@ -12,6 +12,8 @@ export class DumbBoardComponent implements OnChanges {
   selectedPackage = '';
   npmInstall = '';
   gitCloneUrl = '';
+  licenseName = '';
+  homePageUrl = '';
   version = '0.0.0';
   constructor() { }
   copyMessage(val: string) {
@@ -33,10 +35,13 @@ export class DumbBoardComponent implements OnChanges {
     if (this.packageDetail.length) {
       this.dataSource = Array.from(new Set(this.packageDetail));
       if (this.dataSource.length) {
-        this.selectedPackage = this.dataSource[0].packageName;
+        const firstArrayValue = this.dataSource[0];
+        this.selectedPackage = firstArrayValue.packageName;
         this.npmInstall = `npm install ${this.selectedPackage}`;
-        this.gitCloneUrl = this.dataSource[0].gitCloneUrl;
-        this.version = this.dataSource[0].version;
+        this.gitCloneUrl = firstArrayValue.gitCloneUrl;
+        this.version = firstArrayValue.version;
+        this.homePageUrl = firstArrayValue.homepage;
+        this.licenseName = firstArrayValue.license;
       }
     }
   }
@@ -47,8 +52,11 @@ export class DumbBoardComponent implements OnChanges {
     this.dataSource.forEach((eachElement, pkgArrIndex) => {
       index = eachElement.packageName.indexOf(selectedOption);
       if (index > -1) {
-        this.version = this.dataSource[pkgArrIndex].version;
-        this.gitCloneUrl = this.dataSource[pkgArrIndex].gitCloneUrl;
+        const updatePackageData = this.dataSource[pkgArrIndex];
+        this.version = updatePackageData.version;
+        this.gitCloneUrl = updatePackageData.gitCloneUrl;
+        this.homePageUrl = updatePackageData.homepage;
+        this.licenseName = updatePackageData.license;
         return;
       }
     });

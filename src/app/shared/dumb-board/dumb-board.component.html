@@ -19,6 +19,14 @@
         <button mat-button [(value)]="version">{{version}}</button>
       </mat-list-item>
       <mat-divider></mat-divider>
+
+        <!-- License -->
+            <mat-list-item role="listitem" *ngIf="selectedPackage">
+              License :
+              <button mat-button (click)="copyMessage(licenseName)" [(value)]="licenseName">{{licenseName}}</button>
+            </mat-list-item>
+            <mat-divider></mat-divider>
+        <mat-divider></mat-divider>
     </div>
     <div>
       <!-- npm install copy-->
@@ -35,6 +43,15 @@
         <mat-list-item role="listitem" *ngIf="selectedPackage">
           Copy git url :
           <button class="broder" (click)="copyMessage(gitCloneUrl)" mat-stroked-button [(value)]="gitCloneUrl">{{gitCloneUrl}}</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </div>
+
+       <!-- Home page url-->
+    <div>
+        <mat-list-item role="listitem" *ngIf="selectedPackage">
+          Home Page URL :
+          <button class="broder" mat-stroked-button [(value)]="homePageUrl"><a href="{{homePageUrl}}" target="_blank">{{homePageUrl}}</a></button>
         </mat-list-item>
         <mat-divider></mat-divider>
       </div>

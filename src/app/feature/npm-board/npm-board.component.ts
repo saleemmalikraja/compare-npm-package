@@ -25,6 +25,8 @@ export class NpmBoardComponent implements AfterViewInit {
           githubDetailArray.forEach(eachGithubDetail => {
             if (eachPkgDetail.packageName === eachGithubDetail.name) {
               eachPkgDetail['gitCloneUrl'] = eachGithubDetail.git_url; // getting git clone url from github datum
+              eachPkgDetail['homepage'] = eachGithubDetail.homepage;
+              eachPkgDetail['license'] = eachGithubDetail.license.name;
              sendDataToDumb.push(eachPkgDetail);
             }
           });
