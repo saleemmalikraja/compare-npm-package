@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import { SharingService } from 'src/app/core/data.service';
 import { delay } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-npm-board',
   templateUrl: './npm-board.component.html',
@@ -11,7 +12,7 @@ export class NpmBoardComponent implements AfterViewInit {
   dataSource = [];
   chartData;
   packageDetail = [];
-  constructor(private sharingService: SharingService) { }
+  constructor(private sharingService: SharingService, public snackBar: MatSnackBar) { }
 
   ngAfterViewInit() {
     this.sharingService.getData().pipe(delay(0)).subscribe((data: any) => {
@@ -22,4 +23,8 @@ export class NpmBoardComponent implements AfterViewInit {
     });
   }
 
+  copySuccessEvent(event) {
+    console.log(event);
+    this.snackBar.open(`${event}..!`, '' , {duration: 500, direction : 'ltr' , horizontalPosition :  'center'});
+  }
 }

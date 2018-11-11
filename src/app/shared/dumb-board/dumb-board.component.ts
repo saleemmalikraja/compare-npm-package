@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-dumb-board',
@@ -7,6 +7,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 })
 export class DumbBoardComponent implements OnChanges {
   @Input() packageDetail: any;
+  @Output() copySuccessEvent = new EventEmitter();
   dataSource = [];
   selectedPackage = '';
   npmInstall = '';
@@ -24,6 +25,7 @@ export class DumbBoardComponent implements OnChanges {
     selBox.select();
     document.execCommand('copy');
     document.body.removeChild(selBox);
+    this.copySuccessEvent.emit('copied');
   }
 
   ngOnChanges() {
