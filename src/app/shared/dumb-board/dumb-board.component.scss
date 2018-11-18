@@ -15,3 +15,22 @@ margin-left: 10px;
 .matlistleft{
   margin-left: 30px;
 }
+.labeltext{
+  color: rgba(0,0,0,.5);
+    font-weight: 600;
+    /* font-size: 16px; */
+    font-family: monospace;
+}
+.contentetext{
+  font-weight: 600;
+}
+
+.mat-list .mat-list-item .mat-list-text, .mat-list .mat-list-option .mat-list-text, .mat-nav-list .mat-list-item .mat-list-text, .mat-nav-list .mat-list-option .mat-list-text, .mat-selection-list .mat-list-item .mat-list-text, .mat-selection-list .mat-list-option .mat-list-text{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 0;
+  max-width: 80px !important; 
+}

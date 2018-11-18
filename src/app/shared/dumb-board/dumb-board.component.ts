@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, OnChanges, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'app-dumb-board',
   templateUrl: './dumb-board.component.html',
-  styleUrls: ['./dumb-board.component.scss']
+  styleUrls: ['./dumb-board.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class DumbBoardComponent implements OnChanges {
   @Input() packageDetail: any;
