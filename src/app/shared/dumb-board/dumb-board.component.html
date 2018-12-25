@@ -14,14 +14,14 @@
       <mat-divider></mat-divider>
 
       <!-- Version-->
-      <mat-list-item *ngIf="selectedPackage && version" role="listitem">
+      <mat-list-item *ngIf="selectedPackage" role="listitem">
         <h4 mat-line class="labeltext"> Version :</h4>
         <button class="contentetext" mat-button [(value)]="version">{{version}}</button>
       </mat-list-item>
       <mat-divider></mat-divider>
 
       <!-- License -->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && licenseName">
+      <mat-list-item role="listitem" *ngIf="selectedPackage">
         <h4 mat-line class="labeltext"> License :</h4>
         <button mat-button class="contentetext" (click)="copyMessage(licenseName)" [(value)]="licenseName">{{licenseName}}</button>
       </mat-list-item>
@@ -32,7 +32,7 @@
     <!-- COLUMN 2-->
     <div>
       <!-- npm install copy-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && npmInstall">
+      <mat-list-item role="listitem" *ngIf="selectedPackage">
           <h4 mat-line class="labeltext"> Install :</h4>
         <button class="broder contentetext mleft" (click)="copyMessage(npmInstall)" mat-stroked-button [(value)]="npmInstall">{{npmInstall}}
           <mat-icon class="mleft">file_copy</mat-icon>
@@ -41,7 +41,7 @@
       <mat-divider></mat-divider>
 
       <!-- git clone copy-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && gitCloneUrl">
+      <mat-list-item role="listitem" *ngIf="selectedPackage">
           <h4 mat-line class="labeltext"> Clone :</h4>
         <button class="broder contentetext mleft" (click)="copyMessage(gitCloneUrl)" mat-stroked-button [(value)]="gitCloneUrl">{{gitCloneUrl}}
           <mat-icon class="mleft">cloud_download</mat-icon>
@@ -50,7 +50,7 @@
       <mat-divider></mat-divider>
 
       <!-- Home page url-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && homePageUrl">
+      <mat-list-item role="listitem" *ngIf="selectedPackage">
           <h4 mat-line class="labeltext"> Github :</h4>
         <button class="broder contentetext mleft" mat-stroked-button [(value)]="homePageUrl"><a href="{{homePageUrl}}" target="_blank">{{homePageUrl}}</a>
           <mat-icon class="mleft">directions</mat-icon></button>

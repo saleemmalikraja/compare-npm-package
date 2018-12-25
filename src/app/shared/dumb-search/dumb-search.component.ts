@@ -19,19 +19,19 @@ export class DumbSearchComponent implements OnInit {
 
   filterSource(source) {
     console.log(source);
-    const config = {
+    var config = {
       method: 'GET',
       apiUrl: 'apiUrlForNpm',
       endPoint: 'downloads/range/2018-9-03:2018-10-02/@angular/core'
-    };
+    }
 
     this.appService.apiRequest(config).subscribe((data) => {
 
     },
       error => {
-        console.error('Error filtering  source!');
+        console.error("Error saving food!");
         return throwError(error);  // Angular 5/RxJS 5.5
-      });
+      })
   }
 
   getnewsSources() {

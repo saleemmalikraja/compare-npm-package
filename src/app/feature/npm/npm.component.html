@@ -4,7 +4,7 @@
       <mat-chip-list #chipList>
         <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)"
           [selected]="true" [color]="'primary'">
-          {{lib.split('-')[0].trim()}}
+          {{lib}}
           <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
         </mat-chip>
         <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
