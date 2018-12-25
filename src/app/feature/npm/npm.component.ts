@@ -143,7 +143,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
       // {"total":829186,"results":[{"package":{"name":"async","scope":"unscoped","version":"2.6.1","description":"Higher-order functions and common patterns for asynchronous code","keywords":["async","callback","module","utility"],"date":"2018-05-21T04:34:29.126Z","links":{"npm":"https://www.npmjs.com/package/async","homepage":"https://caolan.github.io/async/","repository":"https://github.com/caolan/async","bugs":"https://github.com/caolan/async/issues"},"author":{"name":"Caolan McMahon"},"publisher":{"username":"aearly","email":"alexander.early@gmail.com"},"maintainers":[{"username":"aearly","email":"alexander.early@gmail.com"},{"username":"beaugunderson","email":"beau@beaugunderson.com"},{"username":"caolan","email":"caolan.mcmahon@gmail.com"},{"username":"hargasinski","email":"argasinski.hubert@gmail.com"},{"username":"megawac","email":"megawac@gmail.com"}]},"score":{"final":0.9845409258247497,"detail":{"quality":0.9995613428277461,"popularity":0.9563379168759042,"maintenance":0.99986929162817}},"searchScore":0.76245373}]}
       res.results.forEach((resultant, ind) => {
         const packageInfo = resultant.package;
-        this.alllibs.push(packageInfo.name);
+        this.alllibs.push(`${packageInfo.name} - ${packageInfo.version}`);
       });
       this.alllibs = Array.from(new Set(this.alllibs));
       const userInput = this.formCtrl.value || '';
@@ -178,6 +178,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
   getnewSources(source) {
     console.log(source);
+    source = source.split('-')[0].trim();
     let sourceObj;
     this.filteredOptions.forEach((val, ind) => {
       if (val.package.name === source) {
@@ -213,7 +214,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
       if (sourceObj) { this.getGithubDetails(sourceObj); }
     },
       error => {
-        console.error('Error saving food!');
+        console.error('Error forming chart object!');
         return throwError(error);  // Angular 5/RxJS 5.5
       });
   }
@@ -243,7 +244,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     },
       error => {
-        console.error('Error saving food!');
+        console.error('Error forming package data!');
         return throwError(error);  // Angular 5/RxJS 5.5
       });
   }
