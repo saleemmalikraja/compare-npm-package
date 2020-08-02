@@ -5,6 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "buildProd": "ng build --prod",
     "build:prod": "npm run build:browser:prod && npm run build:server:prod",
     "pre-build": "node src\\version.js",
     "test": "ng test",
