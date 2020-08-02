@@ -22,7 +22,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/ssl",
-              "src/manifest.json"
+              "src/manifest.json",
+              "_redirects"
             ],
             "styles": [
               "src/styles.scss"
