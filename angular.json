@@ -23,7 +23,11 @@
               "src/assets",
               "src/ssl",
               "src/manifest.json",
-              "_redirects"
+               {
+                "glob": "_redirects",
+                "input": "src",
+                "output": "/"
+              }
             ],
             "styles": [
               "src/styles.scss"
