@@ -46,7 +46,7 @@
     "@ng-toolkit/universal": "^1.1.42",
     "angular-highcharts": "^6.2.6",
     "core-js": "^2.5.4",
-    "highcharts": "^6.1.4",
+    "highcharts": "^8.2.0",
     "moment": "^2.22.2",
     "rxjs": "^6.0.0",
     "zone.js": "~0.8.26",
