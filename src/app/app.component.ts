@@ -1,3 +1,4 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { MatDialog } from '@angular/material/dialog';
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
   title = 'Compare NPM Package';
   version = '0.0.0';
   appId = 'rose-light';
+  private readonly themeClassPrefix = 'app-theme-';
   readonly themeOptions = [
     { id: 'rose-light', label: 'Rose Light' },
     { id: 'rose-dark', label: 'Rose Dark' },
@@ -26,7 +28,8 @@ export class AppComponent implements OnInit {
     meta: Meta,
     title: Title,
     public dialog: MatDialog,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private overlayContainer: OverlayContainer
   ) {
     this.version = VERSION.tag;
     // Sets the <title></title>
@@ -48,6 +51,7 @@ export class AppComponent implements OnInit {
 
     this.appId = sessionStorage.getItem('theme') || this.appId;
     sessionStorage.setItem('theme', this.appId);
+    this.applyThemeToOverlays(this.appId);
   }
 
   ngOnInit() {
@@ -64,7 +68,17 @@ export class AppComponent implements OnInit {
   switchTheme(appId: string) {
     this.appId = appId;
     sessionStorage.setItem('theme', appId);
+    this.applyThemeToOverlays(appId);
   }
+
+  private applyThemeToOverlays(appId: string) {
+    const overlayClasses = this.overlayContainer.getContainerElement().classList;
+    const themeClasses = this.themeOptions.map(({ id }) => `${this.themeClassPrefix}${id}`);
+
+    overlayClasses.remove(...themeClasses);
+    overlayClasses.add(`${this.themeClassPrefix}${appId}`);
+  }
+
   demoLink() {
     const dialogRef = this.dialog.open(PopupOverlayComponent, {
       width: '720px',
