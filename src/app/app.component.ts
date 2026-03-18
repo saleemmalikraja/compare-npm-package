@@ -16,6 +16,7 @@ export class AppComponent implements OnInit {
   title = 'Compare NPM Package';
   version = '0.0.0';
   appId = 'rose-light';
+  private readonly defaultThemeId = 'rose-light';
   private readonly themeClassPrefix = 'app-theme-';
   readonly themeOptions = [
     { id: 'rose-light', label: 'Rose Light' },
@@ -49,7 +50,7 @@ export class AppComponent implements OnInit {
       }
     ]);
 
-    this.appId = sessionStorage.getItem('theme') || this.appId;
+    this.appId = this.resolveThemeId(sessionStorage.getItem('theme'));
     sessionStorage.setItem('theme', this.appId);
     this.applyThemeToOverlays(this.appId);
   }
@@ -66,9 +67,13 @@ export class AppComponent implements OnInit {
     }
   }
   switchTheme(appId: string) {
-    this.appId = appId;
-    sessionStorage.setItem('theme', appId);
-    this.applyThemeToOverlays(appId);
+    this.appId = this.resolveThemeId(appId);
+    sessionStorage.setItem('theme', this.appId);
+    this.applyThemeToOverlays(this.appId);
+  }
+
+  private resolveThemeId(themeId: string | null | undefined) {
+    return this.themeOptions.some(({ id }) => id === themeId) ? themeId : this.defaultThemeId;
   }
 
   private applyThemeToOverlays(appId: string) {
