@@ -1,3 +1,8 @@
+:host {
+  display: block;
+  height: 100%;
+}
+
 .graph-shell {
   height: 100%;
 }
@@ -5,7 +10,7 @@
 .graph-canvas {
   display: block;
   width: 100%;
-  min-height: 360px;
+  min-height: 320px;
   border-radius: 24px;
   overflow: hidden;
 }
@@ -13,7 +18,7 @@
 .empty-state {
   display: grid;
   place-items: center;
-  min-height: 360px;
+  min-height: 320px;
   border: 1px dashed var(--app-border);
   border-radius: 24px;
   color: var(--app-muted);

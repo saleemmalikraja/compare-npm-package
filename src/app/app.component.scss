@@ -1,16 +1,26 @@
 .app-shell-root {
-  min-height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
   position: relative;
   overflow: hidden;
 }
 
 .app-shell {
-  min-height: 100vh;
+  height: 100dvh;
+  min-height: 100dvh;
+  overflow: hidden;
   background:
     radial-gradient(circle at 0% 0%, rgba(216, 27, 96, 0.2), transparent 26%),
     radial-gradient(circle at 100% 0%, rgba(103, 58, 183, 0.22), transparent 24%),
     radial-gradient(circle at 50% 100%, rgba(255, 255, 255, 0.08), transparent 32%),
     var(--app-background);
+}
+
+mat-sidenav-content {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  overflow: hidden;
 }
 
 .app-toolbar {
@@ -48,10 +58,13 @@
 .app-shell__content {
   display: grid;
   gap: 0.9rem;
+  min-height: 0;
+  overflow: hidden;
+  grid-template-rows: auto 1fr;
   padding: 0.85rem 1.1rem 1rem;
 }
 
-.hero-card,
+.workspace-strip,
 .workspace-card,
 .sidenav-panel {
   background: var(--app-surface);
@@ -61,16 +74,17 @@
   backdrop-filter: blur(18px);
 }
 
-.hero-card {
+.workspace-strip {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 1rem 1.1rem;
+  align-items: center;
+  padding: 0.75rem 1rem;
   position: relative;
   overflow: hidden;
 }
 
-.hero-card::after,
+.workspace-strip::after,
 .workspace-card::after {
   content: '';
   position: absolute;
@@ -79,26 +93,26 @@
   pointer-events: none;
 }
 
-.hero-card h1 {
-  margin: 0.35rem 0;
-  color: var(--app-text);
-  font-size: clamp(1.3rem, 1.6vw, 1.85rem);
-  line-height: 1.15;
+.workspace-strip__summary {
+  display: grid;
+  gap: 0.35rem;
 }
 
-.hero-card p {
-  font-size: 0.9rem;
-}
-
-.hero-card p,
-.hero-card__meta,
+.workspace-strip__summary p,
+.workspace-strip__meta,
 .app-footer {
   color: var(--app-muted);
 }
 
-.hero-card__badge {
+.workspace-strip__summary p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.workspace-strip__badge {
   display: inline-flex;
   align-items: center;
+  width: fit-content;
   padding: 0.35rem 0.7rem;
   border-radius: 999px;
   background: var(--app-surface-alt);
@@ -107,16 +121,15 @@
   font-weight: 600;
 }
 
-.hero-card__meta {
+.workspace-strip__meta {
   display: flex;
-  min-width: 180px;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
   gap: 0.75rem;
 }
 
-.hero-card__version {
+.workspace-strip__version {
   padding: 0.5rem 0.85rem;
   border-radius: 999px;
   background: var(--app-surface-alt);
@@ -128,6 +141,7 @@
   padding: 0.85rem;
   position: relative;
   overflow: hidden;
+  min-height: 0;
 }
 
 .app-footer {
@@ -183,15 +197,15 @@ a {
     display: inline-flex;
   }
 
-  .hero-card,
+  .workspace-strip,
   .app-footer {
     flex-direction: column;
     align-items: flex-start;
   }
 
-  .hero-card__meta {
-    min-width: auto;
-    align-items: flex-start;
+  .workspace-strip__meta {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .app-toolbar,

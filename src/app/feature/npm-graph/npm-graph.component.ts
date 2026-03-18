@@ -16,8 +16,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
   updateFlag = false;
   githubData;
   showSpinner = false;
-  colors = ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
-    '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'];
+  readonly colors = ['#38bdf8', '#8b5cf6', '#f97316', '#ec4899', '#14b8a6', '#f59e0b', '#ef4444', '#22c55e'];
   constructor(private sharingService: SharingService) { }
 
   ngAfterViewInit() {
@@ -30,29 +29,31 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       if (data && data.githubData) {
         this.githubData = data.githubData;
       }
-      this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
+      this.init();
     }, (error) => {
       this.showSpinner = false;
     });
   }
   ngOnChanges() {
     console.log('chartData', this.chartData);
-    this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
+    this.init();
   }
 
-  init(color: string) {
+  init() {
     const styles = getComputedStyle(document.documentElement);
     const appText = styles.getPropertyValue('--app-text').trim() || '#141927';
     const appMuted = styles.getPropertyValue('--app-muted').trim() || '#636b7c';
+    const appAccent = styles.getPropertyValue('--app-accent').trim() || '#8b5cf6';
     const appBorder = styles.getPropertyValue('--app-border').trim() || 'rgba(20, 25, 39, 0.08)';
     const panelFill = styles.getPropertyValue('--app-chart-surface').trim() || 'rgba(255,255,255,0.72)';
     const plotFill = styles.getPropertyValue('--app-chart-plot').trim() || 'rgba(255,255,255,0.18)';
     this.chartOptions = {
-      series: (this.chartData?.chart || []).map((val: any) => ({
+      series: (this.chartData?.chart || []).map((val: any, index: number) => ({
         type: 'line',
         name: val.name,
-        data: val.data
-      })),
+        data: val.data,
+        color: this.colors[index % this.colors.length]
+      })) as Highcharts.SeriesOptionsType[],
       xAxis: {
         categories: this.chartData ? this.chartData.chartX : [],
         lineColor: appBorder,
@@ -77,7 +78,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       },
       chart: {
         type: 'line',
-        height: 360,
+        height: 320,
         backgroundColor: panelFill,
         borderWidth: 1,
         borderColor: appBorder,
@@ -88,8 +89,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
         borderRadius: 24,
         spacing: [24, 24, 24, 24]
       },
-      colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
-        '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
+      colors: this.colors,
       title: {
         text: 'NPM Compare',
         style: {
@@ -104,7 +104,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
           color: appText
         },
         itemHoverStyle: {
-          color: color
+          color: appAccent
         }
       },
       tooltip: {
@@ -118,10 +118,19 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       },
       plotOptions: {
         series: {
-          color,
           lineWidth: 3,
           marker: {
-            enabled: false
+            enabled: false,
+            states: {
+              hover: {
+                enabled: true
+              }
+            }
+          },
+          states: {
+            hover: {
+              lineWidthPlus: 0
+            }
           }
         }
       },

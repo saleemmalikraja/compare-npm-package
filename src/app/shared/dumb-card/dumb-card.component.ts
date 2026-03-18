@@ -8,9 +8,7 @@ import { Component, OnInit, Input, OnChanges } from '@angular/core';
 export class DumbCardComponent implements OnInit, OnChanges {
 
   // for mat-expand
-  public step;
-  public setStepIndex: number;
-  public expandMore = false;
+  public step: number | string | null = null;
   theme;
   @Input() cardData: any;
   constructor() { }
@@ -22,16 +20,12 @@ export class DumbCardComponent implements OnInit, OnChanges {
   ngOnChanges() {
     this.cardData = this.cardData;
   }
-  setStep(index: number) {
-    this.expandMore = false;
-    this.setStepIndex = index;
+  setStep(index: number | string) {
     this.step = index;
   }
 
-  unsetStep(index: number) {
-    if (this.setStepIndex === index) {
-      this.expandMore = true;
-    }
+  unsetStep() {
+    this.step = null;
   }
 
 }

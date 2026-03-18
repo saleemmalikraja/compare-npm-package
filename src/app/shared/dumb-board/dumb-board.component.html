@@ -14,32 +14,40 @@
       <strong>{{version}}</strong>
     </div>
 
-    <button class="board-card board-card--action" *ngIf="selectedPackage && licenseName" mat-stroked-button
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && licenseName"
       (click)="copyMessage(licenseName)">
-      <span class="labeltext">License</span>
+      <span class="board-card__top">
+        <span class="labeltext">License</span>
+        <mat-icon>content_copy</mat-icon>
+      </span>
       <strong>{{licenseName}}</strong>
-      <mat-icon>content_copy</mat-icon>
     </button>
 
-    <button class="board-card board-card--action" *ngIf="selectedPackage && npmInstall" mat-stroked-button
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && npmInstall"
       (click)="copyMessage(npmInstall)">
-      <span class="labeltext">Install</span>
+      <span class="board-card__top">
+        <span class="labeltext">Install</span>
+        <mat-icon>file_copy</mat-icon>
+      </span>
       <strong>{{npmInstall}}</strong>
-      <mat-icon>file_copy</mat-icon>
     </button>
 
-    <button class="board-card board-card--action" *ngIf="selectedPackage && gitCloneUrl" mat-stroked-button
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && gitCloneUrl"
       (click)="copyMessage(gitCloneUrl)">
-      <span class="labeltext">Clone</span>
+      <span class="board-card__top">
+        <span class="labeltext">Clone</span>
+        <mat-icon>cloud_download</mat-icon>
+      </span>
       <strong>{{gitCloneUrl}}</strong>
-      <mat-icon>cloud_download</mat-icon>
     </button>
 
     <a class="board-card board-card--link" *ngIf="selectedPackage && homePageUrl" [href]="homePageUrl" target="_blank"
       rel="noopener">
-      <span class="labeltext">GitHub</span>
+      <span class="board-card__top">
+        <span class="labeltext">GitHub</span>
+        <mat-icon>open_in_new</mat-icon>
+      </span>
       <strong>{{homePageUrl}}</strong>
-      <mat-icon>open_in_new</mat-icon>
     </a>
   </div>
 </div>

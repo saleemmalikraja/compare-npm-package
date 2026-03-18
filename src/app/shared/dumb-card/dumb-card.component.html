@@ -1,17 +1,16 @@
 <mat-accordion *ngIf="cardData?.length" class="card-accordion">
   <mat-expansion-panel *ngFor="let datum of cardData; let i = index" [expanded]="step === (datum.id || i)"
-    (opened)="setStep(datum.id || i)" (closed)="unsetStep(datum.id || i)" hideToggle>
-    <mat-expansion-panel-header class="card-header ellipsis">
+    (opened)="setStep(datum.id || i)" (closed)="unsetStep()" hideToggle>
+    <mat-expansion-panel-header class="card-header">
       <mat-panel-title class="card-header__title ellipsis">
         <mat-icon>code</mat-icon>
         <span>{{datum?.name}}</span>
       </mat-panel-title>
 
-      <mat-panel-description class="card-header__meta">
+      <div class="card-header__meta">
         <span class="stat-pill">{{datum.stargazers_count}} ★</span>
-        <mat-icon *ngIf="step !== (datum.id || i) || expandMore">expand_more</mat-icon>
-        <mat-icon *ngIf="step === (datum.id || i) && !expandMore">expand_less</mat-icon>
-      </mat-panel-description>
+        <mat-icon class="card-header__toggle">{{step === (datum.id || i) ? 'expand_less' : 'expand_more'}}</mat-icon>
+      </div>
     </mat-expansion-panel-header>
 
     <div class="card-grid">
