@@ -1,3 +1,25 @@
-.example-tab-icon {
-    margin-right: 8px;
+.view-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.view-switcher a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+}
+
+.view-switcher a.is-active {
+  background: var(--app-surface-alt);
+  border-color: transparent;
+  color: var(--app-accent);
+}
+
+@media (max-width: 640px) {
+  .view-switcher a {
+    width: 100%;
+    justify-content: flex-start;
   }
+}

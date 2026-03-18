@@ -1,14 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { AppRoutingModule } from '../../app-routing.module';
 import { NpmTabComponent } from './npm-tab.component';
 
 @NgModule({
   imports: [
     CommonModule,
-    MatTabsModule,
+    MatButtonModule,
     MatIconModule,
     AppRoutingModule
   ],

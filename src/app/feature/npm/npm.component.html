@@ -1,18 +1,32 @@
-<div class="container margin-top" style="margin-top: 5px;">
+<div class="search-layout">
   <mat-card class="filter">
-    <mat-form-field class="example-chip-list" style="display:inline">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)"
-          [selected]="true" [color]="'primary'">
+    <div class="filter__header">
+      <div>
+        <h2>Package search</h2>
+        <p>Add packages to compare downloads, GitHub stats, and install details.</p>
+      </div>
+    </div>
+
+    <mat-form-field class="filter__field" appearance="outline">
+      <mat-label>Search package here</mat-label>
+
+      <mat-chip-grid #chipGrid aria-label="Selected packages">
+        <mat-chip-row *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)" [color]="'primary'">
           {{lib.split('-')[0].trim()}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
+          <button matChipRemove *ngIf="removable" aria-label="Remove package">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+
+        <input #libsInput placeholder="lodash, rxjs, express..." [formControl]="formCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
-        <!-- Hiding as of now to fix responsiveness --><!-- <mat-icon>search</mat-icon> -->
-        <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
-      </mat-chip-list>
+      </mat-chip-grid>
+
+      <button *ngIf="libs.length" mat-icon-button matSuffix type="button" (click)="clearAll()" aria-label="Clear all packages">
+        <mat-icon>close</mat-icon>
+      </button>
+
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">
         <mat-option *ngFor="let lib of filteredLibs" [value]="lib">
           {{lib}}
@@ -20,7 +34,6 @@
       </mat-autocomplete>
     </mat-form-field>
   </mat-card>
+
+  <app-npm-tab [packageData]="packageData"></app-npm-tab>
 </div>
-
-
-<app-npm-tab [packageData]="packageData"></app-npm-tab>

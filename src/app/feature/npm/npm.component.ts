@@ -1,12 +1,11 @@
 import { Component, OnInit, AfterViewInit, ViewChild, ElementRef, ViewEncapsulation } from '@angular/core';
-import { throwError } from 'rxjs';  // Updated for Angular 6/RxJS 6
-import * as moment from 'moment'; // add this 1 of 4
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { debounceTime, switchAll } from 'rxjs/operators';
+import { throwError } from 'rxjs';
+import * as moment from 'moment';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators';
 import { AppService } from '../../core/app.service';
-import { MatAutocompleteSelectedEvent, MatChipInputEvent } from '@angular/material';
-import { Observable } from 'rxjs';
-import { map, startWith, distinct } from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { SharingService } from '../../core/data.service';
 import { Meta, Title } from '@angular/platform-browser';
@@ -126,15 +125,12 @@ export class NpmComponent implements OnInit, AfterViewInit {
     if (this.formCtrl.invalid) {
       return;
     }
-    const currentDate = moment();
-    const dayOne = currentDate.format('YYYY-MM-DD');
-    const dayTwo = currentDate.subtract(30, 'days').format('YYYY-MM-DD');
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForSearch',
       endPoint: val.toLowerCase()
     };
-    this.appService.apiRequest(config).pipe(switchAll()).subscribe((res: any) => {
+    this.appService.apiRequest(config).subscribe((res: any) => {
       if (!res) {
         return;
       }
@@ -197,7 +193,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((data) => {
       console.log('npm data', data);
-      this.chartData = data[0];
+      this.chartData = data;
       const chart = [];
       this.chartData.downloads.forEach((val, ind) => {
         chart.push(val.downloads);
@@ -232,10 +228,10 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
     this.appService.apiRequest(config).subscribe((res) => {
       console.log(res);
-      if (!res && !res[0]) {
+      if (!res) {
         return;
       }
-      this.githubData.push(res[0]);
+      this.githubData.push(res);
       this.packageData = {
         npmDatas: this.npmDatas,
         githubData: this.githubData,

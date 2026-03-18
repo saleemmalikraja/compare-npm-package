@@ -16,7 +16,7 @@ export class DumbCardComponent implements OnInit, OnChanges {
   constructor() { }
 
   ngOnInit() {
-    this.theme = sessionStorage.getItem('theme') || 'pink';
+    this.theme = sessionStorage.getItem('theme') || 'rose-light';
   }
 
   ngOnChanges() {

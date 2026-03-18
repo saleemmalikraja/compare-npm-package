@@ -1,21 +1,32 @@
 .filter {
-  margin-bottom: 5px;
-  padding: 5px;
+  padding: 1rem;
 }
 
-.example-full-width,
-.mat-form-field-wrapper {
-  width: 50%;
+.search-layout {
+  display: grid;
+  gap: 1rem;
 }
 
-.mat-form-field-infix {
-  display: inline !important;
+.filter__header {
+  margin-bottom: 0.75rem;
 }
 
-@media only screen and (max-width: 1024px) {
+.filter__header h2 {
+  margin: 0;
+  color: var(--app-text);
+}
 
-  .example-full-width,
-  .mat-form-field-wrapper {
-    width: 100%;
+.filter__header p {
+  margin: 0.35rem 0 0;
+  color: var(--app-muted);
+}
+
+.filter__field {
+  width: 100%;
+}
+
+@media (max-width: 960px) {
+  .filter {
+    padding: 0.85rem;
   }
 }

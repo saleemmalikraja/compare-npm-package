@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MaterialModule } from './material.module';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -13,13 +12,12 @@ import { AppService } from './core/app.service';
 import { SharingService } from './core/data.service';
 
 import { CoreModule } from './core/core.module';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MaterialModule } from './material.module';
 import { NpmGraphModule } from './feature/npm-graph/npm-graph.module';
 import { DumbNavbarModule } from './shared/dumb-navbar/dumb-navbar.module';
 import { DumbSearchModule } from './shared/dumb-search/dumb-search.module';
 import { NpmTabModule } from './feature/npm-tab/npm-tab.module';
 import { NpmComponent } from './feature/npm/npm.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { PopupOverlayComponent } from './feature/popup-overlay/popup-overlay.component';
 
 @NgModule({
@@ -34,19 +32,16 @@ import { PopupOverlayComponent } from './feature/popup-overlay/popup-overlay.com
     MaterialModule,
     AppRoutingModule,
     FormsModule,
-    FlexLayoutModule,
     ReactiveFormsModule,
     NpmGraphModule,
     DumbNavbarModule,
     NpmTabModule,
-    MatTabsModule,
     HttpClientModule,
     DumbSearchModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     CoreModule
   ],
   providers: [AppService, SharingService],
-  bootstrap: [AppComponent],
-  entryComponents: [PopupOverlayComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

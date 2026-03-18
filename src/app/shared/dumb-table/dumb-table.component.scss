@@ -1,12 +1,31 @@
-table {
-    width: 100%;
+.table-shell {
+  border: 1px solid var(--app-border);
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--app-surface);
+}
+
+.table-shell__scroll {
+  overflow-x: auto;
+}
+
+.compare-table {
+  width: 100%;
+  min-width: 720px;
+}
+
+.compare-table th {
+  color: var(--app-muted);
+  font-weight: 700;
+}
+
+.compare-table td,
+.compare-table th {
+  padding: 1rem;
+}
+
+@media (max-width: 720px) {
+  .hide-mobile {
+    display: none;
   }
-  
-  .mat-form-field {
-    font-size: 14px;
-    width: 100%;
-  }
-  
-  td, th {
-    width: 25%;
-  }
+}

@@ -8,8 +8,8 @@ import {
   HttpEventType,
   HttpErrorResponse
 } from '@angular/common/http';
-import { tap, finalize } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PackageCompareInterceptor implements HttpInterceptor {
@@ -50,19 +50,17 @@ export class PackageCompareInterceptor implements HttpInterceptor {
               // this.turnOffModal();
             }
           },
-          (err: any) => {
-            if (err instanceof HttpErrorResponse) {
-              if (err.status === 401) {
-                console.log(
-                  'The authentication session expires or the user is not authorised.' +
-                    'Force refresh of the current page.'
-                );
-              } else {
-                return Observable.throw(err.error || 'Server error');
-              }
-            }
-          }
         ),
+        catchError((err: unknown) => {
+          if (err instanceof HttpErrorResponse && err.status === 401) {
+            console.log(
+              'The authentication session expires or the user is not authorised.' +
+                'Force refresh of the current page.'
+            );
+          }
+
+          return throwError(() => (err instanceof HttpErrorResponse ? err.error || err : err));
+        }),
         finalize(() => {
           this.disableSpinner();
         })

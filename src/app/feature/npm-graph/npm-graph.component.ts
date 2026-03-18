@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, AfterViewInit } from '@angular/core';
-import { Chart } from 'angular-highcharts';
+import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
+import * as Highcharts from 'highcharts';
 import { SharingService } from '../../core/data.service';
 import { delay } from 'rxjs/operators';
 
@@ -11,11 +11,10 @@ import { delay } from 'rxjs/operators';
 export class NpmGraphComponent implements OnChanges, AfterViewInit {
   @Input() chat: any;
   chartData = null;
-  chart: Chart;
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {};
+  updateFlag = false;
   githubData;
-  color = 'primary';
-  mode = 'indeterminate';
-  value = 50;
   showSpinner = false;
   colors = ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
     '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'];
@@ -40,41 +39,14 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
     console.log('chartData', this.chartData);
     this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
   }
-  addPoint() {
-    if (this.chart) {
-      this.chart.addPoint(Math.floor(Math.random() * 10));
-    } else {
-      alert('init chart, first!');
-    }
-  }
 
-  addSerie() {
-    this.chart.addSerie({
-      name: 'Line ' + Math.floor(Math.random() * 10),
-      data: [
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10)
-      ]
-    });
-  }
-
-  removePoint() {
-    this.chart.removePoint(this.chart.ref.series[0].data.length - 1);
-  }
-
-  removeSerie() {
-    this.chart.removeSerie(this.chart.ref.series.length - 1);
-  }
-
-  init(color) {
-    const chart = new Chart({
+  init(color: string) {
+    this.chartOptions = {
+      series: (this.chartData?.chart || []).map((val: any) => ({
+        type: 'line',
+        name: val.name,
+        data: val.data
+      })),
       xAxis: {
         categories: this.chartData ? this.chartData.chartX : [],
         title: {
@@ -90,8 +62,14 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       },
       chart: {
         type: 'line',
+        height: 420,
         backgroundColor: {
-          linearGradient: [0, 0, 500, 500],
+          linearGradient: {
+            x1: 0,
+            y1: 0,
+            x2: 1,
+            y2: 1
+          },
           stops: [
             [0, 'rgb(255, 255, 255)'],
             [1, 'rgb(240, 240, 255)']
@@ -108,20 +86,26 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       title: {
         text: 'NPM Compare'
       },
+      legend: {
+        align: 'left',
+        verticalAlign: 'top'
+      },
+      tooltip: {
+        shared: true,
+        valueDecimals: 0
+      },
+      plotOptions: {
+        series: {
+          marker: {
+            enabled: false
+          }
+        }
+      },
       credits: {
         enabled: false
       }
-    });
-    this.chart = chart;
-    if (this.chartData && this.chartData.chart) {
-      this.chartData.chart.forEach((val, ind) => {
-        this.chart.addSerie({
-          name: val.name,
-          data: val.data
-        });
-      });
-    }
-
+    };
+    this.updateFlag = true;
   }
 
 }

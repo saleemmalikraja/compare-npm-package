@@ -1,0 +1,19 @@
+.graph-shell {
+  padding-top: 0.5rem;
+}
+
+.graph-canvas {
+  display: block;
+  width: 100%;
+  min-height: 420px;
+}
+
+.empty-state {
+  display: grid;
+  place-items: center;
+  min-height: 240px;
+  border: 1px dashed var(--app-border);
+  border-radius: 20px;
+  color: var(--app-muted);
+  background: var(--app-surface);
+}

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { HighchartsChartModule } from 'highcharts-angular';
 import { NpmGraphComponent } from './npm-graph.component';
-import { ChartModule } from 'angular-highcharts';
-import { MatProgressSpinnerModule } from '@angular/material';
 
 @NgModule({
   imports: [
     CommonModule,
-    ChartModule,
+    HighchartsChartModule,
     MatProgressSpinnerModule
   ],
   declarations: [NpmGraphComponent]
