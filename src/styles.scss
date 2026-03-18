@@ -48,55 +48,66 @@ body {
 }
 
 body {
-  background: #0b1020;
+  background:
+    radial-gradient(circle at top left, rgba(216, 27, 96, 0.18), transparent 26%),
+    radial-gradient(circle at top right, rgba(94, 53, 177, 0.2), transparent 24%),
+    #0b1020;
 }
 
 .app-theme-rose-light {
   @include mat.all-component-themes($rose-light-theme);
-  --app-background: #f6f7fb;
-  --app-surface: rgba(255, 255, 255, 0.9);
-  --app-surface-alt: #f5ebf2;
+  --app-background: linear-gradient(180deg, #f8f7fb 0%, #eef2f9 100%);
+  --app-surface: rgba(255, 255, 255, 0.72);
+  --app-surface-alt: rgba(248, 236, 244, 0.92);
   --app-text: #141927;
   --app-muted: #636b7c;
   --app-accent: #d81b60;
   --app-border: rgba(20, 25, 39, 0.08);
   --app-shadow: 0 20px 60px rgba(159, 59, 111, 0.14);
+  --app-chart-surface: rgba(255, 255, 255, 0.55);
+  --app-chart-plot: rgba(255, 255, 255, 0.42);
 }
 
 .app-theme-rose-dark {
   @include mat.all-component-colors($rose-dark-theme);
-  --app-background: #0d111b;
-  --app-surface: rgba(19, 24, 35, 0.88);
-  --app-surface-alt: #241a28;
+  --app-background: linear-gradient(180deg, #0b1020 0%, #0f1422 100%);
+  --app-surface: rgba(18, 24, 36, 0.74);
+  --app-surface-alt: rgba(37, 27, 42, 0.9);
   --app-text: #f4f6fb;
   --app-muted: #a6aec3;
   --app-accent: #ff6aa5;
   --app-border: rgba(255, 255, 255, 0.08);
   --app-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --app-chart-surface: rgba(15, 22, 33, 0.72);
+  --app-chart-plot: rgba(255, 255, 255, 0.03);
 }
 
 .app-theme-violet-light {
   @include mat.all-component-colors($violet-light-theme);
-  --app-background: #f5f7fd;
-  --app-surface: rgba(255, 255, 255, 0.92);
-  --app-surface-alt: #eee9ff;
+  --app-background: linear-gradient(180deg, #f5f7fd 0%, #edf2ff 100%);
+  --app-surface: rgba(255, 255, 255, 0.72);
+  --app-surface-alt: rgba(238, 233, 255, 0.94);
   --app-text: #141927;
   --app-muted: #5d6477;
   --app-accent: #5e35b1;
   --app-border: rgba(20, 25, 39, 0.08);
   --app-shadow: 0 20px 60px rgba(94, 53, 177, 0.14);
+  --app-chart-surface: rgba(255, 255, 255, 0.58);
+  --app-chart-plot: rgba(255, 255, 255, 0.42);
 }
 
 .app-theme-violet-dark {
   @include mat.all-component-colors($violet-dark-theme);
-  --app-background: #0b1020;
-  --app-surface: rgba(17, 22, 34, 0.9);
-  --app-surface-alt: #1f1b31;
+  --app-background: linear-gradient(180deg, #0b1020 0%, #101526 100%);
+  --app-surface: rgba(17, 22, 34, 0.76);
+  --app-surface-alt: rgba(32, 27, 49, 0.92);
   --app-text: #f5f7ff;
   --app-muted: #a4abc0;
   --app-accent: #9f7bff;
   --app-border: rgba(255, 255, 255, 0.08);
   --app-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  --app-chart-surface: rgba(15, 20, 32, 0.72);
+  --app-chart-plot: rgba(255, 255, 255, 0.03);
 }
 
 .mat-mdc-card,

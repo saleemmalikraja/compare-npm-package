@@ -41,6 +41,12 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
   }
 
   init(color: string) {
+    const styles = getComputedStyle(document.documentElement);
+    const appText = styles.getPropertyValue('--app-text').trim() || '#141927';
+    const appMuted = styles.getPropertyValue('--app-muted').trim() || '#636b7c';
+    const appBorder = styles.getPropertyValue('--app-border').trim() || 'rgba(20, 25, 39, 0.08)';
+    const panelFill = styles.getPropertyValue('--app-chart-surface').trim() || 'rgba(255,255,255,0.72)';
+    const plotFill = styles.getPropertyValue('--app-chart-plot').trim() || 'rgba(255,255,255,0.18)';
     this.chartOptions = {
       series: (this.chartData?.chart || []).map((val: any) => ({
         type: 'line',
@@ -49,53 +55,71 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       })),
       xAxis: {
         categories: this.chartData ? this.chartData.chartX : [],
+        lineColor: appBorder,
+        tickColor: appBorder,
+        labels: {
+          style: { color: appMuted }
+        },
         title: {
           text: 'Downloaded Date',
-          style: { color: 'black' }
+          style: { color: appMuted }
         }
       },
       yAxis: {
+        gridLineColor: appBorder,
+        labels: {
+          style: { color: appMuted }
+        },
         title: {
           text: 'Downloads Count',
-          style: { color: 'black' }
+          style: { color: appMuted }
         }
       },
       chart: {
         type: 'line',
         height: 420,
-        backgroundColor: {
-          linearGradient: {
-            x1: 0,
-            y1: 0,
-            x2: 1,
-            y2: 1
-          },
-          stops: [
-            [0, 'rgb(255, 255, 255)'],
-            [1, 'rgb(240, 240, 255)']
-          ]
-        },
-        borderWidth: 2,
-        plotBackgroundColor: 'rgba(255, 255, 255, .9)',
-        plotShadow: true,
+        backgroundColor: panelFill,
+        borderWidth: 1,
+        borderColor: appBorder,
+        plotBackgroundColor: plotFill,
+        plotShadow: false,
         plotBorderWidth: 1,
-        plotBorderColor: 'rgba(200, 200, 200, .9)'
+        plotBorderColor: appBorder,
+        borderRadius: 24,
+        spacing: [24, 24, 24, 24]
       },
       colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
         '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
       title: {
-        text: 'NPM Compare'
+        text: 'NPM Compare',
+        style: {
+          color: appText,
+          fontWeight: '700'
+        }
       },
       legend: {
         align: 'left',
-        verticalAlign: 'top'
+        verticalAlign: 'top',
+        itemStyle: {
+          color: appText
+        },
+        itemHoverStyle: {
+          color: color
+        }
       },
       tooltip: {
         shared: true,
-        valueDecimals: 0
+        valueDecimals: 0,
+        backgroundColor: panelFill,
+        borderColor: appBorder,
+        style: {
+          color: appText
+        }
       },
       plotOptions: {
         series: {
+          color,
+          lineWidth: 3,
           marker: {
             enabled: false
           }

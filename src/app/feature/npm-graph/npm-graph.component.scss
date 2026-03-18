@@ -1,19 +1,23 @@
 .graph-shell {
-  padding-top: 0.5rem;
+  height: 100%;
 }
 
 .graph-canvas {
   display: block;
   width: 100%;
   min-height: 420px;
+  border-radius: 24px;
+  overflow: hidden;
 }
 
 .empty-state {
   display: grid;
   place-items: center;
-  min-height: 240px;
+  min-height: 420px;
   border: 1px dashed var(--app-border);
-  border-radius: 20px;
+  border-radius: 24px;
   color: var(--app-muted);
-  background: var(--app-surface);
+  background: linear-gradient(180deg, var(--app-surface-alt), var(--app-surface));
+  text-align: center;
+  padding: 1.5rem;
 }

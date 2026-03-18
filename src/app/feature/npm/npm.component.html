@@ -1,13 +1,27 @@
-<div class="search-layout">
-  <mat-card class="filter">
-    <div class="filter__header">
-      <div>
-        <h2>Package search</h2>
-        <p>Add packages to compare downloads, GitHub stats, and install details.</p>
+<div class="compare-dashboard">
+  <section class="command-bar glass-panel">
+    <div class="command-bar__copy">
+      <span class="eyebrow">Package intelligence</span>
+      <h2>Build a sharper side-by-side comparison workspace.</h2>
+      <p>Search multiple NPM packages, then switch between graph, table, card, and board views without leaving the canvas.</p>
+    </div>
+
+    <div class="command-bar__stats">
+      <div class="mini-stat">
+        <span>Packages</span>
+        <strong>{{libs.length}}</strong>
+      </div>
+      <div class="mini-stat">
+        <span>Views</span>
+        <strong>4</strong>
+      </div>
+      <div class="mini-stat">
+        <span>Trend window</span>
+        <strong>30d</strong>
       </div>
     </div>
 
-    <mat-form-field class="filter__field" appearance="outline">
+    <mat-form-field class="command-bar__field" appearance="outline">
       <mat-label>Search package here</mat-label>
 
       <mat-chip-grid #chipGrid aria-label="Selected packages">
@@ -33,7 +47,76 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </mat-card>
+  </section>
 
-  <app-npm-tab [packageData]="packageData"></app-npm-tab>
+  <section class="workspace-grid">
+    <div class="canvas-panel glass-panel">
+      <div class="canvas-panel__header">
+        <div>
+          <span class="eyebrow">Comparison canvas</span>
+          <h3>Analyze package quality from multiple angles.</h3>
+        </div>
+
+        <app-npm-tab [packageData]="packageData"></app-npm-tab>
+      </div>
+
+      <div class="canvas-panel__surface">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <aside class="insight-rail glass-panel">
+      <div class="insight-card insight-card--hero">
+        <span class="eyebrow">Session summary</span>
+        <h3>{{libs.length ? 'Comparison ready' : 'Start with a package search'}}</h3>
+        <p>
+          {{libs.length ? 'Use the right mix of views to compare download momentum, GitHub signals, and install details.'
+          : 'Try adding libraries like angular, react, vue, rxjs, express, or lodash.'}}
+        </p>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__header">
+          <h4>Selected packages</h4>
+          <span>{{libs.length}}</span>
+        </div>
+
+        <div class="package-stack" *ngIf="libs.length; else emptyPackages">
+          <div class="package-chip" *ngFor="let lib of libs">
+            <span>{{lib.split('-')[0].trim()}}</span>
+            <small>tracked</small>
+          </div>
+        </div>
+
+        <ng-template #emptyPackages>
+          <p class="empty-copy">No packages selected yet.</p>
+        </ng-template>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__header">
+          <h4>Workspace cues</h4>
+        </div>
+
+        <div class="cue-list">
+          <div class="cue-item">
+            <span class="cue-item__label">Graph</span>
+            <strong>Trend comparison</strong>
+          </div>
+          <div class="cue-item">
+            <span class="cue-item__label">Table</span>
+            <strong>Metrics scan</strong>
+          </div>
+          <div class="cue-item">
+            <span class="cue-item__label">Card</span>
+            <strong>Repository details</strong>
+          </div>
+          <div class="cue-item">
+            <span class="cue-item__label">Board</span>
+            <strong>Copy install snippets</strong>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </section>
 </div>
