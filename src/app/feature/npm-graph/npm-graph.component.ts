@@ -77,7 +77,7 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       },
       chart: {
         type: 'line',
-        height: 420,
+        height: 360,
         backgroundColor: panelFill,
         borderWidth: 1,
         borderColor: appBorder,

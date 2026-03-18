@@ -37,6 +37,7 @@ export class NpmComponent implements OnInit, AfterViewInit {
   libs: string[] = [];
   alllibs: string[] = [];
   @ViewChild('libsInput') libsInput: ElementRef<HTMLInputElement>;
+
   constructor(private sharingService: SharingService, private appService:
     AppService, private formBuilder: FormBuilder, meta: Meta, title: Title) {
     // Sets the <title></title>
@@ -52,6 +53,124 @@ export class NpmComponent implements OnInit, AfterViewInit {
         startWith(null),
         map((libs: string | null) => libs ? this._filter(libs) : this.alllibs.slice())); */
   }
+
+  get insightPackages(): any[] {
+    return this.packageDetail.map((detail) => {
+      const github = this.githubData.find((item: any) => item?.name === detail.packageName) || {};
+      const chartSeries = this.chart.find((item: any) => item?.name === detail.packageName) || {};
+      const latestDownloads = chartSeries.data?.length ? chartSeries.data[chartSeries.data.length - 1] : 0;
+
+      return {
+        ...detail,
+        stars: github.stargazers_count || 0,
+        forks: github.forks || github.forks_count || 0,
+        openIssues: github.open_issues_count || 0,
+        watchers: github.subscribers_count || 0,
+        updatedAt: github.updated_at,
+        repoUrl: github.html_url,
+        homepage: github.homepage || detail.homepage,
+        popularity: Math.round((detail.scoreDetail?.popularity || 0) * 100),
+        quality: Math.round((detail.scoreDetail?.quality || 0) * 100),
+        maintenance: Math.round((detail.scoreDetail?.maintenance || 0) * 100),
+        dependencyCount: detail.dependencyCount || 0,
+        dependencyNames: detail.dependencyNames || [],
+        latestDownloads
+      };
+    });
+  }
+
+  get spotlightPackage(): any {
+    return [...this.insightPackages].sort((left, right) => (right.stars || 0) - (left.stars || 0))[0] || null;
+  }
+
+  get freshestPackage(): any {
+    return [...this.insightPackages].sort((left, right) => {
+      return new Date(right.updatedAt || 0).getTime() - new Date(left.updatedAt || 0).getTime();
+    })[0] || null;
+  }
+
+  get totalStars(): number {
+    return this.insightPackages.reduce((total, item) => total + (item.stars || 0), 0);
+  }
+
+  get averageQuality(): number {
+    if (!this.insightPackages.length) {
+      return 0;
+    }
+
+    const total = this.insightPackages.reduce((sum, item) => sum + (item.quality || 0), 0);
+    return Math.round(total / this.insightPackages.length);
+  }
+
+  get totalDependencies(): number {
+    return this.insightPackages.reduce((total, item) => total + (item.dependencyCount || 0), 0);
+  }
+
+  formatCompactNumber(value: number): string {
+    return new Intl.NumberFormat('en', {
+      notation: 'compact',
+      maximumFractionDigits: 1
+    }).format(value || 0);
+  }
+
+  formatRelativeDate(value: string): string {
+    return value ? moment(value).fromNow() : '—';
+  }
+
+  private getPackageName(label: string): string {
+    return (label || '').split('-')[0].trim();
+  }
+
+  private refreshPackageData() {
+    if (!this.libs.length && !this.chart.length && !this.githubData.length && !this.packageDetail.length) {
+      this.packageData = null;
+      this.sharingService.setData(this.packageData);
+      return;
+    }
+
+    this.npmDatas = this.chart.length ? {
+      chart: this.chart,
+      chartX: this.chartX
+    } : null;
+
+    this.packageData = {
+      npmDatas: this.npmDatas,
+      githubData: this.githubData,
+      packageDetail: this.packageDetail
+    };
+
+    this.sharingService.setData(this.packageData);
+  }
+
+  private getRegistryDetails(packageName: string) {
+    const config = {
+      method: 'GET',
+      apiUrl: 'apiUrlForRegistry',
+      endPoint: packageName
+    };
+
+    this.appService.apiRequest(config).subscribe((res: any) => {
+      const latestVersion = res?.['dist-tags']?.latest;
+      const latestPackage = latestVersion ? res?.versions?.[latestVersion] : null;
+      const dependencyNames = Object.keys(latestPackage?.dependencies || {});
+      const packageIndex = this.packageDetail.findIndex((detail: any) => detail.packageName === packageName);
+
+      if (packageIndex < 0) {
+        return;
+      }
+
+      this.packageDetail[packageIndex] = {
+        ...this.packageDetail[packageIndex],
+        dependencyCount: dependencyNames.length,
+        dependencyNames: dependencyNames.slice(0, 6),
+        homepage: latestPackage?.homepage || this.packageDetail[packageIndex].homepage,
+        keywords: latestPackage?.keywords || []
+      };
+
+      this.refreshPackageData();
+    });
+  }
+
   add(event: MatChipInputEvent): void {
     const input = event.input;
     const value = event.value;
@@ -69,33 +188,38 @@ export class NpmComponent implements OnInit, AfterViewInit {
   }
 
   remove(libs: string): void {
+    const packageName = this.getPackageName(libs);
     const index = this.libs.indexOf(libs);
 
-    if (index >= 0 && this.packageData) {
+    if (index >= 0) {
       this.libs.splice(index, 1);
-      this.packageData.githubData.splice(index, 1);
-      this.packageData.packageDetail.splice(index, 1);
-      this.packageData.npmDatas.chart.splice(index, 1);
-      this.packageData.npmDatas.chartX.splice(index, 1);
-      this.sharingService.setData(this.packageData);
+      this.githubData = this.githubData.filter((item: any) => item?.name !== packageName);
+      this.packageDetail = this.packageDetail.filter((item: any) => item?.packageName !== packageName);
+      this.chart = this.chart.filter((item: any) => item?.name !== packageName);
+      this.refreshPackageData();
     }
   }
+
   clearAll() {
-    this.npmDatas = {};
-    this.chartData = {};
-    const libsClone = Array.from(this.libs);
-    if (libsClone.length) {
-      libsClone.forEach(removeLib => {
-        this.remove(removeLib);
-        console.log(libsClone);
-      });
-      this.packageData = null;
-      this.sharingService.setData(this.packageData);
-    }
+    this.npmDatas = null;
+    this.chartData = null;
+    this.chart = [];
+    this.chartX = [];
+    this.githubData = [];
+    this.packageDetail = [];
+    this.libs = [];
+    this.packageData = null;
+    this.sharingService.setData(this.packageData);
   }
+
   selected(event: MatAutocompleteSelectedEvent): void {
     const selectedValue = event.option.value;
-    if (!(selectedValue === '0 Result')) { this.libs.push(selectedValue); }
+
+    if (selectedValue === '0 Result' || this.libs.includes(selectedValue)) {
+      return;
+    }
+
+    this.libs.push(selectedValue);
     this.getnewSources(event.option.viewValue);
     this.libsInput.nativeElement.value = '';
     // this.formCtrl.setValue(null);
@@ -174,12 +298,26 @@ export class NpmComponent implements OnInit, AfterViewInit {
 
   getnewSources(source) {
     console.log(source);
-    source = source.split('-')[0].trim();
+    source = this.getPackageName(source);
     let sourceObj;
     this.filteredOptions.forEach((val, ind) => {
       if (val.package.name === source) {
         sourceObj = val;
-        this.packageDetail.push({ 'packageName': `${val.package.name}`, 'version': `${val.package.version}` });
+
+        const exists = this.packageDetail.some((detail: any) => detail.packageName === val.package.name);
+        if (!exists) {
+          this.packageDetail.push({
+            packageName: `${val.package.name}`,
+            version: `${val.package.version}`,
+            description: val.package.description,
+            homepage: val.package.links?.homepage,
+            npmUrl: val.package.links?.npm,
+            scoreDetail: val.score?.detail,
+            scoreFinal: Math.round((val.score?.final || 0) * 100)
+          });
+        }
+
+        this.getRegistryDetails(source);
       }
     });
     const currentDate = moment();
@@ -197,16 +335,26 @@ export class NpmComponent implements OnInit, AfterViewInit {
       const chart = [];
       this.chartData.downloads.forEach((val, ind) => {
         chart.push(val.downloads);
-        this.chartX.push(val.day);
+        if (!this.chartX.includes(val.day)) {
+          this.chartX.push(val.day);
+        }
       });
-      this.chart.push({
-        name: source,
-        data: chart
-      });
-      this.npmDatas = {
-        chart: this.chart,
-        chartX: this.chartX
-      };
+
+      const existingSeriesIndex = this.chart.findIndex((item: any) => item?.name === source);
+      if (existingSeriesIndex >= 0) {
+        this.chart[existingSeriesIndex] = {
+          name: source,
+          data: chart
+        };
+      } else {
+        this.chart.push({
+          name: source,
+          data: chart
+        });
+      }
+
+      this.refreshPackageData();
+
       if (sourceObj) { this.getGithubDetails(sourceObj); }
     },
       error => {
@@ -220,23 +368,31 @@ export class NpmComponent implements OnInit, AfterViewInit {
     if (link) {
       author = link.split('.com')[1].replace('.git', '');
     }
+
+    if (!author) {
+      return;
+    }
+
     const config = {
       method: 'GET',
       apiUrl: 'apiUrlForGit',
       endPoint: author
     };
 
-    this.appService.apiRequest(config).subscribe((res) => {
+    this.appService.apiRequest(config).subscribe((res: any) => {
       console.log(res);
       if (!res) {
         return;
       }
-      this.githubData.push(res);
-      this.packageData = {
-        npmDatas: this.npmDatas,
-        githubData: this.githubData,
-        packageDetail: this.packageDetail
-      };
+
+      const githubIndex = this.githubData.findIndex((item: any) => item?.name === res?.name);
+      if (githubIndex >= 0) {
+        this.githubData[githubIndex] = res;
+      } else {
+        this.githubData.push(res);
+      }
+
+      this.refreshPackageData();
 
     },
       error => {
