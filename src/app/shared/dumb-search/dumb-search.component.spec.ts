@@ -1,6 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { DumbSearchComponent } from './dumb-search.component';
+import { AppService } from '../../core/app.service';
 
 describe('DumbSearchComponent', () => {
   let component: DumbSearchComponent;
@@ -8,7 +11,11 @@ describe('DumbSearchComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DumbSearchComponent ]
+      declarations: [ DumbSearchComponent ],
+      providers: [
+        { provide: AppService, useValue: { apiRequest: jasmine.createSpy('apiRequest').and.returnValue(of({})) } }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

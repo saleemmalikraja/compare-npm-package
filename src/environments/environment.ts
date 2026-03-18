@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrlForNpm: ' https://api.npmjs.org/',
+  apiUrlForRegistry: 'https://registry.npmjs.org/',
   apiUrlForGit: 'https://api.github.com/repos',
   apiUrlForSearch: 'https://api.npms.io/v2/search?q='
 };

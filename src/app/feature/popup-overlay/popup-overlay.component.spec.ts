@@ -1,4 +1,6 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 import { PopupOverlayComponent } from './popup-overlay.component';
 
@@ -8,7 +10,12 @@ describe('PopupOverlayComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PopupOverlayComponent ]
+      declarations: [ PopupOverlayComponent ],
+      providers: [
+        { provide: MatDialogRef, useValue: { close: jasmine.createSpy('close') } },
+        { provide: MAT_DIALOG_DATA, useValue: {} }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

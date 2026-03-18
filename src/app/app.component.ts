@@ -1,9 +1,11 @@
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
+import { MatDialog } from '@angular/material/dialog';
 import { VERSION } from 'src/environments/version';
-import { MatDialog } from '@angular/material';
 import { PopupOverlayComponent } from './feature/popup-overlay/popup-overlay.component';
-import { SwUpdate } from '@angular/service-worker';
+import { SwUpdate, VersionReadyEvent } from '@angular/service-worker';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -11,14 +13,23 @@ import { SwUpdate } from '@angular/service-worker';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'Compare Node Package';
+  title = 'Compare NPM Package';
   version = '0.0.0';
-  appId = 'theme1';
+  appId = 'rose-light';
+  private readonly themeClassPrefix = 'app-theme-';
+  readonly themeOptions = [
+    { id: 'rose-light', label: 'Rose Light' },
+    { id: 'rose-dark', label: 'Rose Dark' },
+    { id: 'violet-light', label: 'Violet Light' },
+    { id: 'violet-dark', label: 'Violet Dark' }
+  ];
+
   constructor(
     meta: Meta,
     title: Title,
     public dialog: MatDialog,
-    private swUpdate: SwUpdate
+    private swUpdate: SwUpdate,
+    private overlayContainer: OverlayContainer
   ) {
     this.version = VERSION.tag;
     // Sets the <title></title>
@@ -38,12 +49,16 @@ export class AppComponent implements OnInit {
       }
     ]);
 
+    this.appId = sessionStorage.getItem('theme') || this.appId;
     sessionStorage.setItem('theme', this.appId);
+    this.applyThemeToOverlays(this.appId);
   }
 
   ngOnInit() {
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.available.subscribe(() => {
+      this.swUpdate.versionUpdates.pipe(
+        filter((event): event is VersionReadyEvent => event.type === 'VERSION_READY')
+      ).subscribe(() => {
         if (confirm('New version available. Load New Version?')) {
           window.location.reload();
         }
@@ -53,10 +68,21 @@ export class AppComponent implements OnInit {
   switchTheme(appId: string) {
     this.appId = appId;
     sessionStorage.setItem('theme', appId);
+    this.applyThemeToOverlays(appId);
   }
+
+  private applyThemeToOverlays(appId: string) {
+    const overlayClasses = this.overlayContainer.getContainerElement().classList;
+    const themeClasses = this.themeOptions.map(({ id }) => `${this.themeClassPrefix}${id}`);
+
+    overlayClasses.remove(...themeClasses);
+    overlayClasses.add(`${this.themeClassPrefix}${appId}`);
+  }
+
   demoLink() {
     const dialogRef = this.dialog.open(PopupOverlayComponent, {
-      width: '550px'
+      width: '720px',
+      maxWidth: '95vw'
     });
 
     dialogRef.afterClosed().subscribe(result => {

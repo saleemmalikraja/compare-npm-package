@@ -1,11 +1,11 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { DumbTableComponent } from './dumb-table.component';
-import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatFormFieldModule, MatInputModule } from '@angular/material';
 import { MatSortModule } from '@angular/material/sort';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatTableModule } from '@angular/material/table';
 @NgModule({
   imports: [
     CommonModule,
@@ -13,8 +13,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatPaginatorModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSortModule,
-    FlexLayoutModule
+    MatSortModule
   ],
   declarations: [DumbTableComponent],
   exports: [DumbTableComponent],

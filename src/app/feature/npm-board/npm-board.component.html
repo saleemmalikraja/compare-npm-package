@@ -1,2 +1,2 @@
 <app-dumb-board [packageDetail]="packageDetail" (copySuccessEvent)="copySuccessEvent($event)"></app-dumb-board>
-<div *ngIf="!packageDetail?.length"> No Data Found</div>
+<div class="empty-state" *ngIf="!packageDetail?.length">No board actions yet. Add packages to copy install, clone, and license details.</div>

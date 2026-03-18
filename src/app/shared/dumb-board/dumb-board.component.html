@@ -1,61 +1,53 @@
 <div *ngIf="dataSource.length" class="board-container">
-  <mat-list class="matlistleft" role="list" fxLayout="row" fxLayoutAlign="start space-evenly" fxLayout.xs="column">
-    <!-- COLUMN 1-->
-    <div>
-      <!-- Dropdown to select package-->
-      <mat-list-item role="listitem">
-        <ng-container *ngIf="dataSource.length">
-          <mat-select placeholder="Select Package" [(value)]="selectedPackage" class="mat-stroked-button"
-            (selectionChange)="onSelect(selectedPackage)">
-            <mat-option *ngFor="let option of dataSource" [value]="option.packageName">{{option.packageName}}</mat-option>
-          </mat-select>
-        </ng-container>
-      </mat-list-item>
-      <mat-divider></mat-divider>
+  <div class="board-toolbar">
+    <mat-form-field appearance="outline" class="board-select">
+      <mat-label>Select package</mat-label>
+      <mat-select [(value)]="selectedPackage" (selectionChange)="onSelect($event.value)">
+        <mat-option *ngFor="let option of dataSource" [value]="option.packageName">{{option.packageName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 
-      <!-- Version-->
-      <mat-list-item *ngIf="selectedPackage && version" role="listitem">
-        <h4 mat-line class="labeltext"> Version :</h4>
-        <button class="contentetext" mat-button [(value)]="version">{{version}}</button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-
-      <!-- License -->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && licenseName">
-        <h4 mat-line class="labeltext"> License :</h4>
-        <button mat-button class="contentetext" (click)="copyMessage(licenseName)" [(value)]="licenseName">{{licenseName}}</button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-      <mat-divider></mat-divider>
+  <div class="board-grid">
+    <div class="board-card" *ngIf="selectedPackage && version">
+      <span class="labeltext">Version</span>
+      <strong>{{version}}</strong>
     </div>
 
-    <!-- COLUMN 2-->
-    <div>
-      <!-- npm install copy-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && npmInstall">
-          <h4 mat-line class="labeltext"> Install :</h4>
-        <button class="broder contentetext mleft" (click)="copyMessage(npmInstall)" mat-stroked-button [(value)]="npmInstall">{{npmInstall}}
-          <mat-icon class="mleft">file_copy</mat-icon>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && licenseName"
+      (click)="copyMessage(licenseName)">
+      <span class="board-card__top">
+        <span class="labeltext">License</span>
+        <mat-icon>content_copy</mat-icon>
+      </span>
+      <strong>{{licenseName}}</strong>
+    </button>
 
-      <!-- git clone copy-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && gitCloneUrl">
-          <h4 mat-line class="labeltext"> Clone :</h4>
-        <button class="broder contentetext mleft" (click)="copyMessage(gitCloneUrl)" mat-stroked-button [(value)]="gitCloneUrl">{{gitCloneUrl}}
-          <mat-icon class="mleft">cloud_download</mat-icon>
-        </button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && npmInstall"
+      (click)="copyMessage(npmInstall)">
+      <span class="board-card__top">
+        <span class="labeltext">Install</span>
+        <mat-icon>file_copy</mat-icon>
+      </span>
+      <strong>{{npmInstall}}</strong>
+    </button>
 
-      <!-- Home page url-->
-      <mat-list-item role="listitem" *ngIf="selectedPackage && homePageUrl">
-          <h4 mat-line class="labeltext"> Github :</h4>
-        <button class="broder contentetext mleft" mat-stroked-button [(value)]="homePageUrl"><a href="{{homePageUrl}}" target="_blank">{{homePageUrl}}</a>
-          <mat-icon class="mleft">directions</mat-icon></button>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </div>
-  </mat-list>
+    <button type="button" class="board-card board-card--action" *ngIf="selectedPackage && gitCloneUrl"
+      (click)="copyMessage(gitCloneUrl)">
+      <span class="board-card__top">
+        <span class="labeltext">Clone</span>
+        <mat-icon>cloud_download</mat-icon>
+      </span>
+      <strong>{{gitCloneUrl}}</strong>
+    </button>
+
+    <a class="board-card board-card--link" *ngIf="selectedPackage && homePageUrl" [href]="homePageUrl" target="_blank"
+      rel="noopener">
+      <span class="board-card__top">
+        <span class="labeltext">GitHub</span>
+        <mat-icon>open_in_new</mat-icon>
+      </span>
+      <strong>{{homePageUrl}}</strong>
+    </a>
+  </div>
 </div>

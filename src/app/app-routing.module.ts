@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { NpmGraphComponent } from './feature/npm-graph/npm-graph.component';
-import { DumbTableComponent } from './shared/dumb-table/dumb-table.component';
 
 const routes: Routes = [
   {
@@ -10,15 +9,15 @@ const routes: Routes = [
   },
   {
     path: 'tableMode',
-    loadChildren: './feature/npm-table/npm-table.module#NpmTableModule'
+    loadChildren: () => import('./feature/npm-table/npm-table.module').then(m => m.NpmTableModule)
   },
   {
     path: 'cardMode',
-    loadChildren: './feature/npm-card/npm-card.module#NpmCardModule'
+    loadChildren: () => import('./feature/npm-card/npm-card.module').then(m => m.NpmCardModule)
   },
   {
     path: 'boardMode',
-    loadChildren: './feature/npm-board/npm-board.module#NpmBoardModule'
+    loadChildren: () => import('./feature/npm-board/npm-board.module').then(m => m.NpmBoardModule)
   },
   {
     path: '',

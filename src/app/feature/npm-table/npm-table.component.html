@@ -1,2 +1,2 @@
 <app-dumb-table [gitHubData] = "gitHubData"></app-dumb-table>
-<div  *ngIf="!gitHubData?.length"> No Data Found</div>
+<div class="empty-state" *ngIf="!gitHubData?.length">No table data yet. Search for packages to compare repository metrics.</div>

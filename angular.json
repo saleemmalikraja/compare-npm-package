@@ -32,6 +32,10 @@
             "styles": [
               "src/styles.scss"
             ],
+            "allowedCommonJsDependencies": [
+              "highcharts",
+              "moment"
+            ],
             "scripts": [
             ]
           },
@@ -151,6 +155,5 @@
         }
       }
     }
-  },
-  "defaultProject": "compare-npm-package"
+  }
 }

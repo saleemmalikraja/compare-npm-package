@@ -1,6 +1,9 @@
+import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
 
 import { NpmGraphComponent } from './npm-graph.component';
+import { SharingService } from '../../core/data.service';
 
 describe('NpmGraphComponent', () => {
   let component: NpmGraphComponent;
@@ -8,7 +11,11 @@ describe('NpmGraphComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ NpmGraphComponent ]
+      declarations: [ NpmGraphComponent ],
+      providers: [
+        { provide: SharingService, useValue: { getData: jasmine.createSpy('getData').and.returnValue(of({})) } }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
     })
     .compileComponents();
   }));

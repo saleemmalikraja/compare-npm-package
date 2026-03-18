@@ -1,26 +1,183 @@
-<div class="container margin-top" style="margin-top: 5px;">
-  <mat-card class="filter">
-    <mat-form-field class="example-chip-list" style="display:inline">
-      <mat-chip-list #chipList>
-        <mat-chip *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)"
-          [selected]="true" [color]="'primary'">
+<div class="compare-dashboard">
+  <section class="command-bar glass-panel">
+    <div class="command-bar__copy">
+      <span class="eyebrow">Package intelligence</span>
+      <h2>Compare package signals in one focused workspace.</h2>
+    </div>
+
+    <div class="command-bar__stats">
+      <div class="mini-stat">
+        <span>Packages</span>
+        <strong>{{libs.length}}</strong>
+      </div>
+      <div class="mini-stat">
+        <span>Views</span>
+        <strong>4</strong>
+      </div>
+      <div class="mini-stat">
+        <span>Trend window</span>
+        <strong>30d</strong>
+      </div>
+    </div>
+
+    <mat-form-field class="command-bar__field" appearance="outline">
+      <mat-label>Search package here</mat-label>
+
+      <mat-chip-grid #chipGrid aria-label="Selected packages">
+        <mat-chip-row *ngFor="let lib of libs" [selectable]="selectable" [removable]="removable" (removed)="remove(lib)" [color]="'primary'">
           {{lib.split('-')[0].trim()}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input placeholder="Search package here" #libsInput [formControl]="formCtrl" [matAutocomplete]="auto"
-          [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
+          <button matChipRemove *ngIf="removable" aria-label="Remove package">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+
+        <input #libsInput placeholder="lodash, rxjs, express..." [formControl]="formCtrl" [matAutocomplete]="auto"
+          [matChipInputFor]="chipGrid" [matChipInputSeparatorKeyCodes]="separatorKeyCodes" [matChipInputAddOnBlur]="addOnBlur"
           (matChipInputTokenEnd)="add($event)">
-        <!-- Hiding as of now to fix responsiveness --><!-- <mat-icon>search</mat-icon> -->
-        <mat-icon (click)="clearAll()" *ngIf="libs.length" style="cursor: pointer;">cancel</mat-icon>
-      </mat-chip-list>
+      </mat-chip-grid>
+
+      <button *ngIf="libs.length" mat-icon-button matSuffix type="button" (click)="clearAll()" aria-label="Clear all packages">
+        <mat-icon>close</mat-icon>
+      </button>
+
       <mat-autocomplete #auto="matAutocomplete" autoActiveFirstOption (optionSelected)="selected($event)">
         <mat-option *ngFor="let lib of filteredLibs" [value]="lib">
           {{lib}}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-  </mat-card>
+  </section>
+
+  <section class="workspace-grid">
+    <div class="canvas-panel glass-panel">
+      <div class="canvas-panel__header">
+        <div>
+          <span class="eyebrow">Comparison canvas</span>
+          <h3>Analyze package quality from multiple angles.</h3>
+        </div>
+
+        <app-npm-tab [packageData]="packageData"></app-npm-tab>
+      </div>
+
+      <div class="canvas-panel__surface">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+
+    <aside class="insight-rail glass-panel">
+      <div class="insight-card insight-card--hero">
+        <span class="eyebrow">Session summary</span>
+        <h3>{{libs.length ? 'Comparison ready' : 'Start with a package search'}}</h3>
+        <p>
+          {{libs.length ? 'Use the right mix of views to compare download momentum, GitHub signals, and install details.'
+          : 'Try adding libraries like angular, react, vue, rxjs, express, or lodash.'}}
+        </p>
+      </div>
+
+      <div class="insight-card" *ngIf="spotlightPackage as pkg">
+        <div class="insight-card__header">
+          <h4>Package spotlight</h4>
+          <span>Top</span>
+        </div>
+
+        <div class="spotlight-card">
+          <div class="spotlight-card__title">
+            <div>
+              <strong>{{pkg.packageName}}</strong>
+              <small>v{{pkg.version}}</small>
+            </div>
+
+            <a *ngIf="pkg.repoUrl" [href]="pkg.repoUrl" target="_blank" rel="noopener">Open repo</a>
+          </div>
+
+          <p>{{pkg.description || 'Strongest repository signal in the current comparison set.'}}</p>
+
+          <div class="spotlight-metrics">
+            <div class="overview-metric">
+              <span>Stars</span>
+              <strong>{{formatCompactNumber(pkg.stars)}}</strong>
+            </div>
+            <div class="overview-metric">
+              <span>Forks</span>
+              <strong>{{formatCompactNumber(pkg.forks)}}</strong>
+            </div>
+            <div class="overview-metric">
+              <span>Open issues</span>
+              <strong>{{formatCompactNumber(pkg.openIssues)}}</strong>
+            </div>
+            <div class="overview-metric">
+              <span>Dependencies</span>
+              <strong>{{pkg.dependencyCount}}</strong>
+            </div>
+          </div>
+
+          <div class="dependency-pills" *ngIf="pkg.dependencyNames?.length">
+            <span *ngFor="let dependency of pkg.dependencyNames">{{dependency}}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__header">
+          <h4>Selection overview</h4>
+        </div>
+
+        <div class="overview-grid" *ngIf="insightPackages.length; else emptyPackages">
+          <div class="overview-metric">
+            <span>Total stars</span>
+            <strong>{{formatCompactNumber(totalStars)}}</strong>
+          </div>
+
+          <div class="overview-metric">
+            <span>Avg quality</span>
+            <strong>{{averageQuality}}%</strong>
+          </div>
+
+          <div class="overview-metric">
+            <span>Most active</span>
+            <strong>{{freshestPackage?.packageName || '—'}}</strong>
+          </div>
+
+          <div class="overview-metric">
+            <span>Total deps</span>
+            <strong>{{totalDependencies}}</strong>
+          </div>
+        </div>
+
+        <ng-template #emptyPackages>
+          <p class="empty-copy">No packages selected yet.</p>
+        </ng-template>
+      </div>
+
+      <div class="insight-card">
+        <div class="insight-card__header">
+          <h4>Package snapshots</h4>
+          <span>{{insightPackages.length}}</span>
+        </div>
+
+        <div class="snapshot-list" *ngIf="insightPackages.length; else emptySnapshots">
+          <div class="snapshot-row" *ngFor="let pkg of insightPackages">
+            <div class="snapshot-row__topline">
+              <div class="snapshot-row__main">
+                <strong>{{pkg.packageName}}</strong>
+                <small>v{{pkg.version}} · {{formatRelativeDate(pkg.updatedAt)}}</small>
+              </div>
+
+              <a *ngIf="pkg.repoUrl" [href]="pkg.repoUrl" target="_blank" rel="noopener">Repo</a>
+            </div>
+
+            <div class="snapshot-row__metrics">
+              <span>{{formatCompactNumber(pkg.stars)}}★</span>
+              <span>{{pkg.dependencyCount}} deps</span>
+              <span>{{formatCompactNumber(pkg.latestDownloads)}} latest day</span>
+            </div>
+          </div>
+        </div>
+
+        <ng-template #emptySnapshots>
+          <p class="empty-copy">Snapshots will appear once package data is loaded.</p>
+        </ng-template>
+      </div>
+    </aside>
+  </section>
 </div>
-
-
-<app-npm-tab [packageData]="packageData"></app-npm-tab>

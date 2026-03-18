@@ -1,8 +1,7 @@
-<div *ngIf="chartData && chartData?.chart.length" [chart]="chart"></div>
-<div *ngIf="!(chartData?.chart?.length)"> No Data Found</div>
-<!-- <mat-progress-spinner *ngIf="showSpinner"
-class="example-margin"
-[color]="color"
-[mode]="mode"
-[value]="value">
-</mat-progress-spinner> -->
+<div class="graph-shell" *ngIf="chartData && chartData?.chart.length; else emptyState">
+  <highcharts-chart [Highcharts]="Highcharts" [options]="chartOptions" [(update)]="updateFlag" class="graph-canvas"></highcharts-chart>
+</div>
+
+<ng-template #emptyState>
+  <div class="empty-state">No data found yet. Search for packages above to render the comparison graph.</div>
+</ng-template>

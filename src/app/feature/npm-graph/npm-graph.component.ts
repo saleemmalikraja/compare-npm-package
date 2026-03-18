@@ -1,5 +1,5 @@
-import { Component, Input, OnChanges, AfterViewInit } from '@angular/core';
-import { Chart } from 'angular-highcharts';
+import { AfterViewInit, Component, Input, OnChanges } from '@angular/core';
+import * as Highcharts from 'highcharts';
 import { SharingService } from '../../core/data.service';
 import { delay } from 'rxjs/operators';
 
@@ -11,14 +11,12 @@ import { delay } from 'rxjs/operators';
 export class NpmGraphComponent implements OnChanges, AfterViewInit {
   @Input() chat: any;
   chartData = null;
-  chart: Chart;
+  Highcharts: typeof Highcharts = Highcharts;
+  chartOptions: Highcharts.Options = {};
+  updateFlag = false;
   githubData;
-  color = 'primary';
-  mode = 'indeterminate';
-  value = 50;
   showSpinner = false;
-  colors = ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
-    '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'];
+  readonly colors = ['#38bdf8', '#8b5cf6', '#f97316', '#ec4899', '#14b8a6', '#f59e0b', '#ef4444', '#22c55e'];
   constructor(private sharingService: SharingService) { }
 
   ngAfterViewInit() {
@@ -31,97 +29,116 @@ export class NpmGraphComponent implements OnChanges, AfterViewInit {
       if (data && data.githubData) {
         this.githubData = data.githubData;
       }
-      this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
+      this.init();
     }, (error) => {
       this.showSpinner = false;
     });
   }
   ngOnChanges() {
     console.log('chartData', this.chartData);
-    this.init(this.colors[Math.floor(Math.random() * this.colors.length)]);
-  }
-  addPoint() {
-    if (this.chart) {
-      this.chart.addPoint(Math.floor(Math.random() * 10));
-    } else {
-      alert('init chart, first!');
-    }
+    this.init();
   }
 
-  addSerie() {
-    this.chart.addSerie({
-      name: 'Line ' + Math.floor(Math.random() * 10),
-      data: [
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10),
-        Math.floor(Math.random() * 10)
-      ]
-    });
-  }
-
-  removePoint() {
-    this.chart.removePoint(this.chart.ref.series[0].data.length - 1);
-  }
-
-  removeSerie() {
-    this.chart.removeSerie(this.chart.ref.series.length - 1);
-  }
-
-  init(color) {
-    const chart = new Chart({
+  init() {
+    const styles = getComputedStyle(document.documentElement);
+    const appText = styles.getPropertyValue('--app-text').trim() || '#141927';
+    const appMuted = styles.getPropertyValue('--app-muted').trim() || '#636b7c';
+    const appAccent = styles.getPropertyValue('--app-accent').trim() || '#8b5cf6';
+    const appBorder = styles.getPropertyValue('--app-border').trim() || 'rgba(20, 25, 39, 0.08)';
+    const panelFill = styles.getPropertyValue('--app-chart-surface').trim() || 'rgba(255,255,255,0.72)';
+    const plotFill = styles.getPropertyValue('--app-chart-plot').trim() || 'rgba(255,255,255,0.18)';
+    this.chartOptions = {
+      series: (this.chartData?.chart || []).map((val: any, index: number) => ({
+        type: 'line',
+        name: val.name,
+        data: val.data,
+        color: this.colors[index % this.colors.length]
+      })) as Highcharts.SeriesOptionsType[],
       xAxis: {
         categories: this.chartData ? this.chartData.chartX : [],
+        lineColor: appBorder,
+        tickColor: appBorder,
+        labels: {
+          style: { color: appMuted }
+        },
         title: {
           text: 'Downloaded Date',
-          style: { color: 'black' }
+          style: { color: appMuted }
         }
       },
       yAxis: {
+        gridLineColor: appBorder,
+        labels: {
+          style: { color: appMuted }
+        },
         title: {
           text: 'Downloads Count',
-          style: { color: 'black' }
+          style: { color: appMuted }
         }
       },
       chart: {
         type: 'line',
-        backgroundColor: {
-          linearGradient: [0, 0, 500, 500],
-          stops: [
-            [0, 'rgb(255, 255, 255)'],
-            [1, 'rgb(240, 240, 255)']
-          ]
-        },
-        borderWidth: 2,
-        plotBackgroundColor: 'rgba(255, 255, 255, .9)',
-        plotShadow: true,
+        height: 320,
+        backgroundColor: panelFill,
+        borderWidth: 1,
+        borderColor: appBorder,
+        plotBackgroundColor: plotFill,
+        plotShadow: false,
         plotBorderWidth: 1,
-        plotBorderColor: 'rgba(200, 200, 200, .9)'
+        plotBorderColor: appBorder,
+        borderRadius: 24,
+        spacing: [24, 24, 24, 24]
       },
-      colors: ['#FF0000', '#00FF00', '#0000FF', '#F44336', '#424242',
-        '#F57C00', '#311b92', '#4a148c', '#1b5e20', '#01579b', 'ff1744'],
+      colors: this.colors,
       title: {
-        text: 'NPM Compare'
+        text: 'NPM Compare',
+        style: {
+          color: appText,
+          fontWeight: '700'
+        }
+      },
+      legend: {
+        align: 'left',
+        verticalAlign: 'top',
+        itemStyle: {
+          color: appText
+        },
+        itemHoverStyle: {
+          color: appAccent
+        }
+      },
+      tooltip: {
+        shared: true,
+        valueDecimals: 0,
+        backgroundColor: panelFill,
+        borderColor: appBorder,
+        style: {
+          color: appText
+        }
+      },
+      plotOptions: {
+        series: {
+          lineWidth: 3,
+          marker: {
+            enabled: false,
+            states: {
+              hover: {
+                enabled: true
+              }
+            }
+          },
+          states: {
+            hover: {
+              lineWidthPlus: 0
+            }
+          }
+        }
       },
       credits: {
         enabled: false
       }
-    });
-    this.chart = chart;
-    if (this.chartData && this.chartData.chart) {
-      this.chartData.chart.forEach((val, ind) => {
-        this.chart.addSerie({
-          name: val.name,
-          data: val.data
-        });
-      });
-    }
-
+    };
+    this.updateFlag = true;
   }
 
 }
